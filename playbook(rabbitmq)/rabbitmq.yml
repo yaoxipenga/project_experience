@@ -1,0 +1,73 @@
+---
+- hosts: mq01
+  remote_user: root 
+  tasks: 
+  - name: shell 
+    shell: sh /etc/ansible/playbook/etc_hosts.sh
+  - name: fetch etc_hosts.sh
+    fetch: src=/etc/ansible/playbook/etc_hosts.sh  dest=/etc/ansible/playbook
+
+- hosts: group1
+  remote_user: root
+  gather_facts: true
+  tasks:
+  - name: alter hostname 
+    hostname: name={{ hostname }}
+
+- hosts: group2
+  remote_user: root 
+  gather_facts: true
+  tasks:
+  - name: copy etc_hosts.sh
+    copy: src=/etc/ansible/playbook/192.168.1.11/etc/ansible/playbook/etc_hosts.sh  dest=/root/etc_hosts.sh
+  - name: sh etc_hosts.sh
+    shell: sh /root/etc_hosts.sh
+
+- hosts: group1
+  remote_user: root
+  tasks:
+  - name: install rabbitMQ 
+    yum: name=rabbitmq-server.noarch state=latest
+  - name: alter conf 
+    shell: mv /etc/rabbitmq/rabbitmq.config /etc/rabbitmq/rabbitmq.config.bak
+  - name: add conf 
+    copy: src=/etc/ansible/playbook/rabbitmq.config dest=/etc/rabbitmq/rabbitmq.config
+  - name: alter rabbitmq.config file
+    file: path=/etc/rabbitmq/rabbitmq.config owner=rabbitmq group=rabbitmq 
+  - name: mkdir 
+    shell: mkdir -p /etc/systemd/system/rabbitmq-server.service.d 
+  - name: alter num
+    copy: src=/etc/ansible/playbook/limit.conf dest=/etc/systemd/system/rabbitmq-server.service.d/limit.conf
+  - name: systemctl daemon-reload
+    shell: systemctl daemon-reload
+  - name: copy rabbitmq-env.conf remote os
+    template: src=rabbitmq-env.conf.j2 dest=/etc/rabbitmq/rabbitmq-env.conf
+- hosts: mq01
+  remote_user: root 
+  tasks: 
+  - name: start MQ01
+    service: name=rabbitmq-server.service state=started  enabled=on 
+  - name: cp cookie   
+    fetch: src=/var/lib/rabbitmq/.erlang.cookie dest=/tmp
+- hosts: group2
+  remote_user: root 
+  tasks: 
+  - name: copy cookie
+    copy: src=/tmp/192.168.1.11/var/lib/rabbitmq/.erlang.cookie dest=/var/lib/rabbitmq/.erlang.cookie force=yes
+  - name: update erlang.cookie file privileges
+    file: path=/var/lib/rabbitmq/.erlang.cookie owner=rabbitmq group=rabbitmq mode=0400
+  - name: start mq2 mq3
+    service: name=rabbitmq-server.service state=started  enabled=on
+  - name: shutdown mq02 mq03 
+    shell: rabbitmqctl stop_app
+  - name: john cluster 
+    shell: rabbitmqctl join_cluster rabbit@mq01
+- hosts: group1 
+  remote_user: root 
+  tasks: 
+  - name: enable rabbitmq_management
+    shell: rabbitmq-plugins enable rabbitmq_management
+  - name: restart rabbitmq-server.service
+    service: name=rabbitmq-server.service state=restarted enabled=on 
+
+    
