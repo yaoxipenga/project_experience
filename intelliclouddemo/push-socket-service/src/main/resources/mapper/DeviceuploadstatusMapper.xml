@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.pushsocketservice.dao.DeviceuploadstatusMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.pushsocketservice.entity.Deviceuploadstatus" >
+    <id column="file_md5" property="fileMd5" jdbcType="VARCHAR" />
+    <id column="device_triple_id" property="deviceTripleId" jdbcType="INTEGER" />
+    <result column="product_key" property="productKey" jdbcType="VARCHAR" />
+    <result column="device_name" property="deviceName" jdbcType="VARCHAR" />
+    <result column="upload_status" property="uploadStatus" jdbcType="VARCHAR" />
+    <result column="upload_prog" property="uploadProg" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="creattime" property="creattime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    file_md5, device_triple_id, product_key, device_name, upload_status, upload_prog, 
+    user_id, creattime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.medcaptain.pushsocketservice.entity.DeviceuploadstatusKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_deviceuploadstatus
+    where file_md5 = #{fileMd5,jdbcType=VARCHAR}
+      and device_triple_id = #{deviceTripleId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.medcaptain.pushsocketservice.entity.DeviceuploadstatusKey" >
+    delete from t_deviceuploadstatus
+    where file_md5 = #{fileMd5,jdbcType=VARCHAR}
+      and device_triple_id = #{deviceTripleId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.pushsocketservice.entity.Deviceuploadstatus" >
+    insert into t_deviceuploadstatus (file_md5, device_triple_id, product_key, 
+      device_name, upload_status, upload_prog, 
+      user_id, creattime)
+    values (#{fileMd5,jdbcType=VARCHAR}, #{deviceTripleId,jdbcType=INTEGER}, #{productKey,jdbcType=VARCHAR}, 
+      #{deviceName,jdbcType=VARCHAR}, #{uploadStatus,jdbcType=VARCHAR}, #{uploadProg,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=INTEGER}, #{creattime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.pushsocketservice.entity.Deviceuploadstatus" >
+    insert into t_deviceuploadstatus
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fileMd5 != null" >
+        file_md5,
+      </if>
+      <if test="deviceTripleId != null" >
+        device_triple_id,
+      </if>
+      <if test="productKey != null" >
+        product_key,
+      </if>
+      <if test="deviceName != null" >
+        device_name,
+      </if>
+      <if test="uploadStatus != null" >
+        upload_status,
+      </if>
+      <if test="uploadProg != null" >
+        upload_prog,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="creattime != null" >
+        creattime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fileMd5 != null" >
+        #{fileMd5,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceTripleId != null" >
+        #{deviceTripleId,jdbcType=INTEGER},
+      </if>
+      <if test="productKey != null" >
+        #{productKey,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceName != null" >
+        #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadStatus != null" >
+        #{uploadStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadProg != null" >
+        #{uploadProg,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="creattime != null" >
+        #{creattime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.pushsocketservice.entity.Deviceuploadstatus" >
+    update t_deviceuploadstatus
+    <set >
+      <if test="productKey != null" >
+        product_key = #{productKey,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceName != null" >
+        device_name = #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadStatus != null" >
+        upload_status = #{uploadStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadProg != null" >
+        upload_prog = #{uploadProg,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="creattime != null" >
+        creattime = #{creattime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where file_md5 = #{fileMd5,jdbcType=VARCHAR}
+      and device_triple_id = #{deviceTripleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.pushsocketservice.entity.Deviceuploadstatus" >
+    update t_deviceuploadstatus
+    set product_key = #{productKey,jdbcType=VARCHAR},
+      device_name = #{deviceName,jdbcType=VARCHAR},
+      upload_status = #{uploadStatus,jdbcType=VARCHAR},
+      upload_prog = #{uploadProg,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      creattime = #{creattime,jdbcType=TIMESTAMP}
+    where file_md5 = #{fileMd5,jdbcType=VARCHAR}
+      and device_triple_id = #{deviceTripleId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.pushsocketservice.dao.EnumDataMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.pushsocketservice.entity.EnumData" >
+    <id column="product_key" property="productKey" jdbcType="VARCHAR" />
+    <id column="product_trans_identi" property="productTransIdenti" jdbcType="VARCHAR" />
+    <id column="enum_val" property="enumVal" jdbcType="INTEGER" />
+    <result column="enum_desc" property="enumDesc" jdbcType="VARCHAR" />
+    <result column="para_identifier" property="paraIdentifier" jdbcType="VARCHAR" />
+    <result column="io_type" property="ioType" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    product_key, product_trans_identi, enum_val, enum_desc, para_identifier, io_type, 
+    user_id, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.medcaptain.pushsocketservice.entity.EnumDataKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_enum_data
+    where product_key = #{productKey,jdbcType=VARCHAR}
+      and product_trans_identi = #{productTransIdenti,jdbcType=VARCHAR}
+      and enum_val = #{enumVal,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.medcaptain.pushsocketservice.entity.EnumDataKey" >
+    delete from t_enum_data
+    where product_key = #{productKey,jdbcType=VARCHAR}
+      and product_trans_identi = #{productTransIdenti,jdbcType=VARCHAR}
+      and enum_val = #{enumVal,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.pushsocketservice.entity.EnumData" >
+    insert into t_enum_data (product_key, product_trans_identi, enum_val, 
+      enum_desc, para_identifier, io_type, 
+      user_id, create_time)
+    values (#{productKey,jdbcType=VARCHAR}, #{productTransIdenti,jdbcType=VARCHAR}, #{enumVal,jdbcType=INTEGER}, 
+      #{enumDesc,jdbcType=VARCHAR}, #{paraIdentifier,jdbcType=VARCHAR}, #{ioType,jdbcType=INTEGER}, 
+      #{userId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.pushsocketservice.entity.EnumData" >
+    insert into t_enum_data
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productKey != null" >
+        product_key,
+      </if>
+      <if test="productTransIdenti != null" >
+        product_trans_identi,
+      </if>
+      <if test="enumVal != null" >
+        enum_val,
+      </if>
+      <if test="enumDesc != null" >
+        enum_desc,
+      </if>
+      <if test="paraIdentifier != null" >
+        para_identifier,
+      </if>
+      <if test="ioType != null" >
+        io_type,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productKey != null" >
+        #{productKey,jdbcType=VARCHAR},
+      </if>
+      <if test="productTransIdenti != null" >
+        #{productTransIdenti,jdbcType=VARCHAR},
+      </if>
+      <if test="enumVal != null" >
+        #{enumVal,jdbcType=INTEGER},
+      </if>
+      <if test="enumDesc != null" >
+        #{enumDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="paraIdentifier != null" >
+        #{paraIdentifier,jdbcType=VARCHAR},
+      </if>
+      <if test="ioType != null" >
+        #{ioType,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.pushsocketservice.entity.EnumData" >
+    update t_enum_data
+    <set >
+      <if test="enumDesc != null" >
+        enum_desc = #{enumDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="paraIdentifier != null" >
+        para_identifier = #{paraIdentifier,jdbcType=VARCHAR},
+      </if>
+      <if test="ioType != null" >
+        io_type = #{ioType,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where product_key = #{productKey,jdbcType=VARCHAR}
+      and product_trans_identi = #{productTransIdenti,jdbcType=VARCHAR}
+      and enum_val = #{enumVal,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.pushsocketservice.entity.EnumData" >
+    update t_enum_data
+    set enum_desc = #{enumDesc,jdbcType=VARCHAR},
+      para_identifier = #{paraIdentifier,jdbcType=VARCHAR},
+      io_type = #{ioType,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where product_key = #{productKey,jdbcType=VARCHAR}
+      and product_trans_identi = #{productTransIdenti,jdbcType=VARCHAR}
+      and enum_val = #{enumVal,jdbcType=INTEGER}
+  </update>
+</mapper>

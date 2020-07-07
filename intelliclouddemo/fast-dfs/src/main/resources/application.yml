@@ -1,0 +1,10 @@
+com:
+  medcaptain:
+    fastdfs:
+      M00: "[Gg][Rr][Oo][Uu][Pp][1-2]/M00/[0-9][0-9]/[0-9][0-9]/[a-zA-Z[0-9][-][_]]+(.[a-zA-Z]+|)"
+      M01: "[Gg][Rr][Oo][Uu][Pp][1-2]/M01/[0-9][0-9]/[0-9][0-9]/[a-zA-Z[0-9][-][_]]+(.[a-zA-Z]+|)"
+
+http:
+  multipart:
+    max-file-size: 50MB
+    max-request-size: 60MB

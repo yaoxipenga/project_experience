@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.productservice.dao.mybatis.OptlogMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.productservice.entity.mybatis.Optlog" >
+    <id column="optlog_id" property="optlogId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="dept_id" property="deptId" jdbcType="INTEGER" />
+    <result column="hospital_id" property="hospitalId" jdbcType="INTEGER" />
+    <result column="opt_type" property="optType" jdbcType="INTEGER" />
+    <result column="creattime" property="creattime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.medcaptain.productservice.entity.mybatis.Optlog" extends="BaseResultMap" >
+    <result column="log_content" property="logContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    optlog_id, user_id, dept_id, hospital_id, opt_type, creattime
+  </sql>
+  <sql id="Blob_Column_List" >
+    log_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_optlog
+    where optlog_id = #{optlogId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_optlog
+    where optlog_id = #{optlogId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.productservice.entity.mybatis.Optlog" >
+    insert into t_optlog (optlog_id, user_id, dept_id, 
+      hospital_id, opt_type, creattime, 
+      log_content)
+    values (#{optlogId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{deptId,jdbcType=INTEGER}, 
+      #{hospitalId,jdbcType=INTEGER}, #{optType,jdbcType=INTEGER}, #{creattime,jdbcType=TIMESTAMP}, 
+      #{logContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.productservice.entity.mybatis.Optlog" >
+    insert into t_optlog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="optlogId != null" >
+        optlog_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="deptId != null" >
+        dept_id,
+      </if>
+      <if test="hospitalId != null" >
+        hospital_id,
+      </if>
+      <if test="optType != null" >
+        opt_type,
+      </if>
+      <if test="creattime != null" >
+        creattime,
+      </if>
+      <if test="logContent != null" >
+        log_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="optlogId != null" >
+        #{optlogId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="deptId != null" >
+        #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="hospitalId != null" >
+        #{hospitalId,jdbcType=INTEGER},
+      </if>
+      <if test="optType != null" >
+        #{optType,jdbcType=INTEGER},
+      </if>
+      <if test="creattime != null" >
+        #{creattime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logContent != null" >
+        #{logContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.productservice.entity.mybatis.Optlog" >
+    update t_optlog
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="deptId != null" >
+        dept_id = #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="hospitalId != null" >
+        hospital_id = #{hospitalId,jdbcType=INTEGER},
+      </if>
+      <if test="optType != null" >
+        opt_type = #{optType,jdbcType=INTEGER},
+      </if>
+      <if test="creattime != null" >
+        creattime = #{creattime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logContent != null" >
+        log_content = #{logContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where optlog_id = #{optlogId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.medcaptain.productservice.entity.mybatis.Optlog" >
+    update t_optlog
+    set user_id = #{userId,jdbcType=INTEGER},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      hospital_id = #{hospitalId,jdbcType=INTEGER},
+      opt_type = #{optType,jdbcType=INTEGER},
+      creattime = #{creattime,jdbcType=TIMESTAMP},
+      log_content = #{logContent,jdbcType=LONGVARCHAR}
+    where optlog_id = #{optlogId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.productservice.entity.mybatis.Optlog" >
+    update t_optlog
+    set user_id = #{userId,jdbcType=INTEGER},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      hospital_id = #{hospitalId,jdbcType=INTEGER},
+      opt_type = #{optType,jdbcType=INTEGER},
+      creattime = #{creattime,jdbcType=TIMESTAMP}
+    where optlog_id = #{optlogId,jdbcType=INTEGER}
+  </update>
+</mapper>

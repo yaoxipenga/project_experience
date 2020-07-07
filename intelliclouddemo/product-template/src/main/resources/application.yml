@@ -1,0 +1,3 @@
+product-template:
+  product-model-expire-days: 2
+  shadow-device-property-expire-days: 2

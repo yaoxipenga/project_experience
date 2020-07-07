@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.productservice.dao.mybatis.DepartmentMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.productservice.entity.mybatis.Department" >
+    <id column="department_id" property="departmentId" jdbcType="INTEGER" />
+    <result column="department_name" property="departmentName" jdbcType="VARCHAR" />
+    <result column="organization_id" property="organizationId" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="is_enable" property="isEnable" jdbcType="TINYINT" />
+    <result column="is_deleted" property="isDeleted" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    department_id, department_name, organization_id, remark, is_enable, is_deleted
+  </sql>
+  <sql id="Base_Column_List_Dep">
+    dep.department_id,
+    dep.department_name,
+    dep.organization_id,
+    dep.remark,
+    dep.is_enable,
+    dep.is_deleted
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_department
+    where department_id = #{departmentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_department
+    where department_id = #{departmentId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.productservice.entity.mybatis.Department" >
+    insert into t_department (department_id, department_name, organization_id, 
+      remark, is_enable, is_deleted
+      )
+    values (#{departmentId,jdbcType=INTEGER}, #{departmentName,jdbcType=VARCHAR}, #{organizationId,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{isEnable,jdbcType=TINYINT}, #{isDeleted,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.productservice.entity.mybatis.Department" >
+    insert into t_department
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="departmentId != null" >
+        department_id,
+      </if>
+      <if test="departmentName != null" >
+        department_name,
+      </if>
+      <if test="organizationId != null" >
+        organization_id,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="isEnable != null" >
+        is_enable,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="departmentId != null" >
+        #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="departmentName != null" >
+        #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationId != null" >
+        #{organizationId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable,jdbcType=TINYINT},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.productservice.entity.mybatis.Department" >
+    update t_department
+    <set >
+      <if test="departmentName != null" >
+        department_name = #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationId != null" >
+        organization_id = #{organizationId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnable != null" >
+        is_enable = #{isEnable,jdbcType=TINYINT},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=TINYINT},
+      </if>
+    </set>
+    where department_id = #{departmentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.productservice.entity.mybatis.Department" >
+    update t_department
+    set department_name = #{departmentName,jdbcType=VARCHAR},
+      organization_id = #{organizationId,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_enable = #{isEnable,jdbcType=TINYINT},
+      is_deleted = #{isDeleted,jdbcType=TINYINT}
+    where department_id = #{departmentId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByDeviceTripleId" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List_Dep" />
+    FROM
+      t_department AS dep,
+    (
+      SELECT
+        der.department_id
+      FROM
+        t_device_department_related AS der,
+      (
+        SELECT
+          device_triple_id
+        FROM
+          t_deviceinfo
+        WHERE
+          device_triple_id = #{deviceTripleId,jdbcType=INTEGER}
+          AND is_del = 0
+      ) AS dev
+      WHERE
+        der.device_triple_id = dev.device_triple_id
+    ) AS der
+    WHERE
+      der.department_id = dep.department_id
+      AND dep.organization_id = #{organizationId,jdbcType=INTEGER}
+      AND is_deleted = 0
+      AND is_enable = 1
+  </select>
+    <select id="getOrganizationList" resultType="java.lang.Integer">
+      SELECT
+        department_id
+      FROM
+        t_department
+      WHERE
+        organization_id = #{organizationId}
+        AND is_deleted = 0
+        AND is_enable = 1
+    </select>
+</mapper>

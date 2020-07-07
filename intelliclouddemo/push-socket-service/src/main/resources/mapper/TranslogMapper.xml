@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.pushsocketservice.dao.TranslogMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.pushsocketservice.entity.Translog" >
+    <id column="index_id" property="indexId" jdbcType="INTEGER" />
+    <result column="device_triple_id" property="deviceTripleId" jdbcType="INTEGER" />
+    <result column="clinic_biz_type" property="clinicBizType" jdbcType="INTEGER" />
+    <result column="post_topic" property="postTopic" jdbcType="VARCHAR" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.medcaptain.pushsocketservice.entity.Translog" extends="BaseResultMap" >
+    <result column="clinic_biz_content" property="clinicBizContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    index_id, device_triple_id, clinic_biz_type, post_topic, creat_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    clinic_biz_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_translog
+    where index_id = #{indexId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_translog
+    where index_id = #{indexId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.pushsocketservice.entity.Translog" >
+    insert into t_translog (index_id, device_triple_id, clinic_biz_type, 
+      post_topic, creat_time, clinic_biz_content
+      )
+    values (#{indexId,jdbcType=INTEGER}, #{deviceTripleId,jdbcType=INTEGER}, #{clinicBizType,jdbcType=INTEGER}, 
+      #{postTopic,jdbcType=VARCHAR}, #{creatTime,jdbcType=TIMESTAMP}, #{clinicBizContent,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.pushsocketservice.entity.Translog" >
+    insert into t_translog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="indexId != null" >
+        index_id,
+      </if>
+      <if test="deviceTripleId != null" >
+        device_triple_id,
+      </if>
+      <if test="clinicBizType != null" >
+        clinic_biz_type,
+      </if>
+      <if test="postTopic != null" >
+        post_topic,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="clinicBizContent != null" >
+        clinic_biz_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="indexId != null" >
+        #{indexId,jdbcType=INTEGER},
+      </if>
+      <if test="deviceTripleId != null" >
+        #{deviceTripleId,jdbcType=INTEGER},
+      </if>
+      <if test="clinicBizType != null" >
+        #{clinicBizType,jdbcType=INTEGER},
+      </if>
+      <if test="postTopic != null" >
+        #{postTopic,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clinicBizContent != null" >
+        #{clinicBizContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.pushsocketservice.entity.Translog" >
+    update t_translog
+    <set >
+      <if test="deviceTripleId != null" >
+        device_triple_id = #{deviceTripleId,jdbcType=INTEGER},
+      </if>
+      <if test="clinicBizType != null" >
+        clinic_biz_type = #{clinicBizType,jdbcType=INTEGER},
+      </if>
+      <if test="postTopic != null" >
+        post_topic = #{postTopic,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clinicBizContent != null" >
+        clinic_biz_content = #{clinicBizContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where index_id = #{indexId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.medcaptain.pushsocketservice.entity.Translog" >
+    update t_translog
+    set device_triple_id = #{deviceTripleId,jdbcType=INTEGER},
+      clinic_biz_type = #{clinicBizType,jdbcType=INTEGER},
+      post_topic = #{postTopic,jdbcType=VARCHAR},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      clinic_biz_content = #{clinicBizContent,jdbcType=LONGVARCHAR}
+    where index_id = #{indexId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.pushsocketservice.entity.Translog" >
+    update t_translog
+    set device_triple_id = #{deviceTripleId,jdbcType=INTEGER},
+      clinic_biz_type = #{clinicBizType,jdbcType=INTEGER},
+      post_topic = #{postTopic,jdbcType=VARCHAR},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP}
+    where index_id = #{indexId,jdbcType=INTEGER}
+  </update>
+</mapper>

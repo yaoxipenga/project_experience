@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.productservice.dao.mybatis.ProductinfoMapper">
+    <resultMap id="BaseResultMap" type="com.medcaptain.productservice.entity.mybatis.Productinfo">
+        <id column="product_key" property="productKey" jdbcType="VARCHAR"/>
+        <result column="product_cate" property="productCate" jdbcType="INTEGER"/>
+        <result column="product_name" property="productName" jdbcType="VARCHAR"/>
+        <result column="product_model" property="productModel" jdbcType="VARCHAR"/>
+        <result column="templet_id" property="templetId" jdbcType="INTEGER"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="com_mode" property="comMode" jdbcType="INTEGER"/>
+        <result column="node_type" property="nodeType" jdbcType="INTEGER"/>
+        <result column="is_enabled" property="isEnabled" jdbcType="INTEGER"/>
+        <result column="is_del" property="isDel" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="modi_ftime" property="modiFtime" jdbcType="TIMESTAMP"/>
+        <result column="product_desc" property="productDesc" jdbcType="VARCHAR"/>
+        <result column="organization_id" property="organizationId" jdbcType="INTEGER"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="ProductInfoListMap" type="com.medcaptain.productservice.entity.dto.ProductListInfo">
+        <id column="product_key" property="productKey" jdbcType="VARCHAR"/>
+        <result column="product_name" property="productName" jdbcType="VARCHAR"/>
+        <result column="product_model" property="productModel" jdbcType="VARCHAR"/>
+        <result column="device_count" property="deviceCount" jdbcType="INTEGER"/>
+        <result column="create_time" property="createAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <resultMap id="ProductCompleteInfoMap" type="com.medcaptain.productservice.entity.dto.ProductCompleteInfo">
+        <id column="product_key" property="productKey" jdbcType="VARCHAR"/>
+        <result column="product_name" property="productName" jdbcType="VARCHAR"/>
+        <result column="product_model" property="productModel" jdbcType="VARCHAR"/>
+        <result column="product_secret" property="productSecret" jdbcType="VARCHAR"/>
+        <result column="product_desc" property="productDesc" jdbcType="VARCHAR"/>
+        <result column="device_count" property="deviceCount" jdbcType="INTEGER"/>
+        <result column="create_time" property="createAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    product_key, product_cate, product_name, product_model, templet_id, user_id, com_mode, node_type,
+    is_enabled, is_del, create_time, modi_ftime, product_desc, organization_id, remark
+  </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from t_productinfo
+        where product_key = #{productKey,jdbcType=VARCHAR}
+        and is_del = 0
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_productinfo
+    where product_key = #{productKey,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.medcaptain.productservice.entity.mybatis.Productinfo">
+    insert into t_productinfo (product_key, product_cate, product_name, 
+      templet_id, user_id, com_mode, 
+      node_type, is_enabled, is_del, 
+      create_time, modi_ftime, product_desc,
+      organization_id, remark)
+    values (#{productKey,jdbcType=VARCHAR}, #{productCate,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, 
+      #{templetId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{comMode,jdbcType=INTEGER}, 
+      #{nodeType,jdbcType=INTEGER}, #{isEnabled,jdbcType=INTEGER}, #{isDel,jdbcType=INTEGER}, 
+      #{creatTime,jdbcType=TIMESTAMP}, #{modiFtime,jdbcType=TIMESTAMP}, #{productDesc,jdbcType=VARCHAR}, 
+      #{organization_id,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.medcaptain.productservice.entity.mybatis.Productinfo">
+        insert into t_productinfo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="productKey != null">
+                product_key,
+            </if>
+            <if test="productCate != null">
+                product_cate,
+            </if>
+            <if test="productName != null">
+                product_name,
+            </if>
+            <if test="templetId != null">
+                templet_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="comMode != null">
+                com_mode,
+            </if>
+            <if test="nodeType != null">
+                node_type,
+            </if>
+            <if test="isEnabled != null">
+                is_enabled,
+            </if>
+            <if test="isDel != null">
+                is_del,
+            </if>
+            <if test="creatTime != null">
+                create_time,
+            </if>
+            <if test="modiFtime != null">
+                modi_ftime,
+            </if>
+            <if test="productDesc != null">
+                product_desc,
+            </if>
+            <if test="organizationId != null">
+                organization_id,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="productKey != null">
+                #{productKey,jdbcType=VARCHAR},
+            </if>
+            <if test="productCate != null">
+                #{productCate,jdbcType=INTEGER},
+            </if>
+            <if test="productName != null">
+                #{productName,jdbcType=VARCHAR},
+            </if>
+            <if test="templetId != null">
+                #{templetId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="comMode != null">
+                #{comMode,jdbcType=INTEGER},
+            </if>
+            <if test="nodeType != null">
+                #{nodeType,jdbcType=INTEGER},
+            </if>
+            <if test="isEnabled != null">
+                #{isEnabled,jdbcType=INTEGER},
+            </if>
+            <if test="isDel != null">
+                #{isDel,jdbcType=INTEGER},
+            </if>
+            <if test="creatTime != null">
+                #{creatTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modiFtime != null">
+                #{modiFtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="productDesc != null">
+                #{productDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="organizationId != null">
+                #{organizationId,jdbcType=INTEGER},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.productservice.entity.mybatis.Productinfo">
+        update t_productinfo
+        <set>
+            <if test="productCate != null">
+                product_cate = #{productCate,jdbcType=INTEGER},
+            </if>
+            <if test="productName != null">
+                product_name = #{productName,jdbcType=VARCHAR},
+            </if>
+            <if test="templetId != null">
+                templet_id = #{templetId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="comMode != null">
+                com_mode = #{comMode,jdbcType=INTEGER},
+            </if>
+            <if test="nodeType != null">
+                node_type = #{nodeType,jdbcType=INTEGER},
+            </if>
+            <if test="isEnabled != null">
+                is_enabled = #{isEnabled,jdbcType=INTEGER},
+            </if>
+            <if test="isDel != null">
+                is_del = #{isDel,jdbcType=INTEGER},
+            </if>
+            <if test="creatTime != null">
+                create_time = #{creatTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modiFtime != null">
+                modi_ftime = #{modiFtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="productDesc != null">
+                product_desc = #{productDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="organizationId != null">
+                organization_id = #{organizationId,jdbcType=INTEGER},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where product_key = #{productKey,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.medcaptain.productservice.entity.mybatis.Productinfo">
+    update t_productinfo
+    set product_cate = #{productCate,jdbcType=INTEGER},
+      product_name = #{productName,jdbcType=VARCHAR},
+      templet_id = #{templetId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      com_mode = #{comMode,jdbcType=INTEGER},
+      node_type = #{nodeType,jdbcType=INTEGER},
+      is_enabled = #{isEnabled,jdbcType=INTEGER},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{creatTime,jdbcType=TIMESTAMP},
+      modi_ftime = #{modiFtime,jdbcType=TIMESTAMP},
+      product_desc = #{productDesc,jdbcType=VARCHAR},
+      organization_id = #{organizationId,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
+    where product_key = #{productKey,jdbcType=VARCHAR}
+  </update>
+
+    <select id="getProductList" resultType="java.util.Map" parameterType="java.util.Map">
+        select
+        mainTable.product_name as productName, mainTable.product_key as productKey, mainTable.product_model as
+        productModel, mainTable.create_time as createAt, IFNULL(subTable.deviceCount,0) as deviceCount, mainTable.image_path as productImgUrl
+        from
+        (SELECT t_productinfo.product_name ,t_productinfo.product_key, t_productinfo.product_model,
+        t_productinfo.create_time, t_productinfo.image_path
+        FROM t_productinfo, t_productcategory
+        WHERE t_productinfo.product_cate = t_productcategory.product_cate
+        AND t_productcategory.product_type_desc LIKE CONCAT('%',#{productType},'%')
+        AND t_productinfo.product_name LIKE CONCAT('%',#{productName},'%')
+        AND t_productinfo.is_del = '0'
+        <if test="userPermission == 2">
+            AND t_productinfo.organization_id = #{organizationId}
+        </if>
+        <if test="userPermission == 3">
+            AND t_productinfo.organization_id = #{organizationId}
+            AND t_productinfo.user_id = #{userId}
+        </if>
+        GROUP BY t_productinfo.product_name, t_productinfo.product_key, t_productinfo.product_model,
+        t_productinfo.create_time) AS mainTable
+        LEFT JOIN
+        (SELECT t_productinfo.product_key, COUNT(device_name) AS deviceCount
+        FROM t_productinfo, t_productcategory, t_deviceinfo
+        WHERE t_productinfo.product_cate = t_productcategory.product_cate
+        AND t_deviceinfo.product_key = t_productinfo.product_key
+        AND t_productinfo.is_del = '0'
+        AND t_deviceinfo.is_del = '0'
+        GROUP BY t_productinfo.product_key) AS subTable
+        ON mainTable.product_key = subTable.product_key
+        order by create_time desc
+        LIMIT #{M}, #{N}
+
+    </select>
+
+    <insert id="createProduct" parameterType="java.util.Map">
+    INSERT INTO t_productinfo (product_key, product_cate, product_name, user_id, com_mode, node_type, is_enabled, is_del, product_desc, product_model, organization_id, image_path)
+    VALUES (#{productKey},
+    (select product_cate from t_productcategory where product_type_desc = #{productCategory}),
+     #{productName}, #{userId}, 9, 9, 0, 0, #{productDescribe}, #{productModel}, #{organizationId}, #{imageUrl})
+  </insert>
+    <update id="deleteByProductKey" parameterType="java.lang.String">
+    update t_productinfo
+    set is_del = '1'
+    where product_key = #{productKey,jdbcType=VARCHAR}
+  </update>
+
+    <select id="getProductCompleteInfo" resultType="java.util.Map" parameterType="java.lang.String">
+    SELECT mainTable.product_name as productName, mainTable.product_key as productKey, mainTable.product_model as productModel, mainTable.create_time as creatAt, IFNULL(subTable.device_count,0) as deviceCount, IFNULL(mainTable.product_secret, '')AS productSecret, mainTable.product_desc AS productDesc, mainTable.product_type_desc AS productTypeDescription
+    FROM
+    (SELECT t_productinfo.product_name ,t_productinfo.product_key, t_productinfo.product_model, t_productinfo.create_time, t_productinfo.product_desc, t_producttriple.product_secret, t_productcategory.product_type_desc
+    FROM t_productinfo, t_producttriple, t_productcategory
+    WHERE t_productinfo.product_key = #{productKey}
+    and t_producttriple.product_key = #{productKey}
+    AND t_productinfo.is_del = 0
+    AND t_producttriple.is_del = 0
+    AND t_productcategory.product_cate = t_productinfo.product_cate
+    GROUP BY t_productinfo.product_name, t_productinfo.product_key, t_productinfo.product_model, t_productinfo.create_time, t_producttriple.product_secret, t_productcategory.product_type_desc) AS mainTable
+    LEFT JOIN
+    (SELECT t_deviceinfo.product_key, COUNT(device_name) AS device_count
+    FROM t_deviceinfo
+    WHERE t_deviceinfo.product_key = #{productKey}
+    AND t_deviceinfo.is_del = 0
+    GROUP BY t_deviceinfo.product_key)
+    AS subTable ON mainTable.product_key = subTable.product_key
+  </select>
+
+    <select id="getProductCount" resultType="java.lang.Integer">
+        select IFNULL(COUNT(product_key), 0)
+        from t_productinfo, t_productcategory
+        where is_del = 0
+        AND product_name LIKE CONCAT('%',#{productName}, '%')
+        AND t_productinfo.product_cate = t_productcategory.product_cate
+        AND t_productcategory.product_type_desc LIKE CONCAT('%',#{productType}, '%')
+        <if test="userPermission == 2">
+            AND t_productinfo.organization_id = #{organizationId}
+        </if>
+        <if test="userPermission == 3">
+            AND t_productinfo.organization_id = #{organizationId}
+            AND t_productinfo.user_id = #{userId}
+        </if>
+    </select>
+
+    <update id="updateProductInformation" parameterType="java.lang.String">
+    update t_productinfo
+    set product_model = #{productModel},
+      product_name = #{productName},
+      product_desc = #{productDescribe}
+    where product_key = #{productKey,jdbcType=VARCHAR}
+    and is_del = 0
+  </update>
+
+    <select id="getOrganizationProductInfoList" resultType="java.lang.String">
+    SELECT
+      product_key
+    FROM
+      t_productinfo
+    WHERE
+      organization_id = #{organizationId}
+      AND is_del = 0
+      AND is_enabled = 0
+  </select>
+
+    <select id="getProductTime" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        t_productinfo
+        where
+        1=1
+        <if test="timeStart != null and timeEnd != null">
+            and create_time &gt;= #{timeStart,jdbcType=TIMESTAMP}
+            and create_time &lt; #{timeEnd,jdbcType=TIMESTAMP}
+        </if>
+        LIMIT #{page},#{perPage}
+    </select>
+    <select id="selectByRegionCount" resultType="java.util.Map">
+          SELECT
+      d.product_key,
+      count( * ) as `count`,
+		 p.organization_id as `organizationId`
+      FROM
+          t_deviceinfo AS d,
+          t_productinfo AS p,
+          (
+          SELECT
+              o.organization_id
+          FROM
+              t_organization AS o,
+              t_region AS r
+          WHERE
+              o.region_id = r.region_id
+              AND parent_id = #{parentId,jdbcType=VARCHAR}
+          ) AS organ
+      WHERE
+          p.is_del = 0
+          and p.is_del = 0
+          AND d.product_key = p.product_key
+          AND d.organization_id = organ.organization_id
+          GROUP BY
+          d.product_key
+  </select>
+
+    <select id="selectByProductName" resultType="java.lang.Integer">
+    select IFNULL(COUNT(*), 0)
+    from t_productinfo
+    where is_del = 0
+    and product_name = #{productName}
+    and organization_id = #{organizationId}
+  </select>
+    <select id="selectByProductKey" resultType="java.lang.Integer">
+    select IFNULL(COUNT(*), 0)
+    from t_productinfo
+    where is_del = 0
+    and product_key = #{productKey}
+    and organization_id = #{organizationId}
+  </select>
+    <select id="selectByProductModel" resultType="java.lang.Integer">
+    select IFNULL(COUNT(*), 0)
+    from t_productinfo
+    where is_del = 0
+    and product_model = #{productModel}
+    and organization_id = #{organizationId}
+  </select>
+</mapper>

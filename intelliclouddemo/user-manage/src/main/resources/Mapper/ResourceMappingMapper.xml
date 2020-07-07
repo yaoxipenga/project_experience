@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.cloud.usermanage.mapper.ResourceMappingMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.cloud.usermanage.entity.ResourceMapping" >
+    <id column="resource_mapping_id" property="resourceMappingId" jdbcType="INTEGER" />
+    <result column="backend_resource_id" property="backendResourceId" jdbcType="INTEGER" />
+    <result column="frontend_resource_id" property="frontendResourceId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    resource_mapping_id, backend_resource_id, frontend_resource_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.medcaptain.cloud.usermanage.entity.ResourceMappingExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_resourcemapping
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByFrontendResourceID" resultType="com.medcaptain.cloud.usermanage.entity.ResourceMapping" parameterType="int" >
+      select
+      b.backend_resource_id as "backendResource.backendResourceId",
+      resource_name as "backendResource.resourceName",
+      resource_url as "backendResource.resourceUrl",
+      request_type as "backendResource.requestType",
+      remark as "backendResource.remark",
+      is_enable as "backendResource.isEnable",
+      resource_mapping_id as resourceMappingId,m.backend_resource_id as backendResourceId,frontend_resource_id AS frontendResourceId
+      from t_backendresource b,t_resourcemapping  m
+      where b.backend_resource_id = m.backend_resource_id and m.frontend_resource_id = #{frontendResourceID,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_resourcemapping
+    where resource_mapping_id = #{resourceMappingId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_resourcemapping
+    where resource_mapping_id = #{resourceMappingId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.medcaptain.cloud.usermanage.entity.ResourceMappingExample" >
+    delete from t_resourcemapping
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.cloud.usermanage.entity.ResourceMapping" >
+    insert into t_resourcemapping (resource_mapping_id, backend_resource_id, 
+      frontend_resource_id)
+    values (#{resourceMappingId,jdbcType=INTEGER}, #{backendResourceId,jdbcType=INTEGER}, 
+      #{frontendResourceId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.cloud.usermanage.entity.ResourceMapping" >
+    insert into t_resourcemapping
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="resourceMappingId != null" >
+        resource_mapping_id,
+      </if>
+      <if test="backendResourceId != null" >
+        backend_resource_id,
+      </if>
+      <if test="frontendResourceId != null" >
+        frontend_resource_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="resourceMappingId != null" >
+        #{resourceMappingId,jdbcType=INTEGER},
+      </if>
+      <if test="backendResourceId != null" >
+        #{backendResourceId,jdbcType=INTEGER},
+      </if>
+      <if test="frontendResourceId != null" >
+        #{frontendResourceId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.medcaptain.cloud.usermanage.entity.ResourceMappingExample" resultType="java.lang.Integer" >
+    select count(*) from t_resourcemapping
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_resourcemapping
+    <set >
+      <if test="record.resourceMappingId != null" >
+        resource_mapping_id = #{record.resourceMappingId,jdbcType=INTEGER},
+      </if>
+      <if test="record.backendResourceId != null" >
+        backend_resource_id = #{record.backendResourceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.frontendResourceId != null" >
+        frontend_resource_id = #{record.frontendResourceId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_resourcemapping
+    set resource_mapping_id = #{record.resourceMappingId,jdbcType=INTEGER},
+      backend_resource_id = #{record.backendResourceId,jdbcType=INTEGER},
+      frontend_resource_id = #{record.frontendResourceId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.cloud.usermanage.entity.ResourceMapping" >
+    update t_resourcemapping
+    <set >
+      <if test="backendResourceId != null" >
+        backend_resource_id = #{backendResourceId,jdbcType=INTEGER},
+      </if>
+      <if test="frontendResourceId != null" >
+        frontend_resource_id = #{frontendResourceId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where resource_mapping_id = #{resourceMappingId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.cloud.usermanage.entity.ResourceMapping" >
+    update t_resourcemapping
+    set backend_resource_id = #{backendResourceId,jdbcType=INTEGER},
+      frontend_resource_id = #{frontendResourceId,jdbcType=INTEGER}
+    where resource_mapping_id = #{resourceMappingId,jdbcType=INTEGER}
+  </update>
+</mapper>

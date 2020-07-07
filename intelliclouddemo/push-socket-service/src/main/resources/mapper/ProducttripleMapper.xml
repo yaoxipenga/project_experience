@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.pushsocketservice.dao.ProducttripleMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.pushsocketservice.entity.Producttriple" >
+    <id column="product_key" property="productKey" jdbcType="VARCHAR" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="product_secret" property="productSecret" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="is_del" property="isDel" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    product_key, product_name, product_secret, user_id, creat_time, is_del
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_producttriple
+    where product_key = #{productKey,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_producttriple
+    where product_key = #{productKey,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.pushsocketservice.entity.Producttriple" >
+    insert into t_producttriple (product_key, product_name, product_secret, 
+      user_id, creat_time, is_del
+      )
+    values (#{productKey,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, #{productSecret,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=INTEGER}, #{creatTime,jdbcType=TIMESTAMP}, #{isDel,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.pushsocketservice.entity.Producttriple" >
+    insert into t_producttriple
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productKey != null" >
+        product_key,
+      </if>
+      <if test="productName != null" >
+        product_name,
+      </if>
+      <if test="productSecret != null" >
+        product_secret,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productKey != null" >
+        #{productKey,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productSecret != null" >
+        #{productSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.pushsocketservice.entity.Producttriple" >
+    update t_producttriple
+    <set >
+      <if test="productName != null" >
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productSecret != null" >
+        product_secret = #{productSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where product_key = #{productKey,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.pushsocketservice.entity.Producttriple" >
+    update t_producttriple
+    set product_name = #{productName,jdbcType=VARCHAR},
+      product_secret = #{productSecret,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      is_del = #{isDel,jdbcType=INTEGER}
+    where product_key = #{productKey,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.file.mapper.OptMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.file.entity.dto.OptInfoEntity" >
+    <result column="log_content" property="logContent" jdbcType="LONGVARCHAR" />
+    <result column="opt_type" property="operationType" jdbcType="VARCHAR" />
+    <result column="create_time" property="createAt" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <select id="getOptLogList" resultMap="BaseResultMap" parameterType="com.medcaptain.file.entity.dto.OptInfoEntity">
+    select ol.log_content,(select ot.opt_desc from t_opttype ot where ot.opt_type=ol.opt_type)as opt_type,ol.create_time from t_optlog ol where ol.user_id = #{userId}
+    limit #{start},#{size}
+  </select>
+</mapper>

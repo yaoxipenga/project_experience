@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.productservice.dao.mybatis.TablefuncpermMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.productservice.entity.mybatis.Tablefuncperm" >
+    <id column="func_perm_id" property="funcPermId" jdbcType="INTEGER" />
+    <result column="func_name" property="funcName" jdbcType="VARCHAR" />
+    <result column="table_id" property="tableId" jdbcType="INTEGER" />
+    <result column="mask_code" property="maskCode" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="modif_time" property="modifTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    func_perm_id, func_name, table_id, mask_code, remark, creat_time, modif_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_tablefuncperm
+    where func_perm_id = #{funcPermId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_tablefuncperm
+    where func_perm_id = #{funcPermId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.productservice.entity.mybatis.Tablefuncperm" >
+    insert into t_tablefuncperm (func_perm_id, func_name, table_id, 
+      mask_code, remark, creat_time, 
+      modif_time)
+    values (#{funcPermId,jdbcType=INTEGER}, #{funcName,jdbcType=VARCHAR}, #{tableId,jdbcType=INTEGER}, 
+      #{maskCode,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{creatTime,jdbcType=TIMESTAMP}, 
+      #{modifTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.productservice.entity.mybatis.Tablefuncperm" >
+    insert into t_tablefuncperm
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="funcPermId != null" >
+        func_perm_id,
+      </if>
+      <if test="funcName != null" >
+        func_name,
+      </if>
+      <if test="tableId != null" >
+        table_id,
+      </if>
+      <if test="maskCode != null" >
+        mask_code,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="modifTime != null" >
+        modif_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="funcPermId != null" >
+        #{funcPermId,jdbcType=INTEGER},
+      </if>
+      <if test="funcName != null" >
+        #{funcName,jdbcType=VARCHAR},
+      </if>
+      <if test="tableId != null" >
+        #{tableId,jdbcType=INTEGER},
+      </if>
+      <if test="maskCode != null" >
+        #{maskCode,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifTime != null" >
+        #{modifTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.productservice.entity.mybatis.Tablefuncperm" >
+    update t_tablefuncperm
+    <set >
+      <if test="funcName != null" >
+        func_name = #{funcName,jdbcType=VARCHAR},
+      </if>
+      <if test="tableId != null" >
+        table_id = #{tableId,jdbcType=INTEGER},
+      </if>
+      <if test="maskCode != null" >
+        mask_code = #{maskCode,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifTime != null" >
+        modif_time = #{modifTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where func_perm_id = #{funcPermId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.productservice.entity.mybatis.Tablefuncperm" >
+    update t_tablefuncperm
+    set func_name = #{funcName,jdbcType=VARCHAR},
+      table_id = #{tableId,jdbcType=INTEGER},
+      mask_code = #{maskCode,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      modif_time = #{modifTime,jdbcType=TIMESTAMP}
+    where func_perm_id = #{funcPermId,jdbcType=INTEGER}
+  </update>
+</mapper>

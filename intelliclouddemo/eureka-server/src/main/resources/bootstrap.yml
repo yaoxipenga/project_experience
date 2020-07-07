@@ -1,0 +1,21 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: eureka-server
+  cloud:
+    config:
+      uri: http://192.168.81.31:8777 #不需要注册中心支持
+      name: application #代表文件前缀
+      label: master #分支
+      profile: spring-admin,eureka-server,spring-logging
+server:
+  port: 8761
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS

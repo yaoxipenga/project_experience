@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.file.mapper.UpgradeStatusInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.file.entity.mysql.UpgradeStatusInfo" >
+    <id column="firmware_id" property="firmwareId" jdbcType="INTEGER" />
+    <result column="veri_status" property="veriStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    firmware_id, veri_status
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.medcaptain.file.entity.mysql.UpgradeStatusInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_upgradestatusinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_upgradestatusinfo
+    where firmware_id = #{firmwareId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_upgradestatusinfo
+    where firmware_id = #{firmwareId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.medcaptain.file.entity.mysql.UpgradeStatusInfoExample" >
+    delete from t_upgradestatusinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.file.entity.mysql.UpgradeStatusInfo" >
+    insert into t_upgradestatusinfo (firmware_id, veri_status)
+    values (#{firmwareId,jdbcType=INTEGER}, #{veriStatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.file.entity.mysql.UpgradeStatusInfo" >
+    insert into t_upgradestatusinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="firmwareId != null" >
+        firmware_id,
+      </if>
+      <if test="veriStatus != null" >
+        veri_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="firmwareId != null" >
+        #{firmwareId,jdbcType=INTEGER},
+      </if>
+      <if test="veriStatus != null" >
+        #{veriStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.medcaptain.file.entity.mysql.UpgradeStatusInfoExample" resultType="java.lang.Integer" >
+    select count(*) from t_upgradestatusinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_upgradestatusinfo
+    <set >
+      <if test="record.firmwareId != null" >
+        firmware_id = #{record.firmwareId,jdbcType=INTEGER},
+      </if>
+      <if test="record.veriStatus != null" >
+        veri_status = #{record.veriStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_upgradestatusinfo
+    set firmware_id = #{record.firmwareId,jdbcType=INTEGER},
+      veri_status = #{record.veriStatus,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.file.entity.mysql.UpgradeStatusInfo" >
+    update t_upgradestatusinfo
+    <set >
+      <if test="veriStatus != null" >
+        veri_status = #{veriStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where firmware_id = #{firmwareId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.file.entity.mysql.UpgradeStatusInfo" >
+    update t_upgradestatusinfo
+    set veri_status = #{veriStatus,jdbcType=VARCHAR}
+    where firmware_id = #{firmwareId,jdbcType=INTEGER}
+  </update>
+</mapper>

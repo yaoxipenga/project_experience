@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.pushsocketservice.dao.ProductinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.pushsocketservice.entity.Productinfo" >
+    <id column="product_key" property="productKey" jdbcType="VARCHAR" />
+    <result column="product_cate" property="productCate" jdbcType="INTEGER" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="product_model" property="productModel" jdbcType="VARCHAR" />
+    <result column="templet_id" property="templetId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="com_mode" property="comMode" jdbcType="INTEGER" />
+    <result column="node_type" property="nodeType" jdbcType="INTEGER" />
+    <result column="is_enabled" property="isEnabled" jdbcType="INTEGER" />
+    <result column="is_del" property="isDel" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modi_ftime" property="modiFtime" jdbcType="TIMESTAMP" />
+    <result column="product_desc" property="productDesc" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    product_key, product_cate, product_name, product_model, templet_id, user_id, com_mode, 
+    node_type, is_enabled, is_del, create_time, modi_ftime, product_desc, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_productinfo
+    where product_key = #{productKey,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_productinfo
+    where product_key = #{productKey,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.pushsocketservice.entity.Productinfo" >
+    insert into t_productinfo (product_key, product_cate, product_name, 
+      product_model, templet_id, user_id, 
+      com_mode, node_type, is_enabled, 
+      is_del, create_time, modi_ftime, 
+      product_desc, remark)
+    values (#{productKey,jdbcType=VARCHAR}, #{productCate,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, 
+      #{productModel,jdbcType=VARCHAR}, #{templetId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{comMode,jdbcType=INTEGER}, #{nodeType,jdbcType=INTEGER}, #{isEnabled,jdbcType=INTEGER}, 
+      #{isDel,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{modiFtime,jdbcType=TIMESTAMP}, 
+      #{productDesc,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.pushsocketservice.entity.Productinfo" >
+    insert into t_productinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productKey != null" >
+        product_key,
+      </if>
+      <if test="productCate != null" >
+        product_cate,
+      </if>
+      <if test="productName != null" >
+        product_name,
+      </if>
+      <if test="productModel != null" >
+        product_model,
+      </if>
+      <if test="templetId != null" >
+        templet_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="comMode != null" >
+        com_mode,
+      </if>
+      <if test="nodeType != null" >
+        node_type,
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modiFtime != null" >
+        modi_ftime,
+      </if>
+      <if test="productDesc != null" >
+        product_desc,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productKey != null" >
+        #{productKey,jdbcType=VARCHAR},
+      </if>
+      <if test="productCate != null" >
+        #{productCate,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productModel != null" >
+        #{productModel,jdbcType=VARCHAR},
+      </if>
+      <if test="templetId != null" >
+        #{templetId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="comMode != null" >
+        #{comMode,jdbcType=INTEGER},
+      </if>
+      <if test="nodeType != null" >
+        #{nodeType,jdbcType=INTEGER},
+      </if>
+      <if test="isEnabled != null" >
+        #{isEnabled,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modiFtime != null" >
+        #{modiFtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productDesc != null" >
+        #{productDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.pushsocketservice.entity.Productinfo" >
+    update t_productinfo
+    <set >
+      <if test="productCate != null" >
+        product_cate = #{productCate,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null" >
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productModel != null" >
+        product_model = #{productModel,jdbcType=VARCHAR},
+      </if>
+      <if test="templetId != null" >
+        templet_id = #{templetId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="comMode != null" >
+        com_mode = #{comMode,jdbcType=INTEGER},
+      </if>
+      <if test="nodeType != null" >
+        node_type = #{nodeType,jdbcType=INTEGER},
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled = #{isEnabled,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modiFtime != null" >
+        modi_ftime = #{modiFtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productDesc != null" >
+        product_desc = #{productDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where product_key = #{productKey,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.pushsocketservice.entity.Productinfo" >
+    update t_productinfo
+    set product_cate = #{productCate,jdbcType=INTEGER},
+      product_name = #{productName,jdbcType=VARCHAR},
+      product_model = #{productModel,jdbcType=VARCHAR},
+      templet_id = #{templetId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      com_mode = #{comMode,jdbcType=INTEGER},
+      node_type = #{nodeType,jdbcType=INTEGER},
+      is_enabled = #{isEnabled,jdbcType=INTEGER},
+      is_del = #{isDel,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modi_ftime = #{modiFtime,jdbcType=TIMESTAMP},
+      product_desc = #{productDesc,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where product_key = #{productKey,jdbcType=VARCHAR}
+  </update>
+</mapper>

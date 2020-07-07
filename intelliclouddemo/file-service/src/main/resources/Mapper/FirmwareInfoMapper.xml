@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.file.mapper.FirmwareInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.file.entity.mysql.FirmwareInfo" >
+    <id column="firmware_id" property="firmwareId" jdbcType="INTEGER" />
+    <result column="product_key" property="productKey" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="dpsit_path" property="dpsitPath" jdbcType="VARCHAR" />
+    <result column="md5" property="md5" jdbcType="VARCHAR" />
+    <result column="firmware_name" property="firmwareName" jdbcType="VARCHAR" />
+    <result column="firmware_size" property="firmwareSize" jdbcType="INTEGER" />
+    <result column="firmware_version" property="firmwareVersion" jdbcType="VARCHAR" />
+    <result column="is_verified" property="isVerified" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="is_del" property="isDel" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    firmware_id, product_key, user_id, dpsit_path, md5, firmware_name, firmware_size, 
+    firmware_version, is_verified, create_time, remark, is_del
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.medcaptain.file.entity.mysql.FirmwareInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_firmwareinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from t_firmwareinfo
+    where firmware_id = #{firmwareId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_firmwareinfo
+    where firmware_id = #{firmwareId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.medcaptain.file.entity.mysql.FirmwareInfoExample" >
+    delete from t_firmwareinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.file.entity.mysql.FirmwareInfo" >
+    insert into t_firmwareinfo (firmware_id, product_key, user_id, 
+      dpsit_path, md5, firmware_name, 
+      firmware_size, firmware_version, is_verified, 
+      create_time, remark, is_del
+      )
+    values (#{firmwareId,jdbcType=INTEGER}, #{productKey,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{dpsitPath,jdbcType=VARCHAR}, #{md5,jdbcType=VARCHAR}, #{firmwareName,jdbcType=VARCHAR}, 
+      #{firmwareSize,jdbcType=INTEGER}, #{firmwareVersion,jdbcType=VARCHAR}, #{isVerified,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.file.entity.mysql.FirmwareInfo" >
+    insert into t_firmwareinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="firmwareId != null" >
+        firmware_id,
+      </if>
+      <if test="productKey != null" >
+        product_key,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="dpsitPath != null" >
+        dpsit_path,
+      </if>
+      <if test="md5 != null" >
+        md5,
+      </if>
+      <if test="firmwareName != null" >
+        firmware_name,
+      </if>
+      <if test="firmwareSize != null" >
+        firmware_size,
+      </if>
+      <if test="firmwareVersion != null" >
+        firmware_version,
+      </if>
+      <if test="isVerified != null" >
+        is_verified,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="firmwareId != null" >
+        #{firmwareId,jdbcType=INTEGER},
+      </if>
+      <if test="productKey != null" >
+        #{productKey,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="dpsitPath != null" >
+        #{dpsitPath,jdbcType=VARCHAR},
+      </if>
+      <if test="md5 != null" >
+        #{md5,jdbcType=VARCHAR},
+      </if>
+      <if test="firmwareName != null" >
+        #{firmwareName,jdbcType=VARCHAR},
+      </if>
+      <if test="firmwareSize != null" >
+        #{firmwareSize,jdbcType=INTEGER},
+      </if>
+      <if test="firmwareVersion != null" >
+        #{firmwareVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="isVerified != null" >
+        #{isVerified,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.medcaptain.file.entity.mysql.FirmwareInfoExample" resultType="java.lang.Integer" >
+    select count(*) from t_firmwareinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_firmwareinfo
+    <set >
+      <if test="record.firmwareId != null" >
+        firmware_id = #{record.firmwareId,jdbcType=INTEGER},
+      </if>
+      <if test="record.productKey != null" >
+        product_key = #{record.productKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.dpsitPath != null" >
+        dpsit_path = #{record.dpsitPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.md5 != null" >
+        md5 = #{record.md5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firmwareName != null" >
+        firmware_name = #{record.firmwareName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firmwareSize != null" >
+        firmware_size = #{record.firmwareSize,jdbcType=INTEGER},
+      </if>
+      <if test="record.firmwareVersion != null" >
+        firmware_version = #{record.firmwareVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isVerified != null" >
+        is_verified = #{record.isVerified,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDel != null" >
+        is_del = #{record.isDel,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_firmwareinfo
+    set firmware_id = #{record.firmwareId,jdbcType=INTEGER},
+      product_key = #{record.productKey,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      dpsit_path = #{record.dpsitPath,jdbcType=VARCHAR},
+      md5 = #{record.md5,jdbcType=VARCHAR},
+      firmware_name = #{record.firmwareName,jdbcType=VARCHAR},
+      firmware_size = #{record.firmwareSize,jdbcType=INTEGER},
+      firmware_version = #{record.firmwareVersion,jdbcType=VARCHAR},
+      is_verified = #{record.isVerified,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      is_del = #{record.isDel,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.file.entity.mysql.FirmwareInfo" >
+    update t_firmwareinfo
+    <set >
+      <if test="productKey != null" >
+        product_key = #{productKey,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="dpsitPath != null" >
+        dpsit_path = #{dpsitPath,jdbcType=VARCHAR},
+      </if>
+      <if test="md5 != null" >
+        md5 = #{md5,jdbcType=VARCHAR},
+      </if>
+      <if test="firmwareName != null" >
+        firmware_name = #{firmwareName,jdbcType=VARCHAR},
+      </if>
+      <if test="firmwareSize != null" >
+        firmware_size = #{firmwareSize,jdbcType=INTEGER},
+      </if>
+      <if test="firmwareVersion != null" >
+        firmware_version = #{firmwareVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="isVerified != null" >
+        is_verified = #{isVerified,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where firmware_id = #{firmwareId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.file.entity.mysql.FirmwareInfo" >
+    update t_firmwareinfo
+    set product_key = #{productKey,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      dpsit_path = #{dpsitPath,jdbcType=VARCHAR},
+      md5 = #{md5,jdbcType=VARCHAR},
+      firmware_name = #{firmwareName,jdbcType=VARCHAR},
+      firmware_size = #{firmwareSize,jdbcType=INTEGER},
+      firmware_version = #{firmwareVersion,jdbcType=VARCHAR},
+      is_verified = #{isVerified,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER}
+    where firmware_id = #{firmwareId,jdbcType=INTEGER}
+  </update>
+</mapper>

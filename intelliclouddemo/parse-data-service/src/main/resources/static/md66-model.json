@@ -1,0 +1,1203 @@
+{
+  "profile": {
+    "productKey": "MD66"
+  },
+  "services": [
+    {
+      "outputData": [
+        {
+          "identifier": "ExeLogList",
+          "dataType": {
+            "specs": {
+            },
+            "type": "list"
+          },
+          "name": "运行日志列表"
+        },
+        {
+          "identifier": "ExeLogUpLoad",
+          "dataType": {
+            "specs": {
+            },
+            "type": "struct"
+          },
+          "name": "日志文件上传"
+        },
+        {
+          "identifier": "FileMD5",
+          "dataType": {
+            "specs": {
+            },
+            "type": "struct"
+          },
+          "name": "文件校验信息上传"
+        }
+      ],
+      "inputData": [
+        {
+          "identifier": "ExeLogList",
+          "dataType": {
+            "specs": {
+            },
+            "type": "int"
+          },
+          "name": "运行日志列表获取"
+        },
+        {
+          "identifier": "ExeLogUpLoad",
+          "dataType": {
+            "specs": {
+            },
+            "type": "string"
+          },
+          "name": "日志文件上传"
+        },
+        {
+          "identifier": "FileInfoUpload",
+          "dataType": {
+            "specs": {
+            },
+            "type": "string"
+          },
+          "name": "文件信息上传"
+        }
+      ],
+      "identifier": "set",
+      "method": "thing.service.property.set",
+      "name": "set",
+      "required": true,
+      "callType": "async",
+      "desc": "属性设置"
+    }
+  ],
+  "properties": [
+    {
+      "identifier": "SoftVersion",
+      "dataType": {
+        "specs": [
+          {
+            "identifier": "BiosSoftVersion",
+            "dataType": {
+              "specs": {
+              },
+              "type": "string"
+            },
+            "name": "引导软件版本"
+          },
+          {
+            "identifier": "SysSoftVersion",
+            "dataType": {
+              "specs": {
+              },
+              "type": "string"
+            },
+            "name": "系统软件版本"
+          },
+          {
+            "identifier": "AppSoftVersion",
+            "dataType": {
+              "specs": {
+              },
+              "type": "string"
+            },
+            "name": "应用软件版本"
+          },
+          {
+            "identifier": "DriverSoftVersion",
+            "dataType": {
+              "specs": {
+              },
+              "type": "string"
+            },
+            "name": "驱动软件版本"
+          }
+        ],
+        "type": "struct"
+      },
+      "name": "软件版本",
+      "accessMode": "r",
+      "required": false
+    },
+    {
+      "identifier": "SerialNumber",
+      "dataType": {
+        "specs": {
+        },
+        "type": "string"
+      },
+      "name": "序列号",
+      "accessMode": "r",
+      "required": false
+    },
+    {
+      "identifier": "ChannelRealTimeTemp",
+      "dataType": {
+        "specs": [
+          {
+            "identifier": "Channel1Temp",
+            "dataType": {
+              "specs": {
+                "unit": "℃",
+                "unitName": "摄氏度",
+                "min": "35",
+                "max": "42",
+                "step": "0.1"
+              },
+              "type": "float"
+            },
+            "name": "通道1实时温度"
+          },
+          {
+            "identifier": "Channel2Temp",
+            "dataType": {
+              "specs": {
+                "unit": "℃",
+                "unitName": "摄氏度",
+                "min": "35",
+                "max": "42",
+                "step": "0.1"
+              },
+              "type": "float"
+            },
+            "name": "通道2实时温度"
+          },
+          {
+            "identifier": "Channel3Temp",
+            "dataType": {
+              "specs": {
+                "unit": "℃",
+                "unitName": "摄氏度",
+                "min": "35",
+                "max": "42",
+                "step": "0.1"
+              },
+              "type": "float"
+            },
+            "name": "通道3实时温度"
+          },
+          {
+            "identifier": "Channel4Temp",
+            "dataType": {
+              "specs": {
+                "unit": "℃",
+                "unitName": "摄氏度",
+                "min": "35",
+                "max": "42",
+                "step": "0.1"
+              },
+              "type": "float"
+            },
+            "name": "通道4实时温度"
+          },
+          {
+            "identifier": "Channel5Temp",
+            "dataType": {
+              "specs": {
+                "unit": "℃",
+                "unitName": "摄氏度",
+                "min": "35",
+                "max": "42",
+                "step": "0.1"
+              },
+              "type": "float"
+            },
+            "name": "孵育1实时温度"
+          },
+          {
+            "identifier": "Channel6Temp",
+            "dataType": {
+              "specs": {
+                "unit": "℃",
+                "unitName": "摄氏度",
+                "min": "35",
+                "max": "42",
+                "step": "0.1"
+              },
+              "type": "float"
+            },
+            "name": "孵育2实时温度"
+          },
+          {
+            "identifier": "Channel7Temp",
+            "dataType": {
+              "specs": {
+                "unit": "℃",
+                "unitName": "摄氏度",
+                "min": "35",
+                "max": "42",
+                "step": "0.1"
+              },
+              "type": "float"
+            },
+            "name": "孵育3实时温度"
+          },
+          {
+            "identifier": "Channel8Temp",
+            "dataType": {
+              "specs": {
+                "unit": "℃",
+                "unitName": "摄氏度",
+                "min": "35",
+                "max": "42",
+                "step": "0.1"
+              },
+              "type": "float"
+            },
+            "name": "孵育4实时温度"
+          }
+        ],
+        "type": "struct"
+      },
+      "name": "通道实时温度",
+      "accessMode": "rw",
+      "required": false
+    },
+    {
+      "identifier": "Channel1TempParam",
+      "dataType": {
+        "specs": [
+          {
+            "identifier": "TargeTemp",
+            "dataType": {
+              "specs": {
+                "unit": "℃",
+                "unitName": "摄氏度",
+                "min": "35",
+                "max": "42",
+                "step": "0.1"
+              },
+              "type": "float"
+            },
+            "name": "目标温度"
+          },
+          {
+            "identifier": "ADOffset",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "-200",
+                "max": "200",
+                "step": "1"
+              },
+              "type": "int"
+            },
+            "name": "△AD"
+          },
+          {
+            "identifier": "TempCoefficient",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "0",
+                "max": "4096",
+                "step": "1"
+              },
+              "type": "int"
+            },
+            "name": "温度系数"
+          },
+          {
+            "identifier": "Param_P",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "0",
+                "max": "9999",
+                "step": "0.01"
+              },
+              "type": "float"
+            },
+            "name": "P"
+          },
+          {
+            "identifier": "Param_I",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "0",
+                "max": "9999",
+                "step": "0.01"
+              },
+              "type": "float"
+            },
+            "name": "I"
+          },
+          {
+            "identifier": "Param_D",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "0",
+                "max": "9999",
+                "step": "0.01"
+              },
+              "type": "float"
+            },
+            "name": "D"
+          }
+        ],
+        "type": "struct"
+      },
+      "name": "通道1温度参数",
+      "accessMode": "rw",
+      "required": false
+    },
+    {
+      "identifier": "Channel2TempParam",
+      "dataType": {
+        "specs": [
+          {
+            "identifier": "TargeTemp",
+            "dataType": {
+              "specs": {
+                "unit": "℃",
+                "unitName": "摄氏度",
+                "min": "35",
+                "max": "42",
+                "step": "0.1"
+              },
+              "type": "float"
+            },
+            "name": "目标温度"
+          },
+          {
+            "identifier": "ADOffset",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "-200",
+                "max": "200",
+                "step": "1"
+              },
+              "type": "short"
+            },
+            "name": "△AD"
+          },
+          {
+            "identifier": "TempCoefficient",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "0",
+                "max": "4096",
+                "step": "1"
+              },
+              "type": "int"
+            },
+            "name": "温度系数"
+          },
+          {
+            "identifier": "Param_P",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "0",
+                "max": "9999",
+                "step": "0.01"
+              },
+              "type": "float"
+            },
+            "name": "P"
+          },
+          {
+            "identifier": "Param_I",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "0",
+                "max": "9999",
+                "step": "0.01"
+              },
+              "type": "float"
+            },
+            "name": "I"
+          },
+          {
+            "identifier": "Param_D",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "0",
+                "max": "9999",
+                "step": "0.01"
+              },
+              "type": "float"
+            },
+            "name": "D"
+          }
+        ],
+        "type": "struct"
+      },
+      "name": "通道2温度参数",
+      "accessMode": "rw",
+      "required": false
+    },
+    {
+      "identifier": "Channel3TempParam",
+      "dataType": {
+        "specs": [
+          {
+            "identifier": "TargeTemp",
+            "dataType": {
+              "specs": {
+                "unit": "℃",
+                "unitName": "摄氏度",
+                "min": "35",
+                "max": "42",
+                "step": "0.1"
+              },
+              "type": "float"
+            },
+            "name": "目标温度"
+          },
+          {
+            "identifier": "ADOffset",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "-200",
+                "max": "200",
+                "step": "1"
+              },
+              "type": "int"
+            },
+            "name": "△AD"
+          },
+          {
+            "identifier": "TempCoefficient",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "0",
+                "max": "4096",
+                "step": "1"
+              },
+              "type": "int"
+            },
+            "name": "温度系数"
+          },
+          {
+            "identifier": "Param_P",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "0",
+                "max": "9999",
+                "step": "0.01"
+              },
+              "type": "float"
+            },
+            "name": "P"
+          },
+          {
+            "identifier": "Param_I",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "0",
+                "max": "9999",
+                "step": "0.01"
+              },
+              "type": "float"
+            },
+            "name": "I"
+          },
+          {
+            "identifier": "Param_D",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "0",
+                "max": "9999",
+                "step": "0.01"
+              },
+              "type": "float"
+            },
+            "name": "D"
+          }
+        ],
+        "type": "struct"
+      },
+      "name": "通道3温度参数",
+      "accessMode": "rw",
+      "required": false
+    },
+    {
+      "identifier": "Channel4TempParam",
+      "dataType": {
+        "specs": [
+          {
+            "identifier": "TargeTemp",
+            "dataType": {
+              "specs": {
+                "unit": "℃",
+                "unitName": "摄氏度",
+                "min": "35",
+                "max": "42",
+                "step": "0.1"
+              },
+              "type": "float"
+            },
+            "name": "目标温度"
+          },
+          {
+            "identifier": "ADOffset",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "-200",
+                "max": "200",
+                "step": "1"
+              },
+              "type": "int"
+            },
+            "name": "△AD"
+          },
+          {
+            "identifier": "TempCoefficient",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "0",
+                "max": "4096",
+                "step": "1"
+              },
+              "type": "int"
+            },
+            "name": "温度系数"
+          },
+          {
+            "identifier": "Param_P",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "0",
+                "max": "9999",
+                "step": "0.01"
+              },
+              "type": "float"
+            },
+            "name": "P"
+          },
+          {
+            "identifier": "Param_I",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "0",
+                "max": "9999",
+                "step": "0.01"
+              },
+              "type": "float"
+            },
+            "name": "I"
+          },
+          {
+            "identifier": "Param_D",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "0",
+                "max": "9999",
+                "step": "0.01"
+              },
+              "type": "float"
+            },
+            "name": "D"
+          }
+        ],
+        "type": "struct"
+      },
+      "name": "通道4温度参数",
+      "accessMode": "rw",
+      "required": false
+    },
+    {
+      "identifier": "Channel5TempParam",
+      "dataType": {
+        "specs": [
+          {
+            "identifier": "TargeTemp",
+            "dataType": {
+              "specs": {
+                "unit": "℃",
+                "unitName": "摄氏度",
+                "min": "35",
+                "max": "42",
+                "step": "0.1"
+              },
+              "type": "float"
+            },
+            "name": "目标温度"
+          },
+          {
+            "identifier": "ADOffset",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "-200",
+                "max": "200",
+                "step": "1"
+              },
+              "type": "int"
+            },
+            "name": "△AD"
+          },
+          {
+            "identifier": "TempCoefficient",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "0",
+                "max": "4096",
+                "step": "1"
+              },
+              "type": "int"
+            },
+            "name": "温度系数"
+          },
+          {
+            "identifier": "Param_P",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "0",
+                "max": "9999",
+                "step": "0.01"
+              },
+              "type": "float"
+            },
+            "name": "P"
+          },
+          {
+            "identifier": "Param_I",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "0",
+                "max": "9999",
+                "step": "0.01"
+              },
+              "type": "float"
+            },
+            "name": "I"
+          },
+          {
+            "identifier": "Param_D",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "0",
+                "max": "9999",
+                "step": "0.01"
+              },
+              "type": "float"
+            },
+            "name": "D"
+          }
+        ],
+        "type": "struct"
+      },
+      "name": "孵育1温度参数",
+      "accessMode": "rw",
+      "required": false
+    },
+    {
+      "identifier": "Channel6TempParam",
+      "dataType": {
+        "specs": [
+          {
+            "identifier": "TargeTemp",
+            "dataType": {
+              "specs": {
+                "unit": "℃",
+                "unitName": "摄氏度",
+                "min": "35",
+                "max": "42",
+                "step": "0.1"
+              },
+              "type": "float"
+            },
+            "name": "目标温度"
+          },
+          {
+            "identifier": "ADOffset",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "-200",
+                "max": "200",
+                "step": "1"
+              },
+              "type": "int"
+            },
+            "name": "△AD"
+          },
+          {
+            "identifier": "TempCoefficient",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "0",
+                "max": "4096",
+                "step": "1"
+              },
+              "type": "int"
+            },
+            "name": "温度系数"
+          },
+          {
+            "identifier": "Param_P",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "0",
+                "max": "9999",
+                "step": "0.01"
+              },
+              "type": "float"
+            },
+            "name": "P"
+          },
+          {
+            "identifier": "Param_I",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "0",
+                "max": "9999",
+                "step": "0.01"
+              },
+              "type": "float"
+            },
+            "name": "I"
+          },
+          {
+            "identifier": "Param_D",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "0",
+                "max": "9999",
+                "step": "0.01"
+              },
+              "type": "float"
+            },
+            "name": "D"
+          }
+        ],
+        "type": "struct"
+      },
+      "name": "孵育2温度参数",
+      "accessMode": "rw",
+      "required": false
+    },
+    {
+      "identifier": "Channel7TempParam",
+      "dataType": {
+        "specs": [
+          {
+            "identifier": "TargeTemp",
+            "dataType": {
+              "specs": {
+                "unit": "℃",
+                "unitName": "摄氏度",
+                "min": "35",
+                "max": "42",
+                "step": "0.1"
+              },
+              "type": "float"
+            },
+            "name": "目标温度"
+          },
+          {
+            "identifier": "ADOffset",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "-200",
+                "max": "200",
+                "step": "1"
+              },
+              "type": "int"
+            },
+            "name": "△AD"
+          },
+          {
+            "identifier": "TempCoefficient",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "0",
+                "max": "4096",
+                "step": "1"
+              },
+              "type": "int"
+            },
+            "name": "温度系数"
+          },
+          {
+            "identifier": "Param_P",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "0",
+                "max": "9999",
+                "step": "0.01"
+              },
+              "type": "float"
+            },
+            "name": "P"
+          },
+          {
+            "identifier": "Param_I",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "0",
+                "max": "9999",
+                "step": "0.01"
+              },
+              "type": "float"
+            },
+            "name": "I"
+          },
+          {
+            "identifier": "Param_D",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "0",
+                "max": "9999",
+                "step": "0.01"
+              },
+              "type": "float"
+            },
+            "name": "D"
+          }
+        ],
+        "type": "struct"
+      },
+      "name": "孵育3温度参数",
+      "accessMode": "rw",
+      "required": false
+    },
+    {
+      "identifier": "Channel8TempParam",
+      "dataType": {
+        "specs": [
+          {
+            "identifier": "TargeTemp",
+            "dataType": {
+              "specs": {
+                "unit": "℃",
+                "unitName": "摄氏度",
+                "min": "35",
+                "max": "42",
+                "step": "0.1"
+              },
+              "type": "float"
+            },
+            "name": "目标温度"
+          },
+          {
+            "identifier": "ADOffset",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "-200",
+                "max": "200",
+                "step": "1"
+              },
+              "type": "int"
+            },
+            "name": "△AD"
+          },
+          {
+            "identifier": "TempCoefficient",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "0",
+                "max": "4096",
+                "step": "1"
+              },
+              "type": "int"
+            },
+            "name": "温度系数"
+          },
+          {
+            "identifier": "Param_P",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "0",
+                "max": "9999",
+                "step": "0.01"
+              },
+              "type": "float"
+            },
+            "name": "P"
+          },
+          {
+            "identifier": "Param_I",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "0",
+                "max": "9999",
+                "step": "0.01"
+              },
+              "type": "float"
+            },
+            "name": "I"
+          },
+          {
+            "identifier": "Param_D",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "0",
+                "max": "9999",
+                "step": "0.01"
+              },
+              "type": "float"
+            },
+            "name": "D"
+          }
+        ],
+        "type": "struct"
+      },
+      "name": "孵育4温度参数",
+      "accessMode": "rw",
+      "required": false
+    },
+    {
+      "identifier": "Channel1MACoefficient",
+      "dataType": {
+        "specs": [
+          {
+            "identifier": "ACoefficient",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "-100",
+                "max": "100",
+                "step": "0.000001"
+              },
+              "type": "double"
+            },
+            "name": "a系数"
+          },
+          {
+            "identifier": "BCoefficient",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "-100",
+                "max": "100",
+                "step": "0.000001"
+              },
+              "type": "double"
+            },
+            "name": "b系数"
+          }
+        ],
+        "type": "struct"
+      },
+      "name": "通道1MA系数",
+      "accessMode": "rw",
+      "required": false
+    },
+    {
+      "identifier": "Channel2MACoefficient",
+      "dataType": {
+        "specs": [
+          {
+            "identifier": "ACoefficient",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "-100",
+                "max": "100",
+                "step": "0.000001"
+              },
+              "type": "double"
+            },
+            "name": "a系数"
+          },
+          {
+            "identifier": "BCoefficient",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "-100",
+                "max": "100",
+                "step": "0.000001"
+              },
+              "type": "double"
+            },
+            "name": "b系数"
+          }
+        ],
+        "type": "struct"
+      },
+      "name": "通道2MA系数",
+      "accessMode": "rw",
+      "required": false
+    },
+    {
+      "identifier": "Channel3MACoefficient",
+      "dataType": {
+        "specs": [
+          {
+            "identifier": "ACoefficient",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "-100",
+                "max": "100",
+                "step": "0.000001"
+              },
+              "type": "double"
+            },
+            "name": "a系数"
+          },
+          {
+            "identifier": "BCoefficient",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "-100",
+                "max": "100",
+                "step": "0.000001"
+              },
+              "type": "double"
+            },
+            "name": "b系数"
+          }
+        ],
+        "type": "struct"
+      },
+      "name": "通道3MA系数",
+      "accessMode": "rw",
+      "required": false
+    },
+    {
+      "identifier": "Channel4MACoefficient",
+      "dataType": {
+        "specs": [
+          {
+            "identifier": "ACoefficient",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "-100",
+                "max": "100",
+                "step": "0.000001"
+              },
+              "type": "double"
+            },
+            "name": "a系数"
+          },
+          {
+            "identifier": "BCoefficient",
+            "dataType": {
+              "specs": {
+                "unit": "",
+                "unitName": "",
+                "min": "-100",
+                "max": "100",
+                "step": "0.000001"
+              },
+              "type": "double"
+            },
+            "name": "b系数"
+          }
+        ],
+        "type": "struct"
+      },
+      "name": "通道4MA系数",
+      "accessMode": "rw",
+      "required": false
+    }
+  ],
+  "events": [
+    {
+      "productKey":"MD66",
+      "identifier": "finish_project_test",
+      "outputData": [
+        {
+          "identifier": "project_name",
+          "dataType": {
+            "specs": {
+            },
+            "type": "string"
+          },
+          "name": "测试项目名称"
+        },
+        {
+          "identifier": "test_end_time",
+          "dataType": {
+            "specs": {
+            },
+            "type": "string"
+          },
+          "name": "测试结束时间"
+        }
+      ],
+      "method": "thing.event.finish_project_test.post",
+      "name": "finish_project_test",
+      "type": "info",
+      "required": false,
+      "desc": "完成测试项目"
+    }
+  ]
+}

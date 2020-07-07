@@ -1,0 +1,8 @@
+#用户管理服务相关参数
+user-manage:
+  user-token-expire-seconds: 1800
+  third-part-user-token-expire-seconds: 7200
+  login-fail-expire-seconds: 120
+  captcha-expire-seconds: 300
+  role-permission-expire-days: 7
+  user-reset_password-token-expire-seconds: 1800

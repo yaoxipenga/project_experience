@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.cloud.usermanage.mapper.RoleInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.cloud.usermanage.entity.RoleInfo" >
+    <id column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="department_id" property="departmentId" jdbcType="INTEGER" />
+    <result column="organization_id" property="organizationId" jdbcType="INTEGER" />
+    <result column="is_enable" property="isEnable" jdbcType="TINYINT" />
+    <result column="is_deleted" property="isDeleted" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    role_id, role_name, remark, department_id, organization_id, is_enable, is_deleted
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.medcaptain.cloud.usermanage.entity.RoleInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_roleinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_roleinfo
+    where role_id = #{roleId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_roleinfo
+    where role_id = #{roleId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.medcaptain.cloud.usermanage.entity.RoleInfoExample" >
+    delete from t_roleinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.cloud.usermanage.entity.RoleInfo" >
+    insert into t_roleinfo (role_id, role_name, remark,
+      department_id, organization_id, is_enable, 
+      is_deleted)
+    values (#{roleId,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
+      #{departmentId,jdbcType=INTEGER}, #{organizationId,jdbcType=INTEGER}, #{isEnable,jdbcType=TINYINT}, 
+      #{isDeleted,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.cloud.usermanage.entity.RoleInfo" >
+    insert into t_roleinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        role_id,
+      </if>
+      <if test="roleName != null" >
+        role_name,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="departmentId != null" >
+        department_id,
+      </if>
+      <if test="organizationId != null" >
+        organization_id,
+      </if>
+      <if test="isEnable != null" >
+        is_enable,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="roleName != null" >
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentId != null" >
+        #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="organizationId != null" >
+        #{organizationId,jdbcType=INTEGER},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable,jdbcType=TINYINT},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.medcaptain.cloud.usermanage.entity.RoleInfoExample" resultType="java.lang.Integer" >
+    select count(*) from t_roleinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_roleinfo
+    <set >
+      <if test="record.roleId != null" >
+        role_id = #{record.roleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.roleName != null" >
+        role_name = #{record.roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.departmentId != null" >
+        department_id = #{record.departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.organizationId != null" >
+        organization_id = #{record.organizationId,jdbcType=INTEGER},
+      </if>
+      <if test="record.isEnable != null" >
+        is_enable = #{record.isEnable,jdbcType=TINYINT},
+      </if>
+      <if test="record.isDeleted != null" >
+        is_deleted = #{record.isDeleted,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_roleinfo
+    set role_id = #{record.roleId,jdbcType=INTEGER},
+      role_name = #{record.roleName,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      department_id = #{record.departmentId,jdbcType=INTEGER},
+      organization_id = #{record.organizationId,jdbcType=INTEGER},
+      is_enable = #{record.isEnable,jdbcType=TINYINT},
+      is_deleted = #{record.isDeleted,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.cloud.usermanage.entity.RoleInfo" >
+    update t_roleinfo
+    <set >
+      <if test="roleName != null" >
+        role_name = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentId != null" >
+        department_id = #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="organizationId != null" >
+        organization_id = #{organizationId,jdbcType=INTEGER},
+      </if>
+      <if test="isEnable != null" >
+        is_enable = #{isEnable,jdbcType=TINYINT},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=TINYINT},
+      </if>
+    </set>
+    where role_id = #{roleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.cloud.usermanage.entity.RoleInfo" >
+    update t_roleinfo
+    set role_name = #{roleName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      department_id = #{departmentId,jdbcType=INTEGER},
+      organization_id = #{organizationId,jdbcType=INTEGER},
+      is_enable = #{isEnable,jdbcType=TINYINT},
+      is_deleted = #{isDeleted,jdbcType=TINYINT}
+    where role_id = #{roleId,jdbcType=INTEGER}
+  </update>
+
+  <select id="listRoles" resultType="com.medcaptain.cloud.usermanage.entity.RoleInfo" parameterType="java.util.Map">
+    select r.role_id as roleId,role_name as roleName,r.remark AS remark,r.department_id as departmentId,d.department_name as departmentName,
+    r.is_deleted as isDeleted,d.organization_id as organizationId,o.organization_name as organizationName,r.is_enable as isEnable
+    from t_roleinfo r
+    left join t_department d on r.department_id =d.department_id
+    left join t_organization o on r.organization_id =o.organization_id
+    <where>
+      <if test="isDeleted != null">
+        r.is_deleted = #{isDeleted,jdbcType = INTEGER}
+      </if>
+      <if test="roleId != null">
+        r.role_id = #{roleId,jdbcType = INTEGER}
+      </if>
+      <if test="isEnable != null">
+        AND r.is_enable = #{isEnable,jdbcType = INTEGER}
+      </if>
+      <if test="organizationId !=null">
+        AND r.organization_id = #{organizationId,jdbcType=INTEGER}
+      </if>
+      <if test="departmentId != null">
+        AND r.department_id = #{departmentId,jdbcType=INTEGER}
+      </if>
+      <if test="roleName != null">
+        AND role_name LIKE CONCAT('%', '${roleName}', '%')
+      </if>
+    </where>
+    ORDER BY d.organization_id,r.department_id,role_id asc
+  </select>
+  <select id="listRolesHasPermission" resultType="com.medcaptain.cloud.usermanage.entity.RoleInfo" parameterType="java.util.Map">
+    select r.role_id as roleId,role_name as roleName,r.remark AS remark,r.department_id as departmentId,d.department_name as departmentName,
+    r.is_deleted as isDeleted,d.organization_id as organizationId,o.organization_name as organizationName,r.is_enable as isEnable
+    from t_roleinfo r
+    left join t_department d on r.department_id =d.department_id
+    left join t_organization o on r.organization_id =o.organization_id
+    WHERE r.is_deleted = 0
+    AND role_id in (
+      select role_id from t_frontendresourcepermission
+      where frontend_resource_id = #{frontendResourceID,jdbcType = INTEGER}
+    )
+    <if test="organizationID != null">
+       AND d.organization_id = #{organizationID,jdbcType = INTEGER}
+    </if>
+    ORDER BY d.organization_id,r.department_id,role_id asc
+  </select>
+</mapper>

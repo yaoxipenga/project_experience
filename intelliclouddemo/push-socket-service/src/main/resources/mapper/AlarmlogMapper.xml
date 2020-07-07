@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.pushsocketservice.dao.AlarmlogMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.pushsocketservice.entity.Alarmlog" >
+    <id column="index_id" property="indexId" jdbcType="INTEGER" />
+    <result column="device_triple_id" property="deviceTripleId" jdbcType="INTEGER" />
+    <result column="alarm_content" property="alarmContent" jdbcType="VARCHAR" />
+    <result column="alarm_level_id" property="alarmLevelId" jdbcType="INTEGER" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    index_id, device_triple_id, alarm_content, alarm_level_id, creat_time, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_alarmlog
+    where index_id = #{indexId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_alarmlog
+    where index_id = #{indexId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.pushsocketservice.entity.Alarmlog" >
+    insert into t_alarmlog (index_id, device_triple_id, alarm_content, 
+      alarm_level_id, creat_time, remark
+      )
+    values (#{indexId,jdbcType=INTEGER}, #{deviceTripleId,jdbcType=INTEGER}, #{alarmContent,jdbcType=VARCHAR}, 
+      #{alarmLevelId,jdbcType=INTEGER}, #{creatTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.pushsocketservice.entity.Alarmlog" >
+    insert into t_alarmlog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="indexId != null" >
+        index_id,
+      </if>
+      <if test="deviceTripleId != null" >
+        device_triple_id,
+      </if>
+      <if test="alarmContent != null" >
+        alarm_content,
+      </if>
+      <if test="alarmLevelId != null" >
+        alarm_level_id,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="indexId != null" >
+        #{indexId,jdbcType=INTEGER},
+      </if>
+      <if test="deviceTripleId != null" >
+        #{deviceTripleId,jdbcType=INTEGER},
+      </if>
+      <if test="alarmContent != null" >
+        #{alarmContent,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmLevelId != null" >
+        #{alarmLevelId,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.pushsocketservice.entity.Alarmlog" >
+    update t_alarmlog
+    <set >
+      <if test="deviceTripleId != null" >
+        device_triple_id = #{deviceTripleId,jdbcType=INTEGER},
+      </if>
+      <if test="alarmContent != null" >
+        alarm_content = #{alarmContent,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmLevelId != null" >
+        alarm_level_id = #{alarmLevelId,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where index_id = #{indexId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.pushsocketservice.entity.Alarmlog" >
+    update t_alarmlog
+    set device_triple_id = #{deviceTripleId,jdbcType=INTEGER},
+      alarm_content = #{alarmContent,jdbcType=VARCHAR},
+      alarm_level_id = #{alarmLevelId,jdbcType=INTEGER},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where index_id = #{indexId,jdbcType=INTEGER}
+  </update>
+</mapper>

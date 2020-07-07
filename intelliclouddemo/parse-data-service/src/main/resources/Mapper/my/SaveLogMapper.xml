@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.parsedata.mapper.my.SaveLogMapper" >
+  <insert id="insertMessageRecord">
+    insert into
+    t_devicelog(product_key,device_name,device_triple_id,device_ip,topic,log_content)
+    values (
+    #{productKey},#{deviceName},
+    (select di.device_triple_id from t_deviceinfo di where di.product_key = #{productKey} and di.device_name = #{deviceName}),
+    (select rs.device_ip from t_runningstatus rs,t_deviceinfo di where di.product_key = #{productKey} and
+    di.device_name = #{deviceName} and rs.device_triple_id = di.device_triple_id order by rs.last_online_time desc limit 0,1),
+    #{topic},#{data}
+    )
+  </insert>
+  <select id="getDeviceId" resultType="Integer">
+    select di.device_triple_id from t_deviceinfo di where di.product_key = #{productKey} and di.device_name = #{deviceName}
+  </select>
+  <select id="getOldFirmwareVersion" resultType="String">
+    select rs.firmware_version from t_runningstatus rs where rs.device_triple_id = #{deviceId}
+    order by rs.last_online_time desc limit 0,1
+  </select>
+  <insert id="insertPropertyLog">
+    insert into
+    t_devicepropertylog(product_key,device_name,device_triple_id,device_ip,topic,log_content)
+    values (
+    #{productKey},#{deviceName},
+    (select di.device_triple_id from t_deviceinfo di where di.product_key = #{productKey} and di.device_name = #{deviceName}),
+    (select rs.device_ip from t_runningstatus rs,t_deviceinfo di where di.product_key = #{productKey} and
+    di.device_name = #{deviceName} and rs.device_triple_id = di.device_triple_id order by rs.last_online_time desc limit 0,1),
+    #{topic},#{data}
+    )
+  </insert>
+  <insert id="insertEventLog">
+    insert into
+    t_deviceeventlog(product_key,device_name,device_triple_id,device_ip,topic,log_content)
+    values (
+    #{productKey},#{deviceName},
+    (select di.device_triple_id from t_deviceinfo di where di.product_key = #{productKey} and di.device_name = #{deviceName}),
+    (select rs.device_ip from t_runningstatus rs,t_deviceinfo di where di.product_key = #{productKey} and
+    di.device_name = #{deviceName} and rs.device_triple_id = di.device_triple_id order by rs.last_online_time desc limit 0,1),
+    #{topic},#{data}
+    )
+  </insert>
+  <insert id="insertServiceLog">
+    insert into
+    t_deviceservicelog(product_key,device_name,device_triple_id,device_ip,topic,log_content)
+    values (
+    #{productKey},#{deviceName},
+    (select di.device_triple_id from t_deviceinfo di where di.product_key = #{productKey} and di.device_name = #{deviceName}),
+    (select rs.device_ip from t_runningstatus rs,t_deviceinfo di where di.product_key = #{productKey} and
+    di.device_name = #{deviceName} and rs.device_triple_id = di.device_triple_id order by rs.last_online_time desc limit 0,1),
+    #{topic},#{data}
+    )
+  </insert>
+  <insert id="insertPublishLog">
+    insert into
+    t_notification(topic,title,message)
+    values (
+    #{topic},#{title},#{message}
+    )
+  </insert>
+</mapper>

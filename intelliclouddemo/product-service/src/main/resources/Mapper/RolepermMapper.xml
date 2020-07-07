@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.productservice.dao.mybatis.RolepermMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.productservice.entity.mybatis.Roleperm" >
+    <id column="index_id" property="indexId" jdbcType="INTEGER" />
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="table_id" property="tableId" jdbcType="INTEGER" />
+    <result column="mask_code" property="maskCode" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="modif_time" property="modifTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    index_id, role_id, table_id, mask_code, remark, creat_time, modif_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_roleperm
+    where index_id = #{indexId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_roleperm
+    where index_id = #{indexId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.productservice.entity.mybatis.Roleperm" >
+    insert into t_roleperm (index_id, role_id, table_id, 
+      mask_code, remark, creat_time, 
+      modif_time)
+    values (#{indexId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{tableId,jdbcType=INTEGER}, 
+      #{maskCode,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{creatTime,jdbcType=TIMESTAMP}, 
+      #{modifTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.productservice.entity.mybatis.Roleperm" >
+    insert into t_roleperm
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="indexId != null" >
+        index_id,
+      </if>
+      <if test="roleId != null" >
+        role_id,
+      </if>
+      <if test="tableId != null" >
+        table_id,
+      </if>
+      <if test="maskCode != null" >
+        mask_code,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="modifTime != null" >
+        modif_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="indexId != null" >
+        #{indexId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="tableId != null" >
+        #{tableId,jdbcType=INTEGER},
+      </if>
+      <if test="maskCode != null" >
+        #{maskCode,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifTime != null" >
+        #{modifTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.productservice.entity.mybatis.Roleperm" >
+    update t_roleperm
+    <set >
+      <if test="roleId != null" >
+        role_id = #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="tableId != null" >
+        table_id = #{tableId,jdbcType=INTEGER},
+      </if>
+      <if test="maskCode != null" >
+        mask_code = #{maskCode,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifTime != null" >
+        modif_time = #{modifTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where index_id = #{indexId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.productservice.entity.mybatis.Roleperm" >
+    update t_roleperm
+    set role_id = #{roleId,jdbcType=INTEGER},
+      table_id = #{tableId,jdbcType=INTEGER},
+      mask_code = #{maskCode,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      modif_time = #{modifTime,jdbcType=TIMESTAMP}
+    where index_id = #{indexId,jdbcType=INTEGER}
+  </update>
+</mapper>

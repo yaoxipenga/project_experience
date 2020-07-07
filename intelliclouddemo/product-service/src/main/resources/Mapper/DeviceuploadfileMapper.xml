@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.productservice.dao.mybatis.DeviceuploadfileMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.productservice.entity.mybatis.Deviceuploadfile" >
+    <id column="file_id" property="fileId" jdbcType="INTEGER" />
+    <result column="file_desc" property="fileDesc" jdbcType="VARCHAR" />
+    <result column="device_triple_id" property="deviceTripleId" jdbcType="INTEGER" />
+    <result column="local_path" property="localPath" jdbcType="VARCHAR" />
+    <result column="file_name" property="fileName" jdbcType="VARCHAR" />
+    <result column="file_md5" property="fileMd5" jdbcType="VARCHAR" />
+    <result column="file_size" property="fileSize" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="is_del" property="isDel" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+
+  </resultMap>
+  <sql id="Base_Column_List" >
+    file_id, file_desc, device_triple_id, local_path, file_name, file_md5, file_size, 
+    user_id, creat_time, is_del, status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_deviceuploadfile
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_deviceuploadfile
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.productservice.entity.mybatis.Deviceuploadfile" >
+    insert into t_deviceuploadfile (file_id, file_desc, device_triple_id, 
+      local_path, file_name, file_md5, 
+      file_size, user_id, creat_time, 
+      is_del, status)
+    values (#{fileId,jdbcType=INTEGER}, #{fileDesc,jdbcType=VARCHAR}, #{deviceTripleId,jdbcType=INTEGER}, 
+      #{localPath,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, #{fileMd5,jdbcType=VARCHAR}, 
+      #{fileSize,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{creatTime,jdbcType=TIMESTAMP}, 
+      #{isDel,jdbcType=INTEGER}, #{status, jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.productservice.entity.mybatis.Deviceuploadfile" >
+    insert into t_deviceuploadfile
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fileId != null" >
+        file_id,
+      </if>
+      <if test="fileDesc != null" >
+        file_desc,
+      </if>
+      <if test="deviceTripleId != null" >
+        device_triple_id,
+      </if>
+      <if test="localPath != null" >
+        local_path,
+      </if>
+      <if test="fileName != null" >
+        file_name,
+      </if>
+      <if test="fileMd5 != null" >
+        file_md5,
+      </if>
+      <if test="fileSize != null" >
+        file_size,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fileId != null" >
+        #{fileId,jdbcType=INTEGER},
+      </if>
+      <if test="fileDesc != null" >
+        #{fileDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceTripleId != null" >
+        #{deviceTripleId,jdbcType=INTEGER},
+      </if>
+      <if test="localPath != null" >
+        #{localPath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileMd5 != null" >
+        #{fileMd5,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSize != null" >
+        #{fileSize,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.productservice.entity.mybatis.Deviceuploadfile" >
+    update t_deviceuploadfile
+    <set >
+      <if test="fileDesc != null" >
+        file_desc = #{fileDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceTripleId != null" >
+        device_triple_id = #{deviceTripleId,jdbcType=INTEGER},
+      </if>
+      <if test="localPath != null" >
+        local_path = #{localPath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null" >
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileMd5 != null" >
+        file_md5 = #{fileMd5,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSize != null" >
+        file_size = #{fileSize,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.productservice.entity.mybatis.Deviceuploadfile" >
+    update t_deviceuploadfile
+    set file_desc = #{fileDesc,jdbcType=VARCHAR},
+      device_triple_id = #{deviceTripleId,jdbcType=INTEGER},
+      local_path = #{localPath,jdbcType=VARCHAR},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      file_md5 = #{fileMd5,jdbcType=VARCHAR},
+      file_size = #{fileSize,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      is_del = #{isDel,jdbcType=INTEGER}
+      status = #{status,jdbcType=INTEGER}
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </update>
+  <select id="selectLogFileList" resultType="java.util.Map">
+    select
+    file_name as `fileName`,
+    file_size as `fileSize`,
+    creat_time as `time`
+    <!--local_path as `localPath`-->
+    from t_deviceuploadfile
+    where device_triple_id = #{deviceId}
+    <!--and user_id = #{userId} -->
+    and is_del = 0
+    and status = 1
+    order by creat_time desc
+    limit #{page},#{size}
+  </select>
+  <select id="countByUserIdAndDeviceId" resultType="java.lang.Integer">
+    select
+    count(*)
+    from t_deviceuploadfile
+    where device_triple_id = #{deviceId}
+    and user_id = #{userId}
+    and is_del = 0
+    and status = 1
+  </select>
+
+  <update id="updateByMd5" >
+    update t_deviceuploadfile
+    <if test="successful == true">
+      set status = 1,
+    </if>
+    <if test="successful == false">
+      set status = 2,
+    </if>
+        local_path = #{path}
+    where file_md5 = #{md5}
+    and is_del = 0
+  </update>
+  <select id="getDeviceUploadFileStatus" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_deviceuploadfile
+    where device_triple_id = #{deviceTripleId}
+    and file_name = #{fileName}
+    and is_del = 0
+    and (status = 0 or status = 1)
+  </select>
+
+  <select id="getDeviceTripleIdAndDeviceNameByMd5" resultType="java.util.Map">
+    select device_triple_id as deviceTripleId, file_name as fileName
+    from t_deviceuploadfile
+    where file_md5 = #{md5}
+    and is_del = 0
+  </select>
+
+  <select id="getFilePath" resultType="java.lang.String">
+    select local_path as path
+    from t_deviceuploadfile
+    where device_triple_id = #{deviceTripleId}
+    and file_name = #{fileName}
+    and is_del = 0
+  </select>
+
+
+</mapper>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.mqttdeviceauthenticate.dao.ProducttopicMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.mqttdeviceauthenticate.entity.Producttopic" >
+    <id column="index_id" property="indexId" jdbcType="INTEGER" />
+    <result column="product_key" property="productKey" jdbcType="VARCHAR" />
+    <result column="product_topic" property="productTopic" jdbcType="VARCHAR" />
+    <result column="topic_type" property="topicType" jdbcType="INTEGER" />
+    <result column="is_del" property="isDel" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="modif_time" property="modifTime" jdbcType="TIMESTAMP" />
+    <result column="desc" property="desc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    index_id, product_key, product_topic, topic_type, is_del, user_id, creat_time, modif_time, 
+    `desc`
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_producttopic
+    where index_id = #{indexId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_producttopic
+    where index_id = #{indexId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.mqttdeviceauthenticate.entity.Producttopic" >
+    insert into t_producttopic (index_id, product_key, product_topic, 
+      topic_type, is_del, user_id, 
+      creat_time, modif_time, desc
+      )
+    values (#{indexId,jdbcType=INTEGER}, #{productKey,jdbcType=VARCHAR}, #{productTopic,jdbcType=VARCHAR}, 
+      #{topicType,jdbcType=INTEGER}, #{isDel,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{creatTime,jdbcType=TIMESTAMP}, #{modifTime,jdbcType=TIMESTAMP}, #{desc,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.mqttdeviceauthenticate.entity.Producttopic" >
+    insert into t_producttopic
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="indexId != null" >
+        index_id,
+      </if>
+      <if test="productKey != null" >
+        product_key,
+      </if>
+      <if test="productTopic != null" >
+        product_topic,
+      </if>
+      <if test="topicType != null" >
+        topic_type,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="modifTime != null" >
+        modif_time,
+      </if>
+      <if test="desc != null" >
+        desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="indexId != null" >
+        #{indexId,jdbcType=INTEGER},
+      </if>
+      <if test="productKey != null" >
+        #{productKey,jdbcType=VARCHAR},
+      </if>
+      <if test="productTopic != null" >
+        #{productTopic,jdbcType=VARCHAR},
+      </if>
+      <if test="topicType != null" >
+        #{topicType,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifTime != null" >
+        #{modifTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="desc != null" >
+        #{desc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.mqttdeviceauthenticate.entity.Producttopic" >
+    update t_producttopic
+    <set >
+      <if test="productKey != null" >
+        product_key = #{productKey,jdbcType=VARCHAR},
+      </if>
+      <if test="productTopic != null" >
+        product_topic = #{productTopic,jdbcType=VARCHAR},
+      </if>
+      <if test="topicType != null" >
+        topic_type = #{topicType,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifTime != null" >
+        modif_time = #{modifTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="desc != null" >
+        desc = #{desc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where index_id = #{indexId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.mqttdeviceauthenticate.entity.Producttopic" >
+    update t_producttopic
+    set product_key = #{productKey,jdbcType=VARCHAR},
+      product_topic = #{productTopic,jdbcType=VARCHAR},
+      topic_type = #{topicType,jdbcType=INTEGER},
+      is_del = #{isDel,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      modif_time = #{modifTime,jdbcType=TIMESTAMP},
+      desc = #{desc,jdbcType=VARCHAR}
+    where index_id = #{indexId,jdbcType=INTEGER}
+  </update>
+  <select id="getPermission" resultType="java.lang.Integer" parameterType="java.lang.String" >
+    select topic_type as permission
+    from t_producttopic
+    where product_key = #{productKey}
+    and product_topic = #{topic}
+    and is_del = 0
+  </select>
+
+</mapper>

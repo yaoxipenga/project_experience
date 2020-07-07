@@ -1,0 +1,3 @@
+schedule-statistics:
+  core-thread-size: 6
+  max-thread-size: 100

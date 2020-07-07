@@ -1,0 +1,38 @@
+eureka:
+  client:
+    # 向注册中心注册
+    fetch-registry: true
+    # 服务清单的缓存更新时间，默认30秒一次
+    registry-fetch-interval-seconds: 5
+    service-url:
+      # 这里为test注册中心地址，也是正式部署后的地址
+      defaultZone: http://192.168.81.13:8761/eureka/,http://192.168.81.23:8761/eureka/,http://192.168.81.43:8761/eureka/
+  instance:
+    lease-renewal-interval-in-seconds: 5      # 心跳时间，即服务续约间隔时间（缺省为30s）
+    lease-expiration-duration-in-seconds: 10  # 没有心跳的淘汰时间，10秒，即服务续约到期时间（缺省为90s）
+    prefer-ip-address: true
+    hostname: ${eureka.instance.ip-address}
+    instance-id: ${eureka.instance.ip-address}:${server.port}
+    ip-address: 192.168.81.41
+logging:
+  file: "/home/mect/log/${spring.application.name}/${spring.application.name}.log"
+spring:
+  boot:
+    admin:
+      client:
+        url: "http://192.168.81.41:5000"
+  cloud:
+    config:
+      server:
+        git:
+          uri: http://192.168.3.233/root/applicationconfig.git #配置中心所在仓库的位置
+          #          uri: http://192.168.3.233/nanjing-springcloud/intellicloudconfig.git #配置中心所在仓库的位置
+          search-paths: test #仓库下的子目录
+  #          username: root #gitlab用户名
+  #          passphrase: mect888! #gitlab密码
+
+  #通过/{application}/{profile}/{label}就能访问配置文件
+  #application表示配置文件的名字，对应我们上面的配置文件就是application(配置文件统一前缀)
+  #profile表示环境(配置文件后面的文件名)
+  #label表示分支
+  #举例：启动配置中心后通过访问：http://127.0.0.1:8777/application/20/master即可访问配置文件内容

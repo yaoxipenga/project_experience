@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.cloud.usermanage.mapper.StatisticsScriptMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.cloud.usermanage.entity.StatisticsScript" >
+    <id column="script_name" property="scriptName" jdbcType="VARCHAR" />
+    <result column="database_type" property="databaseType" jdbcType="VARCHAR" />
+    <result column="script_content" property="scriptContent" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="is_enable" property="isEnable" jdbcType="TINYINT" />
+    <result column="is_deleted" property="isDeleted" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    script_name, database_type, script_content, remark, is_enable, is_deleted
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.medcaptain.cloud.usermanage.entity.StatisticsScriptExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_statistics_script
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_statistics_script
+    where script_name = #{scriptName,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_statistics_script
+    where script_name = #{scriptName,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.medcaptain.cloud.usermanage.entity.StatisticsScriptExample" >
+    delete from t_statistics_script
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.cloud.usermanage.entity.StatisticsScript" >
+    insert into t_statistics_script (script_name, database_type, script_content, 
+      remark, is_enable, is_deleted
+      )
+    values (#{scriptName,jdbcType=VARCHAR}, #{databaseType,jdbcType=VARCHAR}, #{scriptContent,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{isEnable,jdbcType=TINYINT}, #{isDeleted,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.cloud.usermanage.entity.StatisticsScript" >
+    insert into t_statistics_script
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="scriptName != null" >
+        script_name,
+      </if>
+      <if test="databaseType != null" >
+        database_type,
+      </if>
+      <if test="scriptContent != null" >
+        script_content,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="isEnable != null" >
+        is_enable,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="scriptName != null" >
+        #{scriptName,jdbcType=VARCHAR},
+      </if>
+      <if test="databaseType != null" >
+        #{databaseType,jdbcType=VARCHAR},
+      </if>
+      <if test="scriptContent != null" >
+        #{scriptContent,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable,jdbcType=TINYINT},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.medcaptain.cloud.usermanage.entity.StatisticsScriptExample" resultType="java.lang.Integer" >
+    select count(*) from t_statistics_script
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_statistics_script
+    <set >
+      <if test="record.scriptName != null" >
+        script_name = #{record.scriptName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.databaseType != null" >
+        database_type = #{record.databaseType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scriptContent != null" >
+        script_content = #{record.scriptContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isEnable != null" >
+        is_enable = #{record.isEnable,jdbcType=TINYINT},
+      </if>
+      <if test="record.isDeleted != null" >
+        is_deleted = #{record.isDeleted,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_statistics_script
+    set script_name = #{record.scriptName,jdbcType=VARCHAR},
+      database_type = #{record.databaseType,jdbcType=VARCHAR},
+      script_content = #{record.scriptContent,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      is_enable = #{record.isEnable,jdbcType=TINYINT},
+      is_deleted = #{record.isDeleted,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.cloud.usermanage.entity.StatisticsScript" >
+    update t_statistics_script
+    <set >
+      <if test="databaseType != null" >
+        database_type = #{databaseType,jdbcType=VARCHAR},
+      </if>
+      <if test="scriptContent != null" >
+        script_content = #{scriptContent,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnable != null" >
+        is_enable = #{isEnable,jdbcType=TINYINT},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=TINYINT},
+      </if>
+    </set>
+    where script_name = #{scriptName,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.cloud.usermanage.entity.StatisticsScript" >
+    update t_statistics_script
+    set database_type = #{databaseType,jdbcType=VARCHAR},
+      script_content = #{scriptContent,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_enable = #{isEnable,jdbcType=TINYINT},
+      is_deleted = #{isDeleted,jdbcType=TINYINT}
+    where script_name = #{scriptName,jdbcType=VARCHAR}
+  </update>
+</mapper>

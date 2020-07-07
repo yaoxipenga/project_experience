@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.cloud.usermanage.mapper.OperateLogMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.cloud.usermanage.entity.OperateLog" >
+    <id column="log_id" property="logId" jdbcType="INTEGER" />
+    <result column="log_time" property="logTime" jdbcType="BIGINT" />
+    <result column="client_ip" property="clientIp" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="log_type" property="logType" jdbcType="VARCHAR" />
+    <result column="log_level" property="logLevel" jdbcType="TINYINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.medcaptain.cloud.usermanage.entity.OperateLog" extends="BaseResultMap" >
+    <result column="log_content" property="logContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    log_id, log_time, client_ip, user_id, log_type, log_level
+  </sql>
+  <sql id="Blob_Column_List" >
+    log_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.medcaptain.cloud.usermanage.entity.OperateLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_operate_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.medcaptain.cloud.usermanage.entity.OperateLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_operate_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_operate_log
+    where log_id = #{logId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_operate_log
+    where log_id = #{logId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.medcaptain.cloud.usermanage.entity.OperateLogExample" >
+    delete from t_operate_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.cloud.usermanage.entity.OperateLog" >
+    insert into t_operate_log (log_id, log_time, client_ip, 
+      user_id, log_type, log_level, 
+      log_content)
+    values (#{logId,jdbcType=INTEGER}, #{logTime,jdbcType=BIGINT}, #{clientIp,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=INTEGER}, #{logType,jdbcType=VARCHAR}, #{logLevel,jdbcType=TINYINT}, 
+      #{logContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.cloud.usermanage.entity.OperateLog" >
+    insert into t_operate_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        log_id,
+      </if>
+      <if test="logTime != null" >
+        log_time,
+      </if>
+      <if test="clientIp != null" >
+        client_ip,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="logType != null" >
+        log_type,
+      </if>
+      <if test="logLevel != null" >
+        log_level,
+      </if>
+      <if test="logContent != null" >
+        log_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        #{logId,jdbcType=INTEGER},
+      </if>
+      <if test="logTime != null" >
+        #{logTime,jdbcType=BIGINT},
+      </if>
+      <if test="clientIp != null" >
+        #{clientIp,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="logType != null" >
+        #{logType,jdbcType=VARCHAR},
+      </if>
+      <if test="logLevel != null" >
+        #{logLevel,jdbcType=TINYINT},
+      </if>
+      <if test="logContent != null" >
+        #{logContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.medcaptain.cloud.usermanage.entity.OperateLogExample" resultType="java.lang.Integer" >
+    select count(*) from t_operate_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_operate_log
+    <set >
+      <if test="record.logId != null" >
+        log_id = #{record.logId,jdbcType=INTEGER},
+      </if>
+      <if test="record.logTime != null" >
+        log_time = #{record.logTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.clientIp != null" >
+        client_ip = #{record.clientIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.logType != null" >
+        log_type = #{record.logType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logLevel != null" >
+        log_level = #{record.logLevel,jdbcType=TINYINT},
+      </if>
+      <if test="record.logContent != null" >
+        log_content = #{record.logContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update t_operate_log
+    set log_id = #{record.logId,jdbcType=INTEGER},
+      log_time = #{record.logTime,jdbcType=BIGINT},
+      client_ip = #{record.clientIp,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      log_type = #{record.logType,jdbcType=VARCHAR},
+      log_level = #{record.logLevel,jdbcType=TINYINT},
+      log_content = #{record.logContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_operate_log
+    set log_id = #{record.logId,jdbcType=INTEGER},
+      log_time = #{record.logTime,jdbcType=BIGINT},
+      client_ip = #{record.clientIp,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      log_type = #{record.logType,jdbcType=VARCHAR},
+      log_level = #{record.logLevel,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.cloud.usermanage.entity.OperateLog" >
+    update t_operate_log
+    <set >
+      <if test="logTime != null" >
+        log_time = #{logTime,jdbcType=BIGINT},
+      </if>
+      <if test="clientIp != null" >
+        client_ip = #{clientIp,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="logType != null" >
+        log_type = #{logType,jdbcType=VARCHAR},
+      </if>
+      <if test="logLevel != null" >
+        log_level = #{logLevel,jdbcType=TINYINT},
+      </if>
+      <if test="logContent != null" >
+        log_content = #{logContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where log_id = #{logId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.medcaptain.cloud.usermanage.entity.OperateLog" >
+    update t_operate_log
+    set log_time = #{logTime,jdbcType=BIGINT},
+      client_ip = #{clientIp,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      log_type = #{logType,jdbcType=VARCHAR},
+      log_level = #{logLevel,jdbcType=TINYINT},
+      log_content = #{logContent,jdbcType=LONGVARCHAR}
+    where log_id = #{logId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.cloud.usermanage.entity.OperateLog" >
+    update t_operate_log
+    set log_time = #{logTime,jdbcType=BIGINT},
+      client_ip = #{clientIp,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      log_type = #{logType,jdbcType=VARCHAR},
+      log_level = #{logLevel,jdbcType=TINYINT}
+    where log_id = #{logId,jdbcType=INTEGER}
+  </update>
+</mapper>

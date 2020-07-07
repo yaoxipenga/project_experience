@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.productservice.dao.mybatis.RoleprodpermMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.productservice.entity.mybatis.Roleprodperm" >
+    <id column="roleprodperm_id" property="roleprodpermId" jdbcType="INTEGER" />
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="product_key" property="productKey" jdbcType="VARCHAR" />
+    <result column="desc" property="desc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    roleprodperm_id, role_id, product_key, desc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_roleprodperm
+    where roleprodperm_id = #{roleprodpermId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_roleprodperm
+    where roleprodperm_id = #{roleprodpermId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.productservice.entity.mybatis.Roleprodperm" >
+    insert into t_roleprodperm (roleprodperm_id, role_id, product_key, 
+      desc)
+    values (#{roleprodpermId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{productKey,jdbcType=VARCHAR}, 
+      #{desc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.productservice.entity.mybatis.Roleprodperm" >
+    insert into t_roleprodperm
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleprodpermId != null" >
+        roleprodperm_id,
+      </if>
+      <if test="roleId != null" >
+        role_id,
+      </if>
+      <if test="productKey != null" >
+        product_key,
+      </if>
+      <if test="desc != null" >
+        desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleprodpermId != null" >
+        #{roleprodpermId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="productKey != null" >
+        #{productKey,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null" >
+        #{desc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.productservice.entity.mybatis.Roleprodperm" >
+    update t_roleprodperm
+    <set >
+      <if test="roleId != null" >
+        role_id = #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="productKey != null" >
+        product_key = #{productKey,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null" >
+        desc = #{desc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where roleprodperm_id = #{roleprodpermId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.productservice.entity.mybatis.Roleprodperm" >
+    update t_roleprodperm
+    set role_id = #{roleId,jdbcType=INTEGER},
+      product_key = #{productKey,jdbcType=VARCHAR},
+      desc = #{desc,jdbcType=VARCHAR}
+    where roleprodperm_id = #{roleprodpermId,jdbcType=INTEGER}
+  </update>
+</mapper>

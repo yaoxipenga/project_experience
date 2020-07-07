@@ -1,0 +1,48 @@
+eureka:
+  client:
+    # 向注册中心注册
+    fetch-registry: true
+    # 服务清单的缓存更新时间，默认30秒一次
+    registry-fetch-interval-seconds: 5
+    service-url:
+      defaultZone: http://192.168.81.13:8761/eureka/
+  instance:
+    lease-renewal-interval-in-seconds: 5      # 心跳时间，即服务续约间隔时间（缺省为30s）
+    lease-expiration-duration-in-seconds: 10  # 没有心跳的淘汰时间，10秒，即服务续约到期时间（缺省为90s）
+    prefer-ip-address: true
+    hostname: ${eureka.instance.ip-address}
+    instance-id: ${eureka.instance.ip-address}:${server.port}
+    ip-address: 192.168.81.222
+logging:
+  file: "/home/mect/log/${spring.application.name}/${spring.application.name}.log"
+spring:
+  boot:
+    admin:
+      client:
+        url: "http://192.168.81.31:5000"
+#  redis:
+#    host: 192.168.81.31
+#    database: 0
+#    port: 6379
+#    timeout: 3000ms
+
+  redis:
+    cluster:
+      nodes: 192.168.81.12:6379,192.168.81.12:6380,192.168.81.12:6381,192.168.81.22:6379,192.168.81.22:6380,192.168.81.22:6381,192.168.81.46:6379,192.168.81.46:6380,192.168.81.46:6381
+      pool:
+        max-active: 10
+        max-wait: 2000
+        max-idle: 10
+        min-idle: 5
+      timeout: 3000ms
+
+# websocket集群需要配置RabbitMQ
+  rabbitmq:
+    host: 192.168.81.31
+    virtual-host: /icc-local
+    username: icc-dev
+    password: icc-dev
+  mail:
+    host: smtp.163.com
+    username: medcaptaintest@163.com
+    password: medcaptain1

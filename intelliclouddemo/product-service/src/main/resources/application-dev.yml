@@ -1,0 +1,66 @@
+eureka:
+  client:
+    # 向注册中心注册
+    fetch-registry: true
+    # 服务清单的缓存更新时间，默认30秒一次
+    registry-fetch-interval-seconds: 5
+    service-url:
+      defaultZone: http://192.168.81.31:8761/eureka/
+  instance:
+    lease-renewal-interval-in-seconds: 5      # 心跳时间，即服务续约间隔时间（缺省为30s）
+    lease-expiration-duration-in-seconds: 10  # 没有心跳的淘汰时间，10秒，即服务续约到期时间（缺省为90s）
+    prefer-ip-address: true
+    hostname: ${eureka.instance.ip-address}
+    instance-id: ${eureka.instance.ip-address}:${server.port}
+    ip-address: 127.0.0.1
+
+logging:
+  file: "/home/mect/log/${spring.application.name}/${spring.application.name}.log"
+  level:
+    com:
+      medcaptain:
+        productservice:
+          dao: debug
+    org:
+      springframework:
+        data:
+          mongodb:
+            core: debug
+
+spring:
+  boot:
+    admin:
+      client:
+        url: "http://192.168.81.31:5000"
+  redis:
+    host: 192.168.81.31
+    database: 0
+    port: 6379
+    timeout: 3000ms
+  data:
+    mongodb:
+      host: 192.168.81.245
+      port: 27017
+      repositories:
+        type: auto
+      uri: mongodb://192.168.81.245:27017/test
+      database: test
+
+#Druid数据库连接池配置
+Druid:
+  jdbcDriver: com.mysql.jdbc.Driver
+  dbURL: jdbc:mysql://192.168.81.31:3306/cloud_device?useSSL=false&serverTimezone=UTC&&characterEncoding=UTF-8&&useUnicode=true&amp
+  DBUserName: root
+  DBPassword: MECT888!
+  Filter: stat
+  MaxActive: 150
+  MaxWait: 30000
+  MinIdle: 5
+  TimeBetweenEvictionRunsMillis: 60000
+  MinEvictableIdleTimeMillis: 30000
+  TestWhileIdle: true
+  ValidationQuery: select 'x' from dual
+  TestOnBorrow: true
+  TestOnReturn: false
+  PoolPreparedStatements: false
+  MaxOpenPreparedStatements: -1

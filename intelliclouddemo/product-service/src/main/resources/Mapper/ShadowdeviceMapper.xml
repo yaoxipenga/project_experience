@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.productservice.dao.mybatis.ShadowdeviceMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.productservice.entity.mybatis.Shadowdevice" >
+    <id column="device_triple_id" property="deviceTripleId" jdbcType="INTEGER" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.medcaptain.productservice.entity.mybatis.Shadowdevice" extends="BaseResultMap" >
+    <result column="cmds_json" property="cmdsJson" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    device_triple_id, creat_time, user_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    cmds_json
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_shadowdevice
+    where device_triple_id = #{deviceTripleId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_shadowdevice
+    where device_triple_id = #{deviceTripleId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.productservice.entity.mybatis.Shadowdevice" >
+    insert into t_shadowdevice (device_triple_id, creat_time, user_id, 
+      cmds_json)
+    values (#{deviceTripleId,jdbcType=INTEGER}, #{creatTime,jdbcType=TIMESTAMP}, #{userId,jdbcType=INTEGER}, 
+      #{cmdsJson,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.productservice.entity.mybatis.Shadowdevice" >
+    insert into t_shadowdevice
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="deviceTripleId != null" >
+        device_triple_id,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="cmdsJson != null" >
+        cmds_json,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="deviceTripleId != null" >
+        #{deviceTripleId,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="cmdsJson != null" >
+        #{cmdsJson,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.productservice.entity.mybatis.Shadowdevice" >
+    update t_shadowdevice
+    <set >
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="cmdsJson != null" >
+        cmds_json = #{cmdsJson,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where device_triple_id = #{deviceTripleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.medcaptain.productservice.entity.mybatis.Shadowdevice" >
+    update t_shadowdevice
+    set creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=INTEGER},
+      cmds_json = #{cmdsJson,jdbcType=LONGVARCHAR}
+    where device_triple_id = #{deviceTripleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.productservice.entity.mybatis.Shadowdevice" >
+    update t_shadowdevice
+    set creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=INTEGER}
+    where device_triple_id = #{deviceTripleId,jdbcType=INTEGER}
+  </update>
+</mapper>

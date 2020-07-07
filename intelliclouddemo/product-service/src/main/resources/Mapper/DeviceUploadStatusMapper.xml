@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.productservice.dao.mybatis.DeviceUploadStatusMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.productservice.entity.mybatis.DeviceUploadStatus" >
+    <id column="device_upload_status_id" property="deviceUploadStatusId" jdbcType="INTEGER" />
+    <result column="device_triple_id" property="deviceTripleId" jdbcType="INTEGER" />
+    <result column="file_name" property="fileName" jdbcType="VARCHAR" />
+    <result column="upload_status" property="uploadStatus" jdbcType="VARCHAR" />
+    <result column="upload_prog" property="uploadProg" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="creattime" property="creattime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    device_upload_status_id, device_triple_id, file_name, upload_status, upload_prog, 
+    user_id, creattime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_deviceuploadstatus
+    where device_upload_status_id = #{deviceUploadStatusId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_deviceuploadstatus
+    where device_upload_status_id = #{deviceUploadStatusId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.productservice.entity.mybatis.DeviceUploadStatus" >
+    insert into t_deviceuploadstatus (device_upload_status_id, device_triple_id, 
+      file_name, upload_status, upload_prog, 
+      user_id, creattime)
+    values (#{deviceUploadStatusId,jdbcType=INTEGER}, #{deviceTripleId,jdbcType=INTEGER}, 
+      #{fileName,jdbcType=VARCHAR}, #{uploadStatus,jdbcType=VARCHAR}, #{uploadProg,jdbcType=INTEGER}, 
+      #{userId,jdbcType=INTEGER}, #{creattime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.productservice.entity.mybatis.DeviceUploadStatus" >
+    insert into t_deviceuploadstatus
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="deviceUploadStatusId != null" >
+        device_upload_status_id,
+      </if>
+      <if test="deviceTripleId != null" >
+        device_triple_id,
+      </if>
+      <if test="fileName != null" >
+        file_name,
+      </if>
+      <if test="uploadStatus != null" >
+        upload_status,
+      </if>
+      <if test="uploadProg != null" >
+        upload_prog,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="creattime != null" >
+        creattime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="deviceUploadStatusId != null" >
+        #{deviceUploadStatusId,jdbcType=INTEGER},
+      </if>
+      <if test="deviceTripleId != null" >
+        #{deviceTripleId,jdbcType=INTEGER},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadStatus != null" >
+        #{uploadStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadProg != null" >
+        #{uploadProg,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="creattime != null" >
+        #{creattime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.productservice.entity.mybatis.DeviceUploadStatus" >
+    update t_deviceuploadstatus
+    <set >
+      <if test="deviceTripleId != null" >
+        device_triple_id = #{deviceTripleId,jdbcType=INTEGER},
+      </if>
+      <if test="fileName != null" >
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadStatus != null" >
+        upload_status = #{uploadStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadProg != null" >
+        upload_prog = #{uploadProg,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="creattime != null" >
+        creattime = #{creattime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where device_upload_status_id = #{deviceUploadStatusId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.productservice.entity.mybatis.DeviceUploadStatus" >
+    update t_deviceuploadstatus
+    set device_triple_id = #{deviceTripleId,jdbcType=INTEGER},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      upload_status = #{uploadStatus,jdbcType=VARCHAR},
+      upload_prog = #{uploadProg,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      creattime = #{creattime,jdbcType=TIMESTAMP}
+    where device_upload_status_id = #{deviceUploadStatusId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByDeviceTripleIdAndFilaName" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from t_deviceuploadstatus
+    where device_triple_id = #{deviceTripleId}
+    and file_name = #{fimeName}
+  </select>
+</mapper>

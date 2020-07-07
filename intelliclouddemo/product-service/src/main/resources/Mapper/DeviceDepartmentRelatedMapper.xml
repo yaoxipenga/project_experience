@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.productservice.dao.mybatis.DeviceDepartmentRelatedMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.productservice.entity.mybatis.DeviceDepartmentRelated" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="device_triple_id" property="deviceTripleId" jdbcType="INTEGER" />
+    <id column="department_id" property="departmentId" jdbcType="INTEGER" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, device_triple_id, department_id, gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.medcaptain.productservice.entity.mybatis.DeviceDepartmentRelatedKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_device_department_related
+    where id = #{id,jdbcType=INTEGER}
+      and device_triple_id = #{deviceTripleId,jdbcType=INTEGER}
+      and department_id = #{departmentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.medcaptain.productservice.entity.mybatis.DeviceDepartmentRelatedKey" >
+    delete from t_device_department_related
+    where id = #{id,jdbcType=INTEGER}
+      and device_triple_id = #{deviceTripleId,jdbcType=INTEGER}
+      and department_id = #{departmentId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.productservice.entity.mybatis.DeviceDepartmentRelated" >
+    insert into t_device_department_related (id, device_triple_id, department_id, 
+      gmt_modified)
+    values (#{id,jdbcType=INTEGER}, #{deviceTripleId,jdbcType=INTEGER}, #{departmentId,jdbcType=INTEGER}, 
+      #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.productservice.entity.mybatis.DeviceDepartmentRelated" >
+    insert into t_device_department_related
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="deviceTripleId != null" >
+        device_triple_id,
+      </if>
+      <if test="departmentId != null" >
+        department_id,
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="deviceTripleId != null" >
+        #{deviceTripleId,jdbcType=INTEGER},
+      </if>
+      <if test="departmentId != null" >
+        #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="gmtModified != null" >
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.productservice.entity.mybatis.DeviceDepartmentRelated" >
+    update t_device_department_related
+    <set >
+      <if test="gmtModified != null" >
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+      and device_triple_id = #{deviceTripleId,jdbcType=INTEGER}
+      and department_id = #{departmentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.productservice.entity.mybatis.DeviceDepartmentRelated" >
+    update t_device_department_related
+    set gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+      and device_triple_id = #{deviceTripleId,jdbcType=INTEGER}
+      and department_id = #{departmentId,jdbcType=INTEGER}
+  </update>
+  <delete id="deleteBydepartmentId">
+    delete from t_device_department_related
+    where department_id = #{departmentId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteBydeviceTripleId">
+    delete from t_device_department_related
+    where device_triple_id = #{deviceTripleId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByDeviceTripleIdAndDepartmentId" >
+    delete from t_device_department_related
+    where device_triple_id = #{deviceTripleId,jdbcType=INTEGER}
+      and department_id = #{departmentId,jdbcType=INTEGER}
+  </delete>
+  <select id="selectByDeviceTripleIdAndDepartmentId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_device_department_related
+    where device_triple_id = #{deviceTripleId,jdbcType=INTEGER}
+    and department_id = #{departmentId,jdbcType=INTEGER}
+  </select>
+</mapper>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.parsedata.mapper.RunningstatusMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.parsedata.entity.mysql.Runningstatus" >
+    <id column="index_id" property="indexId" jdbcType="INTEGER" />
+    <result column="device_triple_id" property="deviceTripleId" jdbcType="INTEGER" />
+    <result column="device_status" property="deviceStatus" jdbcType="INTEGER" />
+    <result column="firmware_version" property="firmwareVersion" jdbcType="VARCHAR" />
+    <result column="last_online_time" property="lastOnlineTime" jdbcType="TIMESTAMP" />
+    <result column="device_ip" property="deviceIp" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    index_id, device_triple_id, device_status, firmware_version, last_online_time, device_ip
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_runningstatus
+    where index_id = #{indexId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_runningstatus
+    where index_id = #{indexId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.parsedata.entity.mysql.Runningstatus" >
+    insert into t_runningstatus (index_id, device_triple_id, device_status, 
+      firmware_version, last_online_time, device_ip
+      )
+    values (#{indexId,jdbcType=INTEGER}, #{deviceTripleId,jdbcType=INTEGER}, #{deviceStatus,jdbcType=INTEGER}, 
+      #{firmwareVersion,jdbcType=VARCHAR}, #{lastOnlineTime,jdbcType=TIMESTAMP}, #{deviceIp,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.parsedata.entity.mysql.Runningstatus" >
+    insert into t_runningstatus
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="indexId != null" >
+        index_id,
+      </if>
+      <if test="deviceTripleId != null" >
+        device_triple_id,
+      </if>
+      <if test="deviceStatus != null" >
+        device_status,
+      </if>
+      <if test="firmwareVersion != null" >
+        firmware_version,
+      </if>
+      <if test="lastOnlineTime != null" >
+        last_online_time,
+      </if>
+      <if test="deviceIp != null" >
+        device_ip,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="indexId != null" >
+        #{indexId,jdbcType=INTEGER},
+      </if>
+      <if test="deviceTripleId != null" >
+        #{deviceTripleId,jdbcType=INTEGER},
+      </if>
+      <if test="deviceStatus != null" >
+        #{deviceStatus,jdbcType=INTEGER},
+      </if>
+      <if test="firmwareVersion != null" >
+        #{firmwareVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="lastOnlineTime != null" >
+        #{lastOnlineTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deviceIp != null" >
+        #{deviceIp,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.parsedata.entity.mysql.Runningstatus" >
+    update t_runningstatus
+    <set >
+      <if test="deviceTripleId != null" >
+        device_triple_id = #{deviceTripleId,jdbcType=INTEGER},
+      </if>
+      <if test="deviceStatus != null" >
+        device_status = #{deviceStatus,jdbcType=INTEGER},
+      </if>
+      <if test="firmwareVersion != null" >
+        firmware_version = #{firmwareVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="lastOnlineTime != null" >
+        last_online_time = #{lastOnlineTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deviceIp != null" >
+        device_ip = #{deviceIp,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where index_id = #{indexId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.parsedata.entity.mysql.Runningstatus" >
+    update t_runningstatus
+    set device_triple_id = #{deviceTripleId,jdbcType=INTEGER},
+      device_status = #{deviceStatus,jdbcType=INTEGER},
+      firmware_version = #{firmwareVersion,jdbcType=VARCHAR},
+      last_online_time = #{lastOnlineTime,jdbcType=TIMESTAMP},
+      device_ip = #{deviceIp,jdbcType=VARCHAR}
+    where index_id = #{indexId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByDeviceTripleId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_runningstatus
+    where device_triple_id = #{DeviceTripleId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectOneByDeviceTripleId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_runningstatus
+    where device_triple_id = #{DeviceTripleId,jdbcType=VARCHAR}
+    order by last_online_time desc
+    limit 0,1
+  </select>
+</mapper>

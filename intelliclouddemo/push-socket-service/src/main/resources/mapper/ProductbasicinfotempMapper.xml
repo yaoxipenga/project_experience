@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.pushsocketservice.dao.ProductbasicinfotempMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.pushsocketservice.entity.Productbasicinfotemp" >
+    <id column="templet_id" property="templetId" jdbcType="INTEGER" />
+    <result column="templet_name" property="templetName" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="prod_cate" property="prodCate" jdbcType="INTEGER" />
+    <result column="templet_desc" property="templetDesc" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    templet_id, templet_name, user_id, prod_cate, templet_desc, remark, creat_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_productbasicinfotemp
+    where templet_id = #{templetId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_productbasicinfotemp
+    where templet_id = #{templetId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.pushsocketservice.entity.Productbasicinfotemp" >
+    insert into t_productbasicinfotemp (templet_id, templet_name, user_id, 
+      prod_cate, templet_desc, remark, 
+      creat_time)
+    values (#{templetId,jdbcType=INTEGER}, #{templetName,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{prodCate,jdbcType=INTEGER}, #{templetDesc,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{creatTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.pushsocketservice.entity.Productbasicinfotemp" >
+    insert into t_productbasicinfotemp
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="templetId != null" >
+        templet_id,
+      </if>
+      <if test="templetName != null" >
+        templet_name,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="prodCate != null" >
+        prod_cate,
+      </if>
+      <if test="templetDesc != null" >
+        templet_desc,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="templetId != null" >
+        #{templetId,jdbcType=INTEGER},
+      </if>
+      <if test="templetName != null" >
+        #{templetName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="prodCate != null" >
+        #{prodCate,jdbcType=INTEGER},
+      </if>
+      <if test="templetDesc != null" >
+        #{templetDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.pushsocketservice.entity.Productbasicinfotemp" >
+    update t_productbasicinfotemp
+    <set >
+      <if test="templetName != null" >
+        templet_name = #{templetName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="prodCate != null" >
+        prod_cate = #{prodCate,jdbcType=INTEGER},
+      </if>
+      <if test="templetDesc != null" >
+        templet_desc = #{templetDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where templet_id = #{templetId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.pushsocketservice.entity.Productbasicinfotemp" >
+    update t_productbasicinfotemp
+    set templet_name = #{templetName,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      prod_cate = #{prodCate,jdbcType=INTEGER},
+      templet_desc = #{templetDesc,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP}
+    where templet_id = #{templetId,jdbcType=INTEGER}
+  </update>
+</mapper>

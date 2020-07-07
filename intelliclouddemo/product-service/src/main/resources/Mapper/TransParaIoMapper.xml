@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.productservice.dao.mybatis.TransParaIoMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.productservice.entity.mybatis.TransParaIo" >
+    <id column="product_key" property="productKey" jdbcType="VARCHAR" />
+    <id column="product_trans_identi" property="productTransIdenti" jdbcType="VARCHAR" />
+    <id column="io_type" property="ioType" jdbcType="INTEGER" />
+    <id column="para_identifier" property="paraIdentifier" jdbcType="VARCHAR" />
+    <id column="templet_id" property="templetId" jdbcType="INTEGER" />
+    <result column="data_type_id" property="dataTypeId" jdbcType="INTEGER" />
+    <result column="table_id" property="tableId" jdbcType="INTEGER" />
+    <result column="para_name" property="paraName" jdbcType="VARCHAR" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="para_desc" property="paraDesc" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="is_del" property="isDel" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    product_key, product_trans_identi, io_type, para_identifier, templet_id, data_type_id, 
+    table_id, para_name, creat_time, para_desc, remark, is_del
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.medcaptain.productservice.entity.mybatis.TransParaIoKey" >
+    select
+    <include refid="Base_Column_List" />
+    from t_trans_para_io
+    where product_key = #{productKey,jdbcType=VARCHAR}
+      and product_trans_identi = #{productTransIdenti,jdbcType=VARCHAR}
+      and io_type = #{ioType,jdbcType=INTEGER}
+      and para_identifier = #{paraIdentifier,jdbcType=VARCHAR}
+      and templet_id = #{templetId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.medcaptain.productservice.entity.mybatis.TransParaIoKey" >
+    delete from t_trans_para_io
+    where product_key = #{productKey,jdbcType=VARCHAR}
+      and product_trans_identi = #{productTransIdenti,jdbcType=VARCHAR}
+      and io_type = #{ioType,jdbcType=INTEGER}
+      and para_identifier = #{paraIdentifier,jdbcType=VARCHAR}
+      and templet_id = #{templetId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.productservice.entity.mybatis.TransParaIo" >
+    insert into t_trans_para_io (product_key, product_trans_identi, io_type, 
+      para_identifier, templet_id, data_type_id, 
+      table_id, para_name, creat_time, 
+      para_desc, remark, is_del
+      )
+    values (#{productKey,jdbcType=VARCHAR}, #{productTransIdenti,jdbcType=VARCHAR}, #{ioType,jdbcType=INTEGER}, 
+      #{paraIdentifier,jdbcType=VARCHAR}, #{templetId,jdbcType=INTEGER}, #{dataTypeId,jdbcType=INTEGER}, 
+      #{tableId,jdbcType=INTEGER}, #{paraName,jdbcType=VARCHAR}, #{creatTime,jdbcType=TIMESTAMP}, 
+      #{paraDesc,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{isDel,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.productservice.entity.mybatis.TransParaIo" >
+    insert into t_trans_para_io
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productKey != null" >
+        product_key,
+      </if>
+      <if test="productTransIdenti != null" >
+        product_trans_identi,
+      </if>
+      <if test="ioType != null" >
+        io_type,
+      </if>
+      <if test="paraIdentifier != null" >
+        para_identifier,
+      </if>
+      <if test="templetId != null" >
+        templet_id,
+      </if>
+      <if test="dataTypeId != null" >
+        data_type_id,
+      </if>
+      <if test="tableId != null" >
+        table_id,
+      </if>
+      <if test="paraName != null" >
+        para_name,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="paraDesc != null" >
+        para_desc,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productKey != null" >
+        #{productKey,jdbcType=VARCHAR},
+      </if>
+      <if test="productTransIdenti != null" >
+        #{productTransIdenti,jdbcType=VARCHAR},
+      </if>
+      <if test="ioType != null" >
+        #{ioType,jdbcType=INTEGER},
+      </if>
+      <if test="paraIdentifier != null" >
+        #{paraIdentifier,jdbcType=VARCHAR},
+      </if>
+      <if test="templetId != null" >
+        #{templetId,jdbcType=INTEGER},
+      </if>
+      <if test="dataTypeId != null" >
+        #{dataTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="tableId != null" >
+        #{tableId,jdbcType=INTEGER},
+      </if>
+      <if test="paraName != null" >
+        #{paraName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paraDesc != null" >
+        #{paraDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.productservice.entity.mybatis.TransParaIo" >
+    update t_trans_para_io
+    <set >
+      <if test="dataTypeId != null" >
+        data_type_id = #{dataTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="tableId != null" >
+        table_id = #{tableId,jdbcType=INTEGER},
+      </if>
+      <if test="paraName != null" >
+        para_name = #{paraName,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paraDesc != null" >
+        para_desc = #{paraDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where product_key = #{productKey,jdbcType=VARCHAR}
+      and product_trans_identi = #{productTransIdenti,jdbcType=VARCHAR}
+      and io_type = #{ioType,jdbcType=INTEGER}
+      and para_identifier = #{paraIdentifier,jdbcType=VARCHAR}
+      and templet_id = #{templetId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.productservice.entity.mybatis.TransParaIo" >
+    update t_trans_para_io
+    set data_type_id = #{dataTypeId,jdbcType=INTEGER},
+      table_id = #{tableId,jdbcType=INTEGER},
+      para_name = #{paraName,jdbcType=VARCHAR},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      para_desc = #{paraDesc,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER}
+    where product_key = #{productKey,jdbcType=VARCHAR}
+      and product_trans_identi = #{productTransIdenti,jdbcType=VARCHAR}
+      and io_type = #{ioType,jdbcType=INTEGER}
+      and para_identifier = #{paraIdentifier,jdbcType=VARCHAR}
+      and templet_id = #{templetId,jdbcType=INTEGER}
+  </update>
+
+  <select id="getParameterType" resultType="java.lang.String" parameterType="java.lang.String" >
+    select table_name
+    from t_trans_para_io, t_tablelist
+    where t_trans_para_io.product_trans_identi = #{transactionIdentity}
+    and t_trans_para_io.product_key = #{productKey}
+    and t_tablelist.table_id = t_trans_para_io.table_id
+  </select>
+
+  <select id="getParamDetails" resultType="java.util.Map" parameterType="java.util.Map">
+    select *
+    from ${tableName}
+    where index_id = #{dataTypeId}
+  </select>
+
+  <insert id="addProperty" parameterType="java.util.Map" >
+    replace into t_trans_para_io (is_struct, is_array, is_del, product_key, product_trans_identi, table_id, templet_id, para_identifier, io_type, product_trans_id
+    <if test="dataTable != t_enum_data">
+      , data_type_id
+    </if>
+    <if test="parameterIdentifier != null">
+      , para_name
+    </if>
+    ) values (#{isStruct}, #{isArray}, 0, #{productKey}, #{identifier}, (select table_id from t_tablelist where table_name = #{dataTable}), #{templateId}, #{parameterIdentifier}, #{ioType}, #{propertyId}
+    <if test="dataTable != t_enum_data">
+      , #{dataTypeId}
+    </if>
+    <if test="parameterIdentifier != null">
+      , #{parameterName}
+    </if>
+    )
+  </insert>
+
+  <select id="getTransactionDetails" resultType="java.util.Map" parameterType="java.lang.String">
+    select t_producttransrelat.product_trans_name as productTransactionName, t_producttransrelat.product_trans_identi as productTransactionIdentifier,
+     t_trans_type.product_trans_type_desc as productTransactionTypeDescribe, t_producttransrelat.rw_status as rwStatus, t_producttransrelat.remark,
+     t_trans_para_io.table_id as tableId, t_trans_para_io.data_type_id as DataTypeId, t_producttransrelat.product_trans_id as productTransactionId,
+     t_trans_para_io.para_name as parameterName, t_trans_para_io.para_identifier as parameterIdentifier
+    from t_producttransrelat, t_trans_type, t_trans_para_io
+    where t_producttransrelat.product_key = #{productKey}
+    and t_producttransrelat.product_trans_identi = #{productTransactionIdentifier}
+    and t_trans_para_io.product_key = #{productKey}
+    and t_trans_para_io.product_trans_identi = #{productTransactionIdentifier}
+    and t_trans_para_io.is_del = 0
+    and t_producttransrelat.is_del = 0
+    and t_trans_type.product_trans_type = t_producttransrelat.product_trans_type
+  </select>
+
+  <select id="getTransactionData" resultType="java.util.Map" parameterType="java.util.Map">
+    select *
+    from ${tableName}
+    <if test="tableName != t_enum_data">
+      where index_id = #{indexId}
+    </if>
+    <if test="tableName == t_enum_data">
+      where product_key = #{productKey}
+      and product_trans_identi = #{productTransactionIdentifier}
+    </if>
+  </select>
+
+  <update id="deleteParameter" parameterType="java.lang.Integer" >
+    update t_trans_para_io
+    set is_del = 1
+    where product_trans_id = #{transactionId}
+  </update>
+
+    <select id="getTransactionParameter" resultType="java.util.Map" parameterType="java.lang.String" >
+    select io_type as ioType, data_type_id as dataTypeId, table_id as tableId, para_name as parameterName, para_identifier as parameterIdentifier, para_desc as parameterDescribe, templet_id as templateId, is_struct as isStruct, is_array as isArray
+    from t_trans_para_io
+    where product_key = 'template'
+    and product_trans_identi = #{identifier}
+    and is_del = 0
+  </select>
+
+  <update id="deleteByProductKey" parameterType="java.lang.String" >
+    update t_trans_para_io
+    set is_del = 1
+    where product_key = #{productKey}
+  </update>
+
+</mapper>

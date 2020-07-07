@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.productservice.dao.mybatis.DeviceEventLogMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.productservice.entity.mybatis.DeviceEventLog" >
+    <id column="device_log_id" property="deviceLogId" jdbcType="INTEGER" />
+    <result column="product_key" property="productKey" jdbcType="VARCHAR" />
+    <result column="device_name" property="deviceName" jdbcType="VARCHAR" />
+    <result column="device_triple_id" property="deviceTripleId" jdbcType="INTEGER" />
+    <result column="device_ip" property="deviceIp" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="topic" property="topic" jdbcType="VARCHAR" />
+    <result column="log_desc" property="logDesc" jdbcType="VARCHAR" />
+    <result column="check_result" property="checkResult" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.medcaptain.productservice.entity.mybatis.DeviceEventLog" extends="BaseResultMap" >
+    <result column="log_content" property="logContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    device_log_id, product_key, device_name, device_triple_id, device_ip, create_time, 
+    topic, log_desc, check_result
+  </sql>
+  <sql id="Blob_Column_List" >
+    log_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_deviceeventlog
+    where device_log_id = #{deviceLogId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_deviceeventlog
+    where device_log_id = #{deviceLogId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.productservice.entity.mybatis.DeviceEventLog" >
+    insert into t_deviceeventlog (device_log_id, product_key, device_name, 
+      device_triple_id, device_ip, create_time, 
+      topic, log_desc, check_result, 
+      log_content)
+    values (#{deviceLogId,jdbcType=INTEGER}, #{productKey,jdbcType=VARCHAR}, #{deviceName,jdbcType=VARCHAR}, 
+      #{deviceTripleId,jdbcType=INTEGER}, #{deviceIp,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{topic,jdbcType=VARCHAR}, #{logDesc,jdbcType=VARCHAR}, #{checkResult,jdbcType=INTEGER}, 
+      #{logContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.productservice.entity.mybatis.DeviceEventLog" >
+    insert into t_deviceeventlog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="deviceLogId != null" >
+        device_log_id,
+      </if>
+      <if test="productKey != null" >
+        product_key,
+      </if>
+      <if test="deviceName != null" >
+        device_name,
+      </if>
+      <if test="deviceTripleId != null" >
+        device_triple_id,
+      </if>
+      <if test="deviceIp != null" >
+        device_ip,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="topic != null" >
+        topic,
+      </if>
+      <if test="logDesc != null" >
+        log_desc,
+      </if>
+      <if test="checkResult != null" >
+        check_result,
+      </if>
+      <if test="logContent != null" >
+        log_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="deviceLogId != null" >
+        #{deviceLogId,jdbcType=INTEGER},
+      </if>
+      <if test="productKey != null" >
+        #{productKey,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceName != null" >
+        #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceTripleId != null" >
+        #{deviceTripleId,jdbcType=INTEGER},
+      </if>
+      <if test="deviceIp != null" >
+        #{deviceIp,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="topic != null" >
+        #{topic,jdbcType=VARCHAR},
+      </if>
+      <if test="logDesc != null" >
+        #{logDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="checkResult != null" >
+        #{checkResult,jdbcType=INTEGER},
+      </if>
+      <if test="logContent != null" >
+        #{logContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.productservice.entity.mybatis.DeviceEventLog" >
+    update t_deviceeventlog
+    <set >
+      <if test="productKey != null" >
+        product_key = #{productKey,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceName != null" >
+        device_name = #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceTripleId != null" >
+        device_triple_id = #{deviceTripleId,jdbcType=INTEGER},
+      </if>
+      <if test="deviceIp != null" >
+        device_ip = #{deviceIp,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="topic != null" >
+        topic = #{topic,jdbcType=VARCHAR},
+      </if>
+      <if test="logDesc != null" >
+        log_desc = #{logDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="checkResult != null" >
+        check_result = #{checkResult,jdbcType=INTEGER},
+      </if>
+      <if test="logContent != null" >
+        log_content = #{logContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where device_log_id = #{deviceLogId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.medcaptain.productservice.entity.mybatis.DeviceEventLog" >
+    update t_deviceeventlog
+    set product_key = #{productKey,jdbcType=VARCHAR},
+      device_name = #{deviceName,jdbcType=VARCHAR},
+      device_triple_id = #{deviceTripleId,jdbcType=INTEGER},
+      device_ip = #{deviceIp,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      topic = #{topic,jdbcType=VARCHAR},
+      log_desc = #{logDesc,jdbcType=VARCHAR},
+      check_result = #{checkResult,jdbcType=INTEGER},
+      log_content = #{logContent,jdbcType=LONGVARCHAR}
+    where device_log_id = #{deviceLogId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.productservice.entity.mybatis.DeviceEventLog" >
+    update t_deviceeventlog
+    set product_key = #{productKey,jdbcType=VARCHAR},
+      device_name = #{deviceName,jdbcType=VARCHAR},
+      device_triple_id = #{deviceTripleId,jdbcType=INTEGER},
+      device_ip = #{deviceIp,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      topic = #{topic,jdbcType=VARCHAR},
+      log_desc = #{logDesc,jdbcType=VARCHAR},
+      check_result = #{checkResult,jdbcType=INTEGER}
+    where device_log_id = #{deviceLogId,jdbcType=INTEGER}
+  </update>
+
+  <select id="getDeviceEventLog" resultType="java.util.Map" parameterType="java.util.Map" >
+    select log_content as logContent, device_log_id as deviceLogId, create_time as createTime
+    from t_deviceeventlog
+    where product_key = #{productKey} and device_name = #{deviceName}
+    <if test="startTime != ''" >
+      , and create_time &gt;= #{startTime}
+    </if>
+    <if test="endTime != ''" >
+      , and create_time &lt;= #{endTime}
+    </if>
+    order by createTime desc
+    limit #{start}, #{end}
+  </select>
+
+  <update id="checkData" parameterType="java.lang.Integer" >
+    update t_deviceeventlog
+    set check_result = #{checkResult}
+    where device_log_id = #{deviceLogId}
+  </update>
+
+  <select id="eventCount" resultType="java.lang.Integer" parameterType="java.lang.String">
+    select COUNT(*)
+    from t_deviceeventlog
+    where product_key = #{productKey}
+    and device_name = #{deviceName}
+  </select>
+
+</mapper>

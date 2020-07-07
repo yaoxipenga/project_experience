@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.productservice.dao.mybatis.ProductTransTemplateMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.productservice.entity.mybatis.ProductTransTemplate" >
+    <id column="product_template_id" property="producttemplateId" jdbcType="VARCHAR" />
+    <id column="product_trans_identi" property="productTransIdenti" jdbcType="VARCHAR" />
+    <result column="template_id" property="templateId" jdbcType="INTEGER" />
+    <result column="product_trans_name" property="productTransName" jdbcType="VARCHAR" />
+    <result column="product_trans_type" property="productTransType" jdbcType="INTEGER" />
+    <result column="event_type" property="eventType" jdbcType="INTEGER" />
+    <result column="is_del" property="isDel" jdbcType="INTEGER" />
+    <result column="rw_status" property="rwStatus" jdbcType="INTEGER" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="modif_time" property="modifTime" jdbcType="TIMESTAMP" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    product_template_id, product_trans_identi, template_id, product_trans_name, product_trans_type, 
+    event_type, is_del, rw_status, creat_time, modif_time, user_id, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.medcaptain.productservice.entity.mybatis.ProductTransTemplateKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_product_trans_template
+    where product_template_id = #{producttemplateId,jdbcType=VARCHAR}
+      and product_trans_identi = #{productTransIdenti,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.medcaptain.productservice.entity.mybatis.ProductTransTemplateKey" >
+    delete from t_product_trans_template
+    where product_template_id = #{producttemplateId,jdbcType=VARCHAR}
+      and product_trans_identi = #{productTransIdenti,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.productservice.entity.mybatis.ProductTransTemplate" >
+    insert into t_product_trans_template (product_template_id, product_trans_identi, 
+      template_id, product_trans_name, product_trans_type, 
+      event_type, is_del, rw_status, 
+      creat_time, modif_time, user_id, 
+      remark)
+    values (#{producttemplateId,jdbcType=VARCHAR}, #{productTransIdenti,jdbcType=VARCHAR}, 
+      #{templateId,jdbcType=INTEGER}, #{productTransName,jdbcType=VARCHAR}, #{productTransType,jdbcType=INTEGER}, 
+      #{eventType,jdbcType=INTEGER}, #{isDel,jdbcType=INTEGER}, #{rwStatus,jdbcType=INTEGER}, 
+      #{creatTime,jdbcType=TIMESTAMP}, #{modifTime,jdbcType=TIMESTAMP}, #{userId,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.productservice.entity.mybatis.ProductTransTemplate" >
+    insert into t_product_trans_template
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="producttemplateId != null" >
+        product_template_id,
+      </if>
+      <if test="productTransIdenti != null" >
+        product_trans_identi,
+      </if>
+      <if test="templateId != null" >
+        template_id,
+      </if>
+      <if test="productTransName != null" >
+        product_trans_name,
+      </if>
+      <if test="productTransType != null" >
+        product_trans_type,
+      </if>
+      <if test="eventType != null" >
+        event_type,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+      <if test="rwStatus != null" >
+        rw_status,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="modifTime != null" >
+        modif_time,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="producttemplateId != null" >
+        #{producttemplateId,jdbcType=VARCHAR},
+      </if>
+      <if test="productTransIdenti != null" >
+        #{productTransIdenti,jdbcType=VARCHAR},
+      </if>
+      <if test="templateId != null" >
+        #{templateId,jdbcType=INTEGER},
+      </if>
+      <if test="productTransName != null" >
+        #{productTransName,jdbcType=VARCHAR},
+      </if>
+      <if test="productTransType != null" >
+        #{productTransType,jdbcType=INTEGER},
+      </if>
+      <if test="eventType != null" >
+        #{eventType,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="rwStatus != null" >
+        #{rwStatus,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifTime != null" >
+        #{modifTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.productservice.entity.mybatis.ProductTransTemplate" >
+    update t_product_trans_template
+    <set >
+      <if test="templateId != null" >
+        template_id = #{templateId,jdbcType=INTEGER},
+      </if>
+      <if test="productTransName != null" >
+        product_trans_name = #{productTransName,jdbcType=VARCHAR},
+      </if>
+      <if test="productTransType != null" >
+        product_trans_type = #{productTransType,jdbcType=INTEGER},
+      </if>
+      <if test="eventType != null" >
+        event_type = #{eventType,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="rwStatus != null" >
+        rw_status = #{rwStatus,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifTime != null" >
+        modif_time = #{modifTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where product_template_id = #{producttemplateId,jdbcType=VARCHAR}
+      and product_trans_identi = #{productTransIdenti,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.productservice.entity.mybatis.ProductTransTemplate" >
+    update t_product_trans_template
+    set template_id = #{templateId,jdbcType=INTEGER},
+      product_trans_name = #{productTransName,jdbcType=VARCHAR},
+      product_trans_type = #{productTransType,jdbcType=INTEGER},
+      event_type = #{eventType,jdbcType=INTEGER},
+      is_del = #{isDel,jdbcType=INTEGER},
+      rw_status = #{rwStatus,jdbcType=INTEGER},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      modif_time = #{modifTime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
+    where product_template_id = #{producttemplateId,jdbcType=VARCHAR}
+      and product_trans_identi = #{productTransIdenti,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getAllTransactions" resultType="java.util.Map" parameterType="java.lang.String">
+    select template_id as templateId, t_product_trans_template.product_trans_identi as productTransactionIdentity, product_trans_name as productTransactionName, product_trans_type_desc as transactionType, t_trans_para_io.data_type_id as dataTypeId, t_product_trans_template.remark as transactionDescribe
+    <if test="TransactionType == 3" >
+      ,event_desc as eventDescribe
+    </if>
+    <if test="TransactionType == 1" >
+      ,t_product_trans_template.rw_status as rwStatus
+    </if>
+    from t_product_trans_template, t_trans_type, t_trans_para_io
+    <if test="TransactionType == 3" >
+      ,t_eventtype
+    </if>
+    where t_product_trans_template.product_trans_type = #{TransactionType}
+    and t_trans_type.product_trans_type = #{TransactionType}
+    and t_product_trans_template.product_trans_identi = t_trans_para_io.product_trans_identi
+    and t_product_trans_template.is_del = 0
+    and t_trans_para_io.product_key = 'template'
+    <if test="TransactionType == '3'" >
+    and t_eventtype.event_type = t_product_trans_template.event_type
+    </if>
+  </select>
+
+  <select id="getTransactionTemplate" resultType="java.util.Map" parameterType="java.lang.Integer">
+    select template_id as templateId, t_product_trans_template.product_trans_identi as identifier, product_trans_name as propertyName, product_trans_type as transactionType,
+    event_type as eventType, t_product_trans_template.remark as propertyDescribe, rw_status as rwFlag
+    from t_product_trans_template
+    where is_del = 0
+    and template_id = #{templateId}
+  </select>
+</mapper>

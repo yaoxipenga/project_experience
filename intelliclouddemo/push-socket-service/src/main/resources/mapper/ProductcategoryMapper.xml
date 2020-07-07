@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.pushsocketservice.dao.ProductcategoryMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.pushsocketservice.entity.Productcategory" >
+    <id column="product_cate" property="productCate" jdbcType="INTEGER" />
+    <result column="product_type_desc" property="productTypeDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    product_cate, product_type_desc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_productcategory
+    where product_cate = #{productCate,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_productcategory
+    where product_cate = #{productCate,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.pushsocketservice.entity.Productcategory" >
+    insert into t_productcategory (product_cate, product_type_desc)
+    values (#{productCate,jdbcType=INTEGER}, #{productTypeDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.pushsocketservice.entity.Productcategory" >
+    insert into t_productcategory
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productCate != null" >
+        product_cate,
+      </if>
+      <if test="productTypeDesc != null" >
+        product_type_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productCate != null" >
+        #{productCate,jdbcType=INTEGER},
+      </if>
+      <if test="productTypeDesc != null" >
+        #{productTypeDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.pushsocketservice.entity.Productcategory" >
+    update t_productcategory
+    <set >
+      <if test="productTypeDesc != null" >
+        product_type_desc = #{productTypeDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where product_cate = #{productCate,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.pushsocketservice.entity.Productcategory" >
+    update t_productcategory
+    set product_type_desc = #{productTypeDesc,jdbcType=VARCHAR}
+    where product_cate = #{productCate,jdbcType=INTEGER}
+  </update>
+</mapper>

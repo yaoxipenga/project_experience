@@ -1,0 +1,110 @@
+eureka:
+  client:
+    # 向注册中心注册
+    fetch-registry: true
+    # 服务清单的缓存更新时间，默认30秒一次
+    registry-fetch-interval-seconds: 5
+    service-url:
+      defaultZone: http://192.168.81.31:8761/eureka/
+  instance:
+    lease-renewal-interval-in-seconds: 5      # 心跳时间，即服务续约间隔时间（缺省为30s）
+    lease-expiration-duration-in-seconds: 10  # 没有心跳的淘汰时间，10秒，即服务续约到期时间（缺省为90s）
+    prefer-ip-address: true
+    hostname: ${eureka.instance.ip-address}
+    instance-id: ${eureka.instance.ip-address}:${server.port}
+    ip-address: 192.168.81.222
+user:
+  jwtSecret: "2ff96445e00c4e22aef231dc37b0a14e"
+
+logging:
+  file: "/home/mect/log/${spring.application.name}/${spring.application.name}.log"
+#  config: classpath:logback-spring-debug.xml
+#  level:
+#    org.springframework.cloud.gateway: TRACE
+#    org.springframework.http.server.reactive: DEBUG
+#    org.springframework.web.reactive: DEBUG
+#    reactor.ipc.netty: DEBUG
+spring:
+  boot:
+    admin:
+      client:
+        url: "http://192.168.81.31:5000"
+  redis:
+    host: 192.168.81.31
+    database: 0
+    port: 6379
+    timeout: 3000ms
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true #开启服务发现路由规则
+      routes:
+      # mqtt 登录鉴权
+      - id: mqtt-device-authenticate
+        uri: lb://mqtt-device-authenticate
+        filters:
+        - RewritePath=/mqtt/(?<segment>.*), /$\{segment}
+        predicates:
+        - Path=/mqtt/**
+        # mqtt 上下线通知和消息处理
+      - id: parse-data-service
+        uri: lb://parse-data-service
+        filters:
+        - RewritePath=/parse/(?<segment>.*), /$\{segment}
+        predicates:
+        - Path=/parse/**
+      # 文件服务
+      - id: file
+        uri: lb://FAST-DFS
+        filters:
+        - RewritePath=/file/(?<segment>.*), /$\{segment}
+        predicates:
+        - Path=/file/**
+      # 固件服务
+      - id: firmware
+        uri: lb://FILE-SERVICE
+        filters:
+        - RewritePath=/firmware/(?<segment>.*), /$\{segment}
+        predicates:
+        - Path=/firmware/**
+      # 用户服务
+      - id: user
+        uri: lb://USER-MANAGE
+        filters:
+        - RewritePath=/user/(?<segment>.*), /$\{segment}
+        - PreserveHostHeader
+        predicates:
+        - Path=/user/**
+      # 产品设备
+      - id: product
+        uri: lb://PRODUCT-SERVICE
+        filters:
+        - RewritePath=/product/(?<segment>.*), /$\{segment}
+        predicates:
+        - Path=/product/**
+      # 统计服务
+      - id: statistics
+        uri: lb://DATA-STATISTICS
+        filters:
+        - RewritePath=/statistics/(?<segment>.*), /$\{segment}
+        predicates:
+        - Path=/statistics/**
+      # 定时任务
+      - id: statistics-time
+        uri: lb://DATA-STATISTICS-TIME
+        filters:
+        - RewritePath=/statistics-time/(?<segment>.*), /$\{segment}
+        - AddRequestHeader=header, addHeader
+        - AddRequestParameter=param, addParam
+        predicates:
+        - Path=/statistics-time/**
+        # push-socket-service
+      - id: socket
+        uri: lb://push-socket-service
+        predicates:
+        - Path=/websocket/info/**
+      - id: socket
+        uri: lb:ws://push-socket-service
+        predicates:
+        - Path=/websocket/**

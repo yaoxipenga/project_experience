@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.file.mapper.DeviceLogMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.file.entity.mysql.DeviceLog" >
+    <id column="device_log_id" property="deviceLogId" jdbcType="INTEGER" />
+    <result column="product_key" property="productKey" jdbcType="INTEGER" />
+    <result column="device_name" property="deviceName" jdbcType="VARCHAR" />
+    <result column="device_triple_id" property="deviceTripleId" jdbcType="INTEGER" />
+    <result column="device_ip" property="deviceIp" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="post_topic" property="postTopic" jdbcType="VARCHAR" />
+    <result column="desc" property="desc" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.medcaptain.file.entity.mysql.DeviceLog" extends="BaseResultMap" >
+    <result column="log_content" property="logContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    device_log_id, product_key, device_name, device_triple_id, device_ip, user_id, creat_time, 
+    post_topic, desc
+  </sql>
+  <sql id="Blob_Column_List" >
+    log_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.medcaptain.file.entity.mysql.DeviceLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_devicelog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.medcaptain.file.entity.mysql.DeviceLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_devicelog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_devicelog
+    where device_log_id = #{deviceLogId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_devicelog
+    where device_log_id = #{deviceLogId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.medcaptain.file.entity.mysql.DeviceLogExample" >
+    delete from t_devicelog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.file.entity.mysql.DeviceLog" >
+    insert into t_devicelog (device_log_id, product_key, device_name, 
+      device_triple_id, device_ip, user_id, 
+      creat_time, post_topic, desc, 
+      log_content)
+    values (#{deviceLogId,jdbcType=INTEGER}, #{productKey,jdbcType=INTEGER}, #{deviceName,jdbcType=VARCHAR}, 
+      #{deviceTripleId,jdbcType=INTEGER}, #{deviceIp,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{creatTime,jdbcType=TIMESTAMP}, #{postTopic,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}, 
+      #{logContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.file.entity.mysql.DeviceLog" >
+    insert into t_devicelog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="deviceLogId != null" >
+        device_log_id,
+      </if>
+      <if test="productKey != null" >
+        product_key,
+      </if>
+      <if test="deviceName != null" >
+        device_name,
+      </if>
+      <if test="deviceTripleId != null" >
+        device_triple_id,
+      </if>
+      <if test="deviceIp != null" >
+        device_ip,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="postTopic != null" >
+        post_topic,
+      </if>
+      <if test="desc != null" >
+        desc,
+      </if>
+      <if test="logContent != null" >
+        log_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="deviceLogId != null" >
+        #{deviceLogId,jdbcType=INTEGER},
+      </if>
+      <if test="productKey != null" >
+        #{productKey,jdbcType=INTEGER},
+      </if>
+      <if test="deviceName != null" >
+        #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceTripleId != null" >
+        #{deviceTripleId,jdbcType=INTEGER},
+      </if>
+      <if test="deviceIp != null" >
+        #{deviceIp,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="postTopic != null" >
+        #{postTopic,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null" >
+        #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="logContent != null" >
+        #{logContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.medcaptain.file.entity.mysql.DeviceLogExample" resultType="java.lang.Integer" >
+    select count(*) from t_devicelog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_devicelog
+    <set >
+      <if test="record.deviceLogId != null" >
+        device_log_id = #{record.deviceLogId,jdbcType=INTEGER},
+      </if>
+      <if test="record.productKey != null" >
+        product_key = #{record.productKey,jdbcType=INTEGER},
+      </if>
+      <if test="record.deviceName != null" >
+        device_name = #{record.deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceTripleId != null" >
+        device_triple_id = #{record.deviceTripleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.deviceIp != null" >
+        device_ip = #{record.deviceIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.creatTime != null" >
+        creat_time = #{record.creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.postTopic != null" >
+        post_topic = #{record.postTopic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.desc != null" >
+        desc = #{record.desc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logContent != null" >
+        log_content = #{record.logContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update t_devicelog
+    set device_log_id = #{record.deviceLogId,jdbcType=INTEGER},
+      product_key = #{record.productKey,jdbcType=INTEGER},
+      device_name = #{record.deviceName,jdbcType=VARCHAR},
+      device_triple_id = #{record.deviceTripleId,jdbcType=INTEGER},
+      device_ip = #{record.deviceIp,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      creat_time = #{record.creatTime,jdbcType=TIMESTAMP},
+      post_topic = #{record.postTopic,jdbcType=VARCHAR},
+      desc = #{record.desc,jdbcType=VARCHAR},
+      log_content = #{record.logContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_devicelog
+    set device_log_id = #{record.deviceLogId,jdbcType=INTEGER},
+      product_key = #{record.productKey,jdbcType=INTEGER},
+      device_name = #{record.deviceName,jdbcType=VARCHAR},
+      device_triple_id = #{record.deviceTripleId,jdbcType=INTEGER},
+      device_ip = #{record.deviceIp,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      creat_time = #{record.creatTime,jdbcType=TIMESTAMP},
+      post_topic = #{record.postTopic,jdbcType=VARCHAR},
+      desc = #{record.desc,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.file.entity.mysql.DeviceLog" >
+    update t_devicelog
+    <set >
+      <if test="productKey != null" >
+        product_key = #{productKey,jdbcType=INTEGER},
+      </if>
+      <if test="deviceName != null" >
+        device_name = #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceTripleId != null" >
+        device_triple_id = #{deviceTripleId,jdbcType=INTEGER},
+      </if>
+      <if test="deviceIp != null" >
+        device_ip = #{deviceIp,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="postTopic != null" >
+        post_topic = #{postTopic,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null" >
+        desc = #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="logContent != null" >
+        log_content = #{logContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where device_log_id = #{deviceLogId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.medcaptain.file.entity.mysql.DeviceLog" >
+    update t_devicelog
+    set product_key = #{productKey,jdbcType=INTEGER},
+      device_name = #{deviceName,jdbcType=VARCHAR},
+      device_triple_id = #{deviceTripleId,jdbcType=INTEGER},
+      device_ip = #{deviceIp,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      post_topic = #{postTopic,jdbcType=VARCHAR},
+      desc = #{desc,jdbcType=VARCHAR},
+      log_content = #{logContent,jdbcType=LONGVARCHAR}
+    where device_log_id = #{deviceLogId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.file.entity.mysql.DeviceLog" >
+    update t_devicelog
+    set product_key = #{productKey,jdbcType=INTEGER},
+      device_name = #{deviceName,jdbcType=VARCHAR},
+      device_triple_id = #{deviceTripleId,jdbcType=INTEGER},
+      device_ip = #{deviceIp,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      post_topic = #{postTopic,jdbcType=VARCHAR},
+      desc = #{desc,jdbcType=VARCHAR}
+    where device_log_id = #{deviceLogId,jdbcType=INTEGER}
+  </update>
+</mapper>

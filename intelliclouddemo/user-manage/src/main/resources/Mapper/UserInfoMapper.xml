@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.cloud.usermanage.mapper.UserInfoMapper">
+    <resultMap id="BaseResultMap" type="com.medcaptain.cloud.usermanage.entity.UserInfo">
+        <id column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="role_id" property="roleId" jdbcType="INTEGER"/>
+        <result column="department_id" property="departmentId" jdbcType="INTEGER"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="is_deleted" property="isDeleted" jdbcType="TINYINT"/>
+        <result column="is_enable" property="isEnable" jdbcType="TINYINT"/>
+        <result column="nickname" property="nickname" jdbcType="VARCHAR"/>
+        <result column="gender" property="gender" jdbcType="VARCHAR"/>
+        <result column="icon" property="icon" jdbcType="VARCHAR"/>
+        <result column="is_third_part" property="isThirdPart" jdbcType="TINYINT"/>
+        <result column="invalid_time" property="invalidTime" jdbcType="BIGINT"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    user_id, role_id, department_id, user_name, password, status, is_deleted, is_enable, 
+    nickname, gender, icon ,is_third_part,invalid_time,email
+  </sql>
+    <select id="selectByExample" resultMap="BaseResultMap"
+            parameterType="com.medcaptain.cloud.usermanage.entity.UserInfoExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from t_userinfo
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="listUsers" resultType="com.medcaptain.cloud.usermanage.entity.UserInfo" parameterType="java.util.Map">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        user_id as userId, u.role_id AS roleId, u.department_id as departmentId,o.organization_id as organizationId,
+        user_name as userName, password, status, u.is_deleted as isDeleted, u.is_enable as isEnable, nickname, gender,
+        icon,r.role_name as roleName,d.department_name as departmentName,o.organization_name as organizationName,
+        case o.organization_type when 0 then '医院' when 1 then '厂商' when 2 then '平台' end as userType,
+        is_third_part as isThirdPart,invalid_time as invalidTime,email
+        from t_userinfo u
+        left join t_department d on u.department_id = d.department_id
+        left join t_roleinfo r on u.role_id = r.role_id
+        left join t_organization o on d.organization_id = o.organization_id
+        <where>
+            <if test="currentUserID  != null">
+                u.user_id = #{currentUserID,jdbcType=INTEGER}
+            </if>
+            <if test="departmentID != null">
+                AND u.department_id = #{departmentID,jdbcType=INTEGER}
+            </if>
+            <if test="userName != null">
+                AND u.user_name = #{userName,jdbcType=VARCHAR}
+            </if>
+            <if test="password != null">
+                AND u.password = #{password,jdbcType=VARCHAR}
+            </if>
+            <if test="organizationID != null">
+                AND d.organization_id = #{organizationID,jdbcType=INTEGER}
+            </if>
+            <if test="isDeleted != null">
+                AND u.is_deleted = #{isDeleted,jdbcType=INTEGER}
+            </if>
+            <if test="isEnable != null">
+                AND u.is_enable = #{isEnable,jdbcType=INTEGER}
+            </if>
+            <if test="isEnable == 1">
+                AND (is_third_part =0 or (is_third_part=1 and invalid_time &gt; unix_timestamp(now())));
+            </if>
+            <if test="userID != null">
+                AND u.user_id &lt;&gt; #{userID,jdbcType=INTEGER}
+            </if>
+            <if test="onlineOnly != null">
+                AND u.status =0
+            </if>
+            <if test="nickname != null">
+                AND u.nickname like concat('%',#{nickname,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="roleName != null">
+                AND r.role_name = #{roleName,jdbcType=VARCHAR}
+            </if>
+            <if test="departmentName != null">
+                AND d.department_name = #{departmentName,jdbcType=VARCHAR}
+            </if>
+        </where>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_userinfo
+        where user_id = #{userId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_userinfo
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.medcaptain.cloud.usermanage.entity.UserInfoExample">
+        delete from t_userinfo
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.medcaptain.cloud.usermanage.entity.UserInfo">
+    insert into t_userinfo (user_id, role_id, department_id, 
+      user_name, password, status, 
+      is_deleted, is_enable, nickname, 
+      gender, icon, is_third_part, invalid_time,email)
+    values (#{userId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{departmentId,jdbcType=INTEGER}, 
+      #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{isDeleted,jdbcType=TINYINT}, #{isEnable,jdbcType=TINYINT}, #{nickname,jdbcType=VARCHAR}, 
+      #{gender,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{isThirdPart,jdbcType=TINYINT},
+      #{invalidTime,jdbcType=BIGINT},#{email,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.medcaptain.cloud.usermanage.entity.UserInfo">
+        insert into t_userinfo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="roleId != null">
+                role_id,
+            </if>
+            <if test="departmentId != null">
+                department_id,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+            <if test="isEnable != null">
+                is_enable,
+            </if>
+            <if test="nickname != null">
+                nickname,
+            </if>
+            <if test="gender != null">
+                gender,
+            </if>
+            <if test="icon != null">
+                icon,
+            </if>
+            <if test="isThirdPart != null">
+                is_third_part,
+            </if>
+            <if test="invalidTime != null">
+                invalid_time,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="roleId != null">
+                #{roleId,jdbcType=INTEGER},
+            </if>
+            <if test="departmentId != null">
+                #{departmentId,jdbcType=INTEGER},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=TINYINT},
+            </if>
+            <if test="isEnable != null">
+                #{isEnable,jdbcType=TINYINT},
+            </if>
+            <if test="nickname != null">
+                #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null">
+                #{gender,jdbcType=VARCHAR},
+            </if>
+            <if test="icon != null">
+                #{icon,jdbcType=VARCHAR},
+            </if>
+            <if test="isThirdPart != null">
+                #{isThirdPart,jdbcType=TINYINT},
+            </if>
+            <if test="invalidTime != null">
+                #{invalidTime,jdbcType=BIGINT},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.medcaptain.cloud.usermanage.entity.UserInfoExample"
+            resultType="java.lang.Integer">
+        select count(*) from t_userinfo
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update t_userinfo
+        <set>
+            <if test="record.userId != null">
+                user_id = #{record.userId,jdbcType=INTEGER},
+            </if>
+            <if test="record.roleId != null">
+                role_id = #{record.roleId,jdbcType=INTEGER},
+            </if>
+            <if test="record.departmentId != null">
+                department_id = #{record.departmentId,jdbcType=INTEGER},
+            </if>
+            <if test="record.userName != null">
+                user_name = #{record.userName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.password != null">
+                password = #{record.password,jdbcType=VARCHAR},
+            </if>
+            <if test="record.status != null">
+                status = #{record.status,jdbcType=INTEGER},
+            </if>
+            <if test="record.isDeleted != null">
+                is_deleted = #{record.isDeleted,jdbcType=TINYINT},
+            </if>
+            <if test="record.isEnable != null">
+                is_enable = #{record.isEnable,jdbcType=TINYINT},
+            </if>
+            <if test="record.nickname != null">
+                nickname = #{record.nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="record.gender != null">
+                gender = #{record.gender,jdbcType=VARCHAR},
+            </if>
+            <if test="record.icon != null">
+                icon = #{record.icon,jdbcType=VARCHAR},
+            </if>
+            <if test="record.isThirdPart != null">
+                is_third_part = #{record.isThirdPart,jdbcType=TINYINT},
+            </if>
+            <if test="record.invalidTime != null">
+                invalid_time = #{record.invalidTime,jdbcType=BIGINT},
+            </if>
+            <if test="record.email != null">
+                email = #{record.email,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update t_userinfo
+        set user_id = #{record.userId,jdbcType=INTEGER},
+        role_id = #{record.roleId,jdbcType=INTEGER},
+        department_id = #{record.departmentId,jdbcType=INTEGER},
+        user_name = #{record.userName,jdbcType=VARCHAR},
+        password = #{record.password,jdbcType=VARCHAR},
+        status = #{record.status,jdbcType=INTEGER},
+        is_deleted = #{record.isDeleted,jdbcType=TINYINT},
+        is_enable = #{record.isEnable,jdbcType=TINYINT},
+        nickname = #{record.nickname,jdbcType=VARCHAR},
+        gender = #{record.gender,jdbcType=VARCHAR},
+        icon = #{record.icon,jdbcType=VARCHAR},
+        is_third_part = #{record.isThirdPart,jdbcType=TINYINT},
+        invalid_time = #{record.invalidTime,jdbcType=BIGINT},
+        email = #{record.email,jdbcType=VARCHAR},
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.cloud.usermanage.entity.UserInfo">
+        update t_userinfo
+        <set>
+            <if test="roleId != null">
+                role_id = #{roleId,jdbcType=INTEGER},
+            </if>
+            <if test="departmentId != null">
+                department_id = #{departmentId,jdbcType=INTEGER},
+            </if>
+            <if test="userName != null">
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=TINYINT},
+            </if>
+            <if test="isEnable != null">
+                is_enable = #{isEnable,jdbcType=TINYINT},
+            </if>
+            <if test="nickname != null">
+                nickname = #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null">
+                gender = #{gender,jdbcType=VARCHAR},
+            </if>
+            <if test="icon != null">
+                icon = #{icon,jdbcType=VARCHAR},
+            </if>
+            <if test="isThirdPart != null">
+                is_third_part = #{isThirdPart,jdbcType=TINYINT},
+            </if>
+            <if test="invalidTime != null">
+                invalid_time = #{invalidTime,jdbcType=BIGINT},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where user_id = #{userId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.medcaptain.cloud.usermanage.entity.UserInfo">
+    update t_userinfo
+    set role_id = #{roleId,jdbcType=INTEGER},
+      department_id = #{departmentId,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      is_deleted = #{isDeleted,jdbcType=TINYINT},
+      is_enable = #{isEnable,jdbcType=TINYINT},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      is_third_part = #{isThirdPart,jdbcType=TINYINT},
+      invalid_time = #{invalidTime,jdbcType=BIGINT},
+      email = #{email,jdbcType=VARCHAR},
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+    <select id="countByUserNameAndOrganizationID" parameterType="java.util.Map" resultType="java.lang.Integer">
+      SELECT count(*) FROM t_userinfo u,t_roleinfo r,t_department d
+      WHERE u.role_id = r.role_id AND r.department_id = d.department_id
+      AND u.user_name = #{userName,jdbcType=VARCHAR} AND d.organization_id =#{organizationID,jdbcType=INTEGER}
+  </select>
+  <select id="listUsersHasPermission" resultType="com.medcaptain.cloud.usermanage.entity.UserInfo" parameterType="java.util.Map">
+      select user_id as userId, u.role_id AS roleId, u.department_id as departmentId,o.organization_id as organizationId,
+      user_name as userName, password, status, u.is_deleted as isDeleted, u.is_enable as isEnable, nickname, gender,
+      icon,r.role_name as roleName,d.department_name as departmentName,o.organization_name as organizationName,
+      case o.organization_type when 0 then '医院' when 1 then '厂商' when 2 then '平台' end as userType,
+      is_third_part as isThirdPart,invalid_time as invalidTime,email
+      from t_userinfo u
+      inner join t_department d on u.department_id = d.department_id
+      inner join t_roleinfo r on u.role_id = r.role_id
+      inner join t_organization o on d.organization_id = o.organization_id
+      WHERE u.is_deleted=0
+      AND u.role_id in (
+        select role_id from t_frontendresourcepermission
+        where frontend_resource_id = #{frontendResourceID,jdbcType = INTEGER}
+      )
+      <if test="organizationID != null">
+          AND d.organization_id = #{organizationID,jdbcType = INTEGER}
+      </if>
+  </select>
+</mapper>

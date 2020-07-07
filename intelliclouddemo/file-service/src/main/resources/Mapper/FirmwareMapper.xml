@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.file.mapper.FirmwareMapper" >
+  <resultMap id="FirmwareListMap" type="com.medcaptain.file.entity.dto.FirmwareEntity">
+    <id column="firmware_id" property="firmwareId" jdbcType="INTEGER" />
+    <result column="firmware_name" property="firmwareName" jdbcType="VARCHAR" />
+    <result column="firmware_version" property="firmwareVersion" jdbcType="VARCHAR" />
+    <result column="create_time" property="createAt" jdbcType="TIMESTAMP" />
+    <result column="is_verified" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="FirmwareDetailsMap" type="com.medcaptain.file.entity.dto.FirmwareInfoOneEntity">
+    <result column="firmware_name" property="firmwareName" jdbcType="VARCHAR" />
+    <result column="firmware_version" property="firmwareVersion" jdbcType="VARCHAR" />
+    <result column="dpsit_path" property="firmwareUrl" jdbcType="VARCHAR" />
+    <result column="md5" property="md5" jdbcType="VARCHAR" />
+    <result column="remark" property="firmwareDesc" jdbcType="VARCHAR" />
+    <result column="create_time" property="createAt" jdbcType="TIMESTAMP" />
+    <result column="targetDeviceCount" property="targetDeviceCount" jdbcType="INTEGER" />
+    <result column="upgradeSuccessCount" property="upgradeSuccessCount" jdbcType="INTEGER" />
+    <result column="upgradeFailCount" property="upgradeFailCount" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="UpgradeMap" type="com.medcaptain.file.entity.dto.UpgradeInfo">
+    <result column="device_name" property="deviceName" jdbcType="VARCHAR" />
+    <result column="upgrade_status" property="status" jdbcType="INTEGER" />
+    <result column="post_time" property="statusUpdataAt" jdbcType="TIMESTAMP" />
+    <result column="device_firmware_version" property="currentVersion" jdbcType="VARCHAR" />
+  </resultMap>
+    <resultMap id="UpgradingMap" type="com.medcaptain.file.entity.dto.UpgradingInfo">
+        <result column="device_name" property="deviceName" jdbcType="VARCHAR" />
+        <result column="upgrade_status" property="status" jdbcType="INTEGER" />
+        <result column="post_time" property="statusUpdataAt" jdbcType="TIMESTAMP" />
+        <result column="device_firmware_version" property="currentVersion" jdbcType="VARCHAR" />
+        <result column="upgrade_progress" property="progress" jdbcType="INTEGER" />
+    </resultMap>
+  <select id="selectList" resultMap="FirmwareListMap" parameterType="com.medcaptain.file.entity.dto.FirmwareEntity">
+    SELECT
+    fi.firmware_id,fi.firmware_name,fi.firmware_version,fi.is_verified,fi.create_time
+    from t_firmwareinfo fi where fi.product_key=#{key} and fi.user_id=#{userId} and fi.is_del=0
+    limit #{start},#{size}
+  </select>
+  <select id="selectInfo" resultMap="FirmwareDetailsMap" parameterType="com.medcaptain.file.entity.dto.FirmwareInfoOneEntity" >
+    select fi.firmware_name,fi.firmware_version,fi.dpsit_path,fi.md5,fi.remark,fi.create_time,
+    (select count(*) from t_firmwareupgrade fu where fu.firmware_id=fi.firmware_id)as targetDeviceCount,
+    (select count(*) from t_firmwareupgrade fu where fu.firmware_id=fi.firmware_id and fu.upgrade_status=2)as upgradeSuccessCount,
+    (select count(*) from t_firmwareupgrade fu where fu.firmware_id=fi.firmware_id and fu.upgrade_status=3)as upgradeFailCount
+    from t_firmwareinfo fi where fi.firmware_id=#{firmwareid}
+  </select>
+  <select id="getUpgradeList" resultMap="UpgradeMap" parameterType="java.util.Map">
+    select fu.device_name,fu.upgrade_status,fu.post_time,fu.device_firmware_version
+    from t_firmwareupgrade fu
+    where fu.firmware_id=#{firmwareid} and fu.upgrade_status=#{type} and fu.device_name like #{deviceName}
+    limit #{start},#{size}
+  </select>
+    <select id="getUpgradingList" resultMap="UpgradingMap" parameterType="java.util.Map">
+    select fu.device_name,fu.upgrade_status,fu.post_time,fu.device_firmware_version,fu.upgrade_progress
+    from t_firmwareupgrade fu
+    where fu.firmware_id=#{firmwareid} and fu.upgrade_status=#{type} and fu.device_name like #{deviceName}
+    limit #{start},#{size}
+  </select>
+
+</mapper>

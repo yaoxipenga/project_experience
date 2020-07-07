@@ -1,0 +1,6 @@
+spring:
+  devtools:
+    restart:
+      enabled: true
+  session:
+    store-type: redis

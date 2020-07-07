@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.productservice.dao.mybatis.ProductTransactionIdentifiersMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.productservice.entity.mybatis.ProductTransactionIdentifiers" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="product_key" property="productKey" jdbcType="CHAR" />
+    <result column="identifiers" property="identifiers" jdbcType="VARCHAR" />
+    <result column="transaction_type" property="transactionType" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, product_key, identifiers, transaction_type, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_product_transaction_identifiers
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByProductKey" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from t_product_transaction_identifiers
+    where product_key = #{productKey,jdbcType=CHAR}
+    and transaction_type = #{type,jdbcType=TINYINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_product_transaction_identifiers
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.productservice.entity.mybatis.ProductTransactionIdentifiers" >
+    insert into t_product_transaction_identifiers (id, product_key, identifiers, 
+      transaction_type, create_time)
+    values (#{id,jdbcType=INTEGER}, #{productKey,jdbcType=CHAR}, #{identifiers,jdbcType=VARCHAR}, 
+      #{transactionType,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.productservice.entity.mybatis.ProductTransactionIdentifiers" >
+    insert into t_product_transaction_identifiers
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="productKey != null" >
+        product_key,
+      </if>
+      <if test="identifiers != null" >
+        identifiers,
+      </if>
+      <if test="transactionType != null" >
+        transaction_type,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="productKey != null" >
+        #{productKey,jdbcType=CHAR},
+      </if>
+      <if test="identifiers != null" >
+        #{identifiers,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionType != null" >
+        #{transactionType,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.productservice.entity.mybatis.ProductTransactionIdentifiers" >
+    update t_product_transaction_identifiers
+    <set >
+      <if test="productKey != null" >
+        product_key = #{productKey,jdbcType=CHAR},
+      </if>
+      <if test="identifiers != null" >
+        identifiers = #{identifiers,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionType != null" >
+        transaction_type = #{transactionType,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.productservice.entity.mybatis.ProductTransactionIdentifiers" >
+    update t_product_transaction_identifiers
+    set product_key = #{productKey,jdbcType=CHAR},
+      identifiers = #{identifiers,jdbcType=VARCHAR},
+      transaction_type = #{transactionType,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

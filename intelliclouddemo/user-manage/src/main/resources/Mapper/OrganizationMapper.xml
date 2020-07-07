@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.cloud.usermanage.mapper.OrganizationMapper">
+    <resultMap id="BaseResultMap" type="com.medcaptain.cloud.usermanage.entity.Organization">
+        <id column="organization_id" property="organizationId" jdbcType="INTEGER"/>
+        <result column="organization_name" property="organizationName" jdbcType="VARCHAR"/>
+        <result column="organization_level" property="organizationLevel" jdbcType="INTEGER"/>
+        <result column="organization_type" property="organizationType" jdbcType="INTEGER"/>
+        <result column="create_user_id" property="createUserId" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="region_id" property="regionId" jdbcType="INTEGER"/>
+        <result column="is_enable" property="isEnable" jdbcType="TINYINT"/>
+        <result column="is_deleted" property="isDeleted" jdbcType="TINYINT"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    organization_id, organization_name, organization_level, organization_type, create_user_id, 
+    create_time, remark, region_id, is_enable, is_deleted
+  </sql>
+    <select id="selectByExample" resultMap="BaseResultMap"
+            parameterType="com.medcaptain.cloud.usermanage.entity.OrganizationExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from t_organization
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="listOrganizations" resultType="com.medcaptain.cloud.usermanage.entity.Organization"
+            parameterType="java.util.Map">
+        SELECT organization_id AS organizationId,organization_name AS organizationName,organization_level AS organizationLevel,
+        organization_type AS organizationType,create_user_id AS createUserId,create_time AS createTime,remark,region_id AS regionId,
+        is_enable AS isEnable,is_deleted AS isDeleted,concat(v_region.province_name,' ',v_region.city_name) as regionName
+        FROM t_organization
+        inner join v_region on t_organization.region_id =v_region.city_id
+        WHERE is_deleted = 0
+        <if test="regionCode != null">
+            AND region_id =#{regionCode,jdbcType = INTEGER}
+        </if>
+        <if test="organizationType != null">
+            AND organization_type =#{organizationType,jdbcType = INTEGER}
+        </if>
+        <if test="organizationID != null">
+            AND organization_id =#{organizationID,jdbcType = INTEGER}
+        </if>
+        <if test="organizationName != null">
+            AND organization_name like concat('%',#{organizationName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="provinceNames != null">
+            AND v_region.province_name in
+            <foreach item="item" index="index" collection="provinceNames" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="orderBy != null">
+            order by ${orderBy}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_organization
+        where organization_id = #{organizationId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_organization
+    where organization_id = #{organizationId,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.medcaptain.cloud.usermanage.entity.OrganizationExample">
+        delete from t_organization
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.medcaptain.cloud.usermanage.entity.Organization">
+    insert into t_organization (organization_id, organization_name, 
+      organization_level, organization_type, create_user_id, 
+      create_time, remark, region_id, 
+      is_enable, is_deleted)
+    values (#{organizationId,jdbcType=INTEGER}, #{organizationName,jdbcType=VARCHAR}, 
+      #{organizationLevel,jdbcType=INTEGER}, #{organizationType,jdbcType=INTEGER}, #{createUserId,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{regionId,jdbcType=INTEGER}, 
+      #{isEnable,jdbcType=TINYINT}, #{isDeleted,jdbcType=TINYINT})
+  </insert>
+    <insert id="insertSelective" parameterType="com.medcaptain.cloud.usermanage.entity.Organization">
+        insert into t_organization
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="organizationId != null">
+                organization_id,
+            </if>
+            <if test="organizationName != null">
+                organization_name,
+            </if>
+            <if test="organizationLevel != null">
+                organization_level,
+            </if>
+            <if test="organizationType != null">
+                organization_type,
+            </if>
+            <if test="createUserId != null">
+                create_user_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="regionId != null">
+                region_id,
+            </if>
+            <if test="isEnable != null">
+                is_enable,
+            </if>
+            <if test="isDeleted != null">
+                is_deleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="organizationId != null">
+                #{organizationId,jdbcType=INTEGER},
+            </if>
+            <if test="organizationName != null">
+                #{organizationName,jdbcType=VARCHAR},
+            </if>
+            <if test="organizationLevel != null">
+                #{organizationLevel,jdbcType=INTEGER},
+            </if>
+            <if test="organizationType != null">
+                #{organizationType,jdbcType=INTEGER},
+            </if>
+            <if test="createUserId != null">
+                #{createUserId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="regionId != null">
+                #{regionId,jdbcType=INTEGER},
+            </if>
+            <if test="isEnable != null">
+                #{isEnable,jdbcType=TINYINT},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted,jdbcType=TINYINT},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.medcaptain.cloud.usermanage.entity.OrganizationExample"
+            resultType="java.lang.Integer">
+        select count(*) from t_organization
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update t_organization
+        <set>
+            <if test="record.organizationId != null">
+                organization_id = #{record.organizationId,jdbcType=INTEGER},
+            </if>
+            <if test="record.organizationName != null">
+                organization_name = #{record.organizationName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.organizationLevel != null">
+                organization_level = #{record.organizationLevel,jdbcType=INTEGER},
+            </if>
+            <if test="record.organizationType != null">
+                organization_type = #{record.organizationType,jdbcType=INTEGER},
+            </if>
+            <if test="record.createUserId != null">
+                create_user_id = #{record.createUserId,jdbcType=INTEGER},
+            </if>
+            <if test="record.createTime != null">
+                create_time = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.remark != null">
+                remark = #{record.remark,jdbcType=VARCHAR},
+            </if>
+            <if test="record.regionId != null">
+                region_id = #{record.regionId,jdbcType=INTEGER},
+            </if>
+            <if test="record.isEnable != null">
+                is_enable = #{record.isEnable,jdbcType=TINYINT},
+            </if>
+            <if test="record.isDeleted != null">
+                is_deleted = #{record.isDeleted,jdbcType=TINYINT},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update t_organization
+        set organization_id = #{record.organizationId,jdbcType=INTEGER},
+        organization_name = #{record.organizationName,jdbcType=VARCHAR},
+        organization_level = #{record.organizationLevel,jdbcType=INTEGER},
+        organization_type = #{record.organizationType,jdbcType=INTEGER},
+        create_user_id = #{record.createUserId,jdbcType=INTEGER},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+        remark = #{record.remark,jdbcType=VARCHAR},
+        region_id = #{record.regionId,jdbcType=INTEGER},
+        is_enable = #{record.isEnable,jdbcType=TINYINT},
+        is_deleted = #{record.isDeleted,jdbcType=TINYINT}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.cloud.usermanage.entity.Organization">
+        update t_organization
+        <set>
+            <if test="organizationName != null">
+                organization_name = #{organizationName,jdbcType=VARCHAR},
+            </if>
+            <if test="organizationLevel != null">
+                organization_level = #{organizationLevel,jdbcType=INTEGER},
+            </if>
+            <if test="organizationType != null">
+                organization_type = #{organizationType,jdbcType=INTEGER},
+            </if>
+            <if test="createUserId != null">
+                create_user_id = #{createUserId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="regionId != null">
+                region_id = #{regionId,jdbcType=INTEGER},
+            </if>
+            <if test="isEnable != null">
+                is_enable = #{isEnable,jdbcType=TINYINT},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted,jdbcType=TINYINT},
+            </if>
+        </set>
+        where organization_id = #{organizationId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.medcaptain.cloud.usermanage.entity.Organization">
+    update t_organization
+    set organization_name = #{organizationName,jdbcType=VARCHAR},
+      organization_level = #{organizationLevel,jdbcType=INTEGER},
+      organization_type = #{organizationType,jdbcType=INTEGER},
+      create_user_id = #{createUserId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      region_id = #{regionId,jdbcType=INTEGER},
+      is_enable = #{isEnable,jdbcType=TINYINT},
+      is_deleted = #{isDeleted,jdbcType=TINYINT}
+    where organization_id = #{organizationId,jdbcType=INTEGER}
+  </update>
+    <select id="selectOrganizationtime" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_organization
+        <where>
+            <if test="timeStart != null and timeEnd != null">
+                create_time &gt;= #{timeStart,jdbcType=TIMESTAMP} and
+                create_time &lt; #{timeEnd,jdbcType=TIMESTAMP}
+            </if>
+        </where>
+
+    </select>
+</mapper>

@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.file.mapper.FirmwareUpgradeMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.file.entity.mysql.FirmwareUpgrade" >
+    <id column="firmware_id" property="firmwareId" jdbcType="INTEGER" />
+    <id column="device_triple_id" property="deviceTripleId" jdbcType="INTEGER" />
+    <result column="device_name" property="deviceName" jdbcType="VARCHAR" />
+    <result column="device_firmware_version" property="deviceFirmwareVersion" jdbcType="VARCHAR" />
+    <result column="upgrade_status" property="upgradeStatus" jdbcType="INTEGER" />
+    <result column="upgrade_progress" property="upgradeProgress" jdbcType="INTEGER" />
+    <result column="desc" property="desc" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="post_time" property="postTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    firmware_id, device_triple_id, device_name, device_firmware_version, upgrade_status, 
+    upgrade_progress, `desc`, remark, post_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.medcaptain.file.entity.mysql.FirmwareUpgradeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_firmwareupgrade
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.medcaptain.file.entity.mysql.FirmwareUpgradeKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_firmwareupgrade
+    where firmware_id = #{firmwareId,jdbcType=INTEGER}
+      and device_triple_id = #{deviceTripleId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.medcaptain.file.entity.mysql.FirmwareUpgradeKey" >
+    delete from t_firmwareupgrade
+    where firmware_id = #{firmwareId,jdbcType=INTEGER}
+      and device_triple_id = #{deviceTripleId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.medcaptain.file.entity.mysql.FirmwareUpgradeExample" >
+    delete from t_firmwareupgrade
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.file.entity.mysql.FirmwareUpgrade" >
+    insert into t_firmwareupgrade (firmware_id, device_triple_id, device_name, 
+      device_firmware_version, upgrade_status, upgrade_progress, 
+      `desc`, remark, post_time
+      )
+    values (#{firmwareId,jdbcType=INTEGER}, #{deviceTripleId,jdbcType=INTEGER}, #{deviceName,jdbcType=VARCHAR}, 
+      #{deviceFirmwareVersion,jdbcType=VARCHAR}, #{upgradeStatus,jdbcType=INTEGER}, #{upgradeProgress,jdbcType=INTEGER}, 
+      #{desc,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{postTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.file.entity.mysql.FirmwareUpgrade" >
+    replace into t_firmwareupgrade
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="firmwareId != null" >
+        firmware_id,
+      </if>
+      <if test="deviceTripleId != null" >
+        device_triple_id,
+      </if>
+      <if test="deviceName != null" >
+        device_name,
+      </if>
+      <if test="deviceFirmwareVersion != null" >
+        device_firmware_version,
+      </if>
+      <if test="upgradeStatus != null" >
+        upgrade_status,
+      </if>
+      <if test="upgradeProgress != null" >
+        upgrade_progress,
+      </if>
+      <if test="desc != null" >
+        `desc`,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="postTime != null" >
+        post_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="firmwareId != null" >
+        #{firmwareId,jdbcType=INTEGER},
+      </if>
+      <if test="deviceTripleId != null" >
+        #{deviceTripleId,jdbcType=INTEGER},
+      </if>
+      <if test="deviceName != null" >
+        #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceFirmwareVersion != null" >
+        #{deviceFirmwareVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="upgradeStatus != null" >
+        #{upgradeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="upgradeProgress != null" >
+        #{upgradeProgress,jdbcType=INTEGER},
+      </if>
+      <if test="desc != null" >
+        #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="postTime != null" >
+        #{postTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.medcaptain.file.entity.mysql.FirmwareUpgradeExample" resultType="java.lang.Integer" >
+    select count(*) from t_firmwareupgrade
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_firmwareupgrade
+    <set >
+      <if test="record.firmwareId != null" >
+        firmware_id = #{record.firmwareId,jdbcType=INTEGER},
+      </if>
+      <if test="record.deviceTripleId != null" >
+        device_triple_id = #{record.deviceTripleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.deviceName != null" >
+        device_name = #{record.deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceFirmwareVersion != null" >
+        device_firmware_version = #{record.deviceFirmwareVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.upgradeStatus != null" >
+        upgrade_status = #{record.upgradeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.upgradeProgress != null" >
+        upgrade_progress = #{record.upgradeProgress,jdbcType=INTEGER},
+      </if>
+      <if test="record.desc != null" >
+        `desc` = #{record.desc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postTime != null" >
+        post_time = #{record.postTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_firmwareupgrade
+    set firmware_id = #{record.firmwareId,jdbcType=INTEGER},
+      device_triple_id = #{record.deviceTripleId,jdbcType=INTEGER},
+      device_name = #{record.deviceName,jdbcType=VARCHAR},
+      device_firmware_version = #{record.deviceFirmwareVersion,jdbcType=VARCHAR},
+      upgrade_status = #{record.upgradeStatus,jdbcType=INTEGER},
+      upgrade_progress = #{record.upgradeProgress,jdbcType=INTEGER},
+      `desc` = #{record.desc,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      post_time = #{record.postTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.file.entity.mysql.FirmwareUpgrade" >
+    update t_firmwareupgrade
+    <set >
+      <if test="deviceName != null" >
+        device_name = #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceFirmwareVersion != null" >
+        device_firmware_version = #{deviceFirmwareVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="upgradeStatus != null" >
+        upgrade_status = #{upgradeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="upgradeProgress != null" >
+        upgrade_progress = #{upgradeProgress,jdbcType=INTEGER},
+      </if>
+      <if test="desc != null" >
+        `desc` = #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="postTime != null" >
+        post_time = #{postTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where firmware_id = #{firmwareId,jdbcType=INTEGER}
+      and device_triple_id = #{deviceTripleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.file.entity.mysql.FirmwareUpgrade" >
+    update t_firmwareupgrade
+    set device_name = #{deviceName,jdbcType=VARCHAR},
+      device_firmware_version = #{deviceFirmwareVersion,jdbcType=VARCHAR},
+      upgrade_status = #{upgradeStatus,jdbcType=INTEGER},
+      upgrade_progress = #{upgradeProgress,jdbcType=INTEGER},
+      `desc` = #{desc,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      post_time = #{postTime,jdbcType=TIMESTAMP}
+    where firmware_id = #{firmwareId,jdbcType=INTEGER}
+      and device_triple_id = #{deviceTripleId,jdbcType=INTEGER}
+  </update>
+</mapper>

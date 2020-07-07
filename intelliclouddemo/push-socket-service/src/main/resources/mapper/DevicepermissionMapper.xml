@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.pushsocketservice.dao.DevicepermissionMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.pushsocketservice.entity.Devicepermission" >
+    <id column="DevicePermissionID" property="devicepermissionid" jdbcType="INTEGER" />
+    <result column="RoleID" property="roleid" jdbcType="INTEGER" />
+    <result column="device_triple_id" property="deviceTripleId" jdbcType="INTEGER" />
+    <result column="Description" property="description" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    DevicePermissionID, RoleID, device_triple_id, Description
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_devicepermission
+    where DevicePermissionID = #{devicepermissionid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_devicepermission
+    where DevicePermissionID = #{devicepermissionid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.pushsocketservice.entity.Devicepermission" >
+    insert into t_devicepermission (DevicePermissionID, RoleID, device_triple_id, 
+      Description)
+    values (#{devicepermissionid,jdbcType=INTEGER}, #{roleid,jdbcType=INTEGER}, #{deviceTripleId,jdbcType=INTEGER}, 
+      #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.pushsocketservice.entity.Devicepermission" >
+    insert into t_devicepermission
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="devicepermissionid != null" >
+        DevicePermissionID,
+      </if>
+      <if test="roleid != null" >
+        RoleID,
+      </if>
+      <if test="deviceTripleId != null" >
+        device_triple_id,
+      </if>
+      <if test="description != null" >
+        Description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="devicepermissionid != null" >
+        #{devicepermissionid,jdbcType=INTEGER},
+      </if>
+      <if test="roleid != null" >
+        #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="deviceTripleId != null" >
+        #{deviceTripleId,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.pushsocketservice.entity.Devicepermission" >
+    update t_devicepermission
+    <set >
+      <if test="roleid != null" >
+        RoleID = #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="deviceTripleId != null" >
+        device_triple_id = #{deviceTripleId,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        Description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DevicePermissionID = #{devicepermissionid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.pushsocketservice.entity.Devicepermission" >
+    update t_devicepermission
+    set RoleID = #{roleid,jdbcType=INTEGER},
+      device_triple_id = #{deviceTripleId,jdbcType=INTEGER},
+      Description = #{description,jdbcType=VARCHAR}
+    where DevicePermissionID = #{devicepermissionid,jdbcType=INTEGER}
+  </update>
+</mapper>

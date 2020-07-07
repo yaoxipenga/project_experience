@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.productservice.dao.mybatis.DevicestatustypeMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.productservice.entity.mybatis.Devicestatustype" >
+    <id column="status_id" property="statusId" jdbcType="INTEGER" />
+    <result column="status_desc" property="statusDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    status_id, status_desc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_devicestatustype
+    where status_id = #{statusId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_devicestatustype
+    where status_id = #{statusId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.productservice.entity.mybatis.Devicestatustype" >
+    insert into t_devicestatustype (status_id, status_desc)
+    values (#{statusId,jdbcType=INTEGER}, #{statusDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.productservice.entity.mybatis.Devicestatustype" >
+    insert into t_devicestatustype
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="statusId != null" >
+        status_id,
+      </if>
+      <if test="statusDesc != null" >
+        status_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="statusId != null" >
+        #{statusId,jdbcType=INTEGER},
+      </if>
+      <if test="statusDesc != null" >
+        #{statusDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.productservice.entity.mybatis.Devicestatustype" >
+    update t_devicestatustype
+    <set >
+      <if test="statusDesc != null" >
+        status_desc = #{statusDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where status_id = #{statusId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.productservice.entity.mybatis.Devicestatustype" >
+    update t_devicestatustype
+    set status_desc = #{statusDesc,jdbcType=VARCHAR}
+    where status_id = #{statusId,jdbcType=INTEGER}
+  </update>
+</mapper>

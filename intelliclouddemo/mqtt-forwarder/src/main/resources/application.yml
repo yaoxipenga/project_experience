@@ -1,0 +1,15 @@
+basic-topic:
+  topicList[0]: /sys/+/+/thing/property/post
+  topicList[1]: /sys/+/+/thing/event/post
+  topicList[2]: /sys/+/+/thing/log/post
+  topicList[3]: /sys/+/+/thing/alert/post
+  topicList[4]: /sys/+/+/transaction/log/post
+  topicList[5]: /sys/+/+/transaction/alert/post
+  topicList[6]: /ota/device/inform/+/+
+  topicList[7]: /ota/device/progress/+/+
+  topicList[8]: /file/device/post/+/+
+  topicList[9]: /file/device/inform/+/+
+  topicList[10]: /file/device/progress/+/+
+  topicList[11]: /manufacture/+/+/sn
+  topicList[12]: $SYS/brokers/+/clients/+/connected
+  topicList[13]: $SYS/brokers/+/clients/+/disconnected

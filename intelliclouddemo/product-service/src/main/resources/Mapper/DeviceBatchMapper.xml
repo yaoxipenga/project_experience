@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.productservice.dao.mybatis.DeviceBatchMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.productservice.entity.mybatis.DeviceBatch" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="batch" property="batch" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="organization_id" property="organizationId" jdbcType="INTEGER" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="product_key" property="productKey" jdbcType="VARCHAR" />
+    <result column="device_count" property="deviceCount" jdbcType="INTEGER" />
+    <result column="file_id" property="fileId" jdbcType="VARCHAR" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, batch, user_id, organization_id, product_name, product_key, device_count, file_id, creat_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_device_batch
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByUserIdAndOrganizationId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_device_batch
+    <where>
+      <if test="userId != null" >
+        user_id =  #{userId,jdbcType=INTEGER}
+      </if>
+      <if test="organizationId != null" >
+        and organization_id = #{organizationId,jdbcType=INTEGER}
+      </if>
+      <if test="batch != null" >
+        and batch = #{batch,jdbcType=INTEGER}
+      </if>
+    </where>
+    ORDER BY `creat_time` DESC
+  </select>
+  <select id="selectByBatch" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_device_batch
+    <where>
+      <if test="userId != null" >
+        and user_id =  #{userId,jdbcType=INTEGER}
+      </if>
+      <if test="batch != null" >
+        and batch =  #{batch,jdbcType=VARCHAR}
+      </if>
+      <if test="organizationId != null" >
+        and organization_id = #{organizationId,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_device_batch
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.productservice.entity.mybatis.DeviceBatch" >
+    insert into t_device_batch (id, batch, user_id, 
+      organization_id, product_name, product_key, device_count, file_id,
+      creat_time)
+    values (#{id,jdbcType=INTEGER}, #{batch,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{organizationId,jdbcType=INTEGER}, #{productName,jdbcType=INTEGER}, #{productKey,jdbcType=INTEGER},
+       #{deviceCount,jdbcType=INTEGER}, #{fileId,jdbcType=VARCHAR},
+      #{creatTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.productservice.entity.mybatis.DeviceBatch" >
+    insert into t_device_batch
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="batch != null" >
+        batch,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="organizationId != null" >
+        organization_id,
+      </if>
+      <if test="productName != null" >
+        product_name,
+      </if>
+      <if test="productKey != null" >
+        product_key,
+      </if>
+      <if test="deviceCount != null" >
+        device_count,
+      </if>
+      <if test="fileId != null" >
+        file_id,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="batch != null" >
+        #{batch,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="organizationId != null" >
+        #{organizationId,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=INTEGER},
+      </if>
+      <if test="productKey != null" >
+        #{productKey,jdbcType=INTEGER},
+      </if>
+      <if test="deviceCount != null" >
+        #{deviceCount,jdbcType=INTEGER},
+      </if>
+      <if test="fileId != null" >
+        #{fileId,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.productservice.entity.mybatis.DeviceBatch" >
+    update t_device_batch
+    <set >
+      <if test="batch != null" >
+        batch = #{batch,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="organizationId != null" >
+        organization_id = #{organizationId,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null" >
+        product_name = #{productName,jdbcType=INTEGER},
+      </if>
+      <if test="productKey != null" >
+        product_key = #{productKey,jdbcType=INTEGER},
+      </if>
+      <if test="deviceCount != null" >
+        device_count = #{deviceCount,jdbcType=INTEGER},
+      </if>
+      <if test="fileId != null" >
+        file_id = #{fileId,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.productservice.entity.mybatis.DeviceBatch" >
+    update t_device_batch
+    set batch = #{batch,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      organization_id = #{organizationId,jdbcType=INTEGER},
+      product_name = #{productName,jdbcType=INTEGER},
+      product_key = #{productKey,jdbcType=INTEGER},
+      device_count = #{deviceCount,jdbcType=INTEGER},
+      file_id = #{fileId,jdbcType=VARCHAR},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

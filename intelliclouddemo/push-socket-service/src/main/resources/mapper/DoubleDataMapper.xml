@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.pushsocketservice.dao.DoubleDataMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.pushsocketservice.entity.DoubleData" >
+    <id column="index_id" property="indexId" jdbcType="INTEGER" />
+    <result column="max_val" property="maxVal" jdbcType="DOUBLE" />
+    <result column="min_val" property="minVal" jdbcType="DOUBLE" />
+    <result column="step" property="step" jdbcType="DOUBLE" />
+    <result column="unit_id" property="unitId" jdbcType="INTEGER" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    index_id, max_val, min_val, step, unit_id, creat_time, user_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_double_data
+    where index_id = #{indexId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_double_data
+    where index_id = #{indexId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.pushsocketservice.entity.DoubleData" >
+    insert into t_double_data (index_id, max_val, min_val, 
+      step, unit_id, creat_time, 
+      user_id)
+    values (#{indexId,jdbcType=INTEGER}, #{maxVal,jdbcType=DOUBLE}, #{minVal,jdbcType=DOUBLE}, 
+      #{step,jdbcType=DOUBLE}, #{unitId,jdbcType=INTEGER}, #{creatTime,jdbcType=TIMESTAMP}, 
+      #{userId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.pushsocketservice.entity.DoubleData" >
+    insert into t_double_data
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="indexId != null" >
+        index_id,
+      </if>
+      <if test="maxVal != null" >
+        max_val,
+      </if>
+      <if test="minVal != null" >
+        min_val,
+      </if>
+      <if test="step != null" >
+        step,
+      </if>
+      <if test="unitId != null" >
+        unit_id,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="indexId != null" >
+        #{indexId,jdbcType=INTEGER},
+      </if>
+      <if test="maxVal != null" >
+        #{maxVal,jdbcType=DOUBLE},
+      </if>
+      <if test="minVal != null" >
+        #{minVal,jdbcType=DOUBLE},
+      </if>
+      <if test="step != null" >
+        #{step,jdbcType=DOUBLE},
+      </if>
+      <if test="unitId != null" >
+        #{unitId,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.pushsocketservice.entity.DoubleData" >
+    update t_double_data
+    <set >
+      <if test="maxVal != null" >
+        max_val = #{maxVal,jdbcType=DOUBLE},
+      </if>
+      <if test="minVal != null" >
+        min_val = #{minVal,jdbcType=DOUBLE},
+      </if>
+      <if test="step != null" >
+        step = #{step,jdbcType=DOUBLE},
+      </if>
+      <if test="unitId != null" >
+        unit_id = #{unitId,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where index_id = #{indexId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.pushsocketservice.entity.DoubleData" >
+    update t_double_data
+    set max_val = #{maxVal,jdbcType=DOUBLE},
+      min_val = #{minVal,jdbcType=DOUBLE},
+      step = #{step,jdbcType=DOUBLE},
+      unit_id = #{unitId,jdbcType=INTEGER},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=INTEGER}
+    where index_id = #{indexId,jdbcType=INTEGER}
+  </update>
+</mapper>

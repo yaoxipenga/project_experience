@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.file.mapper.DeviceUploadStatusMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.file.entity.mysql.DeviceUploadStatus" >
+    <id column="file_md5" property="fileMd5" jdbcType="VARCHAR" />
+    <id column="device_triple_id" property="deviceTripleId" jdbcType="INTEGER" />
+    <result column="product_key" property="productKey" jdbcType="INTEGER" />
+    <result column="device_name" property="deviceName" jdbcType="VARCHAR" />
+    <result column="upload_status" property="uploadStatus" jdbcType="VARCHAR" />
+    <result column="upload_prog" property="uploadProg" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="creattime" property="creattime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    file_md5, device_triple_id, product_key, device_name, upload_status, upload_prog, 
+    user_id, creattime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.medcaptain.file.entity.mysql.DeviceUploadStatusExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_deviceuploadstatus
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.medcaptain.file.entity.mysql.DeviceUploadStatusKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_deviceuploadstatus
+    where file_md5 = #{fileMd5,jdbcType=VARCHAR}
+      and device_triple_id = #{deviceTripleId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.medcaptain.file.entity.mysql.DeviceUploadStatusKey" >
+    delete from t_deviceuploadstatus
+    where file_md5 = #{fileMd5,jdbcType=VARCHAR}
+      and device_triple_id = #{deviceTripleId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.medcaptain.file.entity.mysql.DeviceUploadStatusExample" >
+    delete from t_deviceuploadstatus
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.file.entity.mysql.DeviceUploadStatus" >
+    insert into t_deviceuploadstatus (file_md5, device_triple_id, product_key, 
+      device_name, upload_status, upload_prog, 
+      user_id, creattime)
+    values (#{fileMd5,jdbcType=VARCHAR}, #{deviceTripleId,jdbcType=INTEGER}, #{productKey,jdbcType=INTEGER}, 
+      #{deviceName,jdbcType=VARCHAR}, #{uploadStatus,jdbcType=VARCHAR}, #{uploadProg,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=INTEGER}, #{creattime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.file.entity.mysql.DeviceUploadStatus" >
+    insert into t_deviceuploadstatus
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fileMd5 != null" >
+        file_md5,
+      </if>
+      <if test="deviceTripleId != null" >
+        device_triple_id,
+      </if>
+      <if test="productKey != null" >
+        product_key,
+      </if>
+      <if test="deviceName != null" >
+        device_name,
+      </if>
+      <if test="uploadStatus != null" >
+        upload_status,
+      </if>
+      <if test="uploadProg != null" >
+        upload_prog,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="creattime != null" >
+        creattime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fileMd5 != null" >
+        #{fileMd5,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceTripleId != null" >
+        #{deviceTripleId,jdbcType=INTEGER},
+      </if>
+      <if test="productKey != null" >
+        #{productKey,jdbcType=INTEGER},
+      </if>
+      <if test="deviceName != null" >
+        #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadStatus != null" >
+        #{uploadStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadProg != null" >
+        #{uploadProg,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="creattime != null" >
+        #{creattime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.medcaptain.file.entity.mysql.DeviceUploadStatusExample" resultType="java.lang.Integer" >
+    select count(*) from t_deviceuploadstatus
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_deviceuploadstatus
+    <set >
+      <if test="record.fileMd5 != null" >
+        file_md5 = #{record.fileMd5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceTripleId != null" >
+        device_triple_id = #{record.deviceTripleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.productKey != null" >
+        product_key = #{record.productKey,jdbcType=INTEGER},
+      </if>
+      <if test="record.deviceName != null" >
+        device_name = #{record.deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uploadStatus != null" >
+        upload_status = #{record.uploadStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uploadProg != null" >
+        upload_prog = #{record.uploadProg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.creattime != null" >
+        creattime = #{record.creattime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_deviceuploadstatus
+    set file_md5 = #{record.fileMd5,jdbcType=VARCHAR},
+      device_triple_id = #{record.deviceTripleId,jdbcType=INTEGER},
+      product_key = #{record.productKey,jdbcType=INTEGER},
+      device_name = #{record.deviceName,jdbcType=VARCHAR},
+      upload_status = #{record.uploadStatus,jdbcType=VARCHAR},
+      upload_prog = #{record.uploadProg,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      creattime = #{record.creattime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.file.entity.mysql.DeviceUploadStatus" >
+    update t_deviceuploadstatus
+    <set >
+      <if test="productKey != null" >
+        product_key = #{productKey,jdbcType=INTEGER},
+      </if>
+      <if test="deviceName != null" >
+        device_name = #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadStatus != null" >
+        upload_status = #{uploadStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadProg != null" >
+        upload_prog = #{uploadProg,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="creattime != null" >
+        creattime = #{creattime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where file_md5 = #{fileMd5,jdbcType=VARCHAR}
+      and device_triple_id = #{deviceTripleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.file.entity.mysql.DeviceUploadStatus" >
+    update t_deviceuploadstatus
+    set product_key = #{productKey,jdbcType=INTEGER},
+      device_name = #{deviceName,jdbcType=VARCHAR},
+      upload_status = #{uploadStatus,jdbcType=VARCHAR},
+      upload_prog = #{uploadProg,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      creattime = #{creattime,jdbcType=TIMESTAMP}
+    where file_md5 = #{fileMd5,jdbcType=VARCHAR}
+      and device_triple_id = #{deviceTripleId,jdbcType=INTEGER}
+  </update>
+</mapper>

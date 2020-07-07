@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.productservice.dao.mybatis.EventtypeMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.productservice.entity.mybatis.Eventtype" >
+    <id column="event_type" property="eventType" jdbcType="INTEGER" />
+    <result column="event_desc" property="eventDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    event_type, event_desc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_eventtype
+    where event_type = #{eventType,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_eventtype
+    where event_type = #{eventType,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.productservice.entity.mybatis.Eventtype" >
+    insert into t_eventtype (event_type, event_desc)
+    values (#{eventType,jdbcType=INTEGER}, #{eventDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.productservice.entity.mybatis.Eventtype" >
+    insert into t_eventtype
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="eventType != null" >
+        event_type,
+      </if>
+      <if test="eventDesc != null" >
+        event_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="eventType != null" >
+        #{eventType,jdbcType=INTEGER},
+      </if>
+      <if test="eventDesc != null" >
+        #{eventDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.productservice.entity.mybatis.Eventtype" >
+    update t_eventtype
+    <set >
+      <if test="eventDesc != null" >
+        event_desc = #{eventDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where event_type = #{eventType,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.productservice.entity.mybatis.Eventtype" >
+    update t_eventtype
+    set event_desc = #{eventDesc,jdbcType=VARCHAR}
+    where event_type = #{eventType,jdbcType=INTEGER}
+  </update>
+</mapper>

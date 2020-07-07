@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.pushsocketservice.dao.ProducttransrelatMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.pushsocketservice.entity.Producttransrelat" >
+    <id column="product_trans_id" property="productTransId" jdbcType="INTEGER" />
+    <id column="product_key" property="productKey" jdbcType="VARCHAR" />
+    <id column="product_trans_identi" property="productTransIdenti" jdbcType="VARCHAR" />
+    <result column="product_trans_name" property="productTransName" jdbcType="VARCHAR" />
+    <result column="product_trans_type" property="productTransType" jdbcType="INTEGER" />
+    <result column="event_type" property="eventType" jdbcType="INTEGER" />
+    <result column="templet_id" property="templetId" jdbcType="INTEGER" />
+    <result column="is_del" property="isDel" jdbcType="INTEGER" />
+    <result column="rw_status" property="rwStatus" jdbcType="INTEGER" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="modif_time" property="modifTime" jdbcType="TIMESTAMP" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    product_trans_id, product_key, product_trans_identi, product_trans_name, product_trans_type, 
+    event_type, templet_id, is_del, rw_status, creat_time, modif_time, user_id, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.medcaptain.pushsocketservice.entity.ProducttransrelatKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_producttransrelat
+    where product_trans_id = #{productTransId,jdbcType=INTEGER}
+      and product_key = #{productKey,jdbcType=VARCHAR}
+      and product_trans_identi = #{productTransIdenti,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.medcaptain.pushsocketservice.entity.ProducttransrelatKey" >
+    delete from t_producttransrelat
+    where product_trans_id = #{productTransId,jdbcType=INTEGER}
+      and product_key = #{productKey,jdbcType=VARCHAR}
+      and product_trans_identi = #{productTransIdenti,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.pushsocketservice.entity.Producttransrelat" >
+    insert into t_producttransrelat (product_trans_id, product_key, product_trans_identi, 
+      product_trans_name, product_trans_type, event_type, 
+      templet_id, is_del, rw_status, 
+      creat_time, modif_time, user_id, 
+      remark)
+    values (#{productTransId,jdbcType=INTEGER}, #{productKey,jdbcType=VARCHAR}, #{productTransIdenti,jdbcType=VARCHAR}, 
+      #{productTransName,jdbcType=VARCHAR}, #{productTransType,jdbcType=INTEGER}, #{eventType,jdbcType=INTEGER}, 
+      #{templetId,jdbcType=INTEGER}, #{isDel,jdbcType=INTEGER}, #{rwStatus,jdbcType=INTEGER}, 
+      #{creatTime,jdbcType=TIMESTAMP}, #{modifTime,jdbcType=TIMESTAMP}, #{userId,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.pushsocketservice.entity.Producttransrelat" >
+    insert into t_producttransrelat
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productTransId != null" >
+        product_trans_id,
+      </if>
+      <if test="productKey != null" >
+        product_key,
+      </if>
+      <if test="productTransIdenti != null" >
+        product_trans_identi,
+      </if>
+      <if test="productTransName != null" >
+        product_trans_name,
+      </if>
+      <if test="productTransType != null" >
+        product_trans_type,
+      </if>
+      <if test="eventType != null" >
+        event_type,
+      </if>
+      <if test="templetId != null" >
+        templet_id,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+      <if test="rwStatus != null" >
+        rw_status,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="modifTime != null" >
+        modif_time,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productTransId != null" >
+        #{productTransId,jdbcType=INTEGER},
+      </if>
+      <if test="productKey != null" >
+        #{productKey,jdbcType=VARCHAR},
+      </if>
+      <if test="productTransIdenti != null" >
+        #{productTransIdenti,jdbcType=VARCHAR},
+      </if>
+      <if test="productTransName != null" >
+        #{productTransName,jdbcType=VARCHAR},
+      </if>
+      <if test="productTransType != null" >
+        #{productTransType,jdbcType=INTEGER},
+      </if>
+      <if test="eventType != null" >
+        #{eventType,jdbcType=INTEGER},
+      </if>
+      <if test="templetId != null" >
+        #{templetId,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="rwStatus != null" >
+        #{rwStatus,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifTime != null" >
+        #{modifTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.pushsocketservice.entity.Producttransrelat" >
+    update t_producttransrelat
+    <set >
+      <if test="productTransName != null" >
+        product_trans_name = #{productTransName,jdbcType=VARCHAR},
+      </if>
+      <if test="productTransType != null" >
+        product_trans_type = #{productTransType,jdbcType=INTEGER},
+      </if>
+      <if test="eventType != null" >
+        event_type = #{eventType,jdbcType=INTEGER},
+      </if>
+      <if test="templetId != null" >
+        templet_id = #{templetId,jdbcType=INTEGER},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="rwStatus != null" >
+        rw_status = #{rwStatus,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifTime != null" >
+        modif_time = #{modifTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where product_trans_id = #{productTransId,jdbcType=INTEGER}
+      and product_key = #{productKey,jdbcType=VARCHAR}
+      and product_trans_identi = #{productTransIdenti,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.pushsocketservice.entity.Producttransrelat" >
+    update t_producttransrelat
+    set product_trans_name = #{productTransName,jdbcType=VARCHAR},
+      product_trans_type = #{productTransType,jdbcType=INTEGER},
+      event_type = #{eventType,jdbcType=INTEGER},
+      templet_id = #{templetId,jdbcType=INTEGER},
+      is_del = #{isDel,jdbcType=INTEGER},
+      rw_status = #{rwStatus,jdbcType=INTEGER},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      modif_time = #{modifTime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
+    where product_trans_id = #{productTransId,jdbcType=INTEGER}
+      and product_key = #{productKey,jdbcType=VARCHAR}
+      and product_trans_identi = #{productTransIdenti,jdbcType=VARCHAR}
+  </update>
+</mapper>

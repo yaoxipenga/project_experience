@@ -1,0 +1,672 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.productservice.dao.mybatis.DeviceinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.productservice.entity.mybatis.Deviceinfo" >
+    <id column="device_triple_id" property="deviceTripleId" jdbcType="INTEGER" />
+    <result column="role_id" property="roleId" jdbcType="INTEGER" />
+    <result column="product_key" property="productKey" jdbcType="VARCHAR" />
+    <result column="device_name" property="deviceName" jdbcType="VARCHAR" />
+    <result column="device_secret" property="deviceSecret" jdbcType="VARCHAR" />
+    <result column="device_sn" property="deviceSN" jdbcType="VARCHAR" />
+    <result column="device_version" property="deviceVersion" jdbcType="VARCHAR" />
+    <result column="device_alias" property="deviceAlias" jdbcType="VARCHAR" />
+    <result column="is_online" property="isOnline" jdbcType="BOOLEAN" />
+    <result column="is_enabled" property="isEnabled" jdbcType="BOOLEAN" />
+    <result column="organization_id" property="organizationId" jdbcType="INTEGER" />
+    <result column="department_id" property="departmentId" jdbcType="INTEGER" />
+    <result column="manager" property="manager" jdbcType="VARCHAR" />
+    <result column="act_time" property="actTime" jdbcType="TIMESTAMP" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="creat_time" property="creatTime" jdbcType="TIMESTAMP" />
+    <result column="is_enabled" property="isEnabled" jdbcType="BIT"/>
+    <result column="is_del" property="isDel" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    device_triple_id, role_id, product_key, device_name, device_secret, device_sn, device_version,
+     device_alias, is_online, is_enabled,
+     organization_id, department_id, manager, act_time, user_id,
+    creat_time, is_del, remark
+  </sql>
+  <sql id="Base_Column_List_d" >
+    d.device_triple_id, d.role_id, d.product_key, d.device_name,
+    d.device_secret, d.device_sn, d.device_version, d.organization_id,
+     d.department_id, d.manager, d.act_time, d.user_id,
+    d.creat_time, d.is_del, d.remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from t_deviceinfo
+    where device_triple_id = #{deviceTripleId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_deviceinfo
+    where device_triple_id = #{deviceTripleId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.productservice.entity.mybatis.Deviceinfo" >
+    insert into t_deviceinfo (device_triple_id, role_id, product_key,
+      device_name, device_secret, device_sn, device_version, device_alias, is_online, is_enabled,
+       organization_id,department_id, manager, act_time,
+      user_id, creat_time, is_del,
+      remark)
+    values (#{deviceTripleId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{productKey,jdbcType=INTEGER},
+      #{deviceName,jdbcType=VARCHAR}, #{deviceSecret,jdbcType=VARCHAR}, #{deviceSN,jdbcType=VARCHAR},
+      #{deviceAlias,jdbcType=VARCHAR},#{isOnline,jdbcType=BOOLEAN},#{isEnabled,jdbcType=BOOLEAN},
+      #{deviceVersion,jdbcType=VARCHAR}, #{organizationId,jdbcType=INTEGER},
+      #{departmentId,jdbcType=INTEGER}, #{manager,jdbcType=VARCHAR},
+      #{actTime,jdbcType=TIMESTAMP}, #{userId,jdbcType=INTEGER}, #{creatTime,jdbcType=TIMESTAMP},
+      #{isDel,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.productservice.entity.mybatis.Deviceinfo" >
+    insert into t_deviceinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="deviceTripleId != null" >
+        device_triple_id,
+      </if>
+      <if test="roleId != null" >
+        role_id,
+      </if>
+      <if test="productKey != null" >
+        product_key,
+      </if>
+      <if test="deviceName != null" >
+        device_name,
+      </if>
+      <if test="deviceSecret != null" >
+        device_secret,
+      </if>
+      <if test="deviceSN != null" >
+        device_sn,
+      </if>
+      <if test="deviceVersion != null" >
+        device_version,
+      </if>
+      <if test="deviceAlias != null" >
+        device_alias,
+      </if>
+      <if test="isOnline != null" >
+        is_online,
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled,
+      </if>
+      <if test="organizationId != null" >
+        organization_id,
+      </if>
+      <if test="departmentId != null" >
+        department_id,
+      </if>
+      <if test="manager != null" >
+        manager,
+      </if>
+      <if test="actTime != null" >
+        act_time,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="deviceTripleId != null" >
+        #{deviceTripleId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="productKey != null" >
+        #{productKey,jdbcType=INTEGER},
+      </if>
+      <if test="deviceName != null" >
+        #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceSecret != null" >
+        #{deviceSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceSN != null" >
+        #{deviceSN,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceVersion != null" >
+        #{deviceVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceAlias != null" >
+      #{deviceAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="isOnline != null" >
+      #{isOnline,jdbcType=BOOLEAN},
+      </if>
+      <if test="isEnabled != null" >
+      #{isEnabled,jdbcType=BOOLEAN},
+      </if>
+      <if test="organizationId != null" >
+        #{organizationId,jdbcType=INTEGER},
+      </if>
+      <if test="departmentId != null" >
+        #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="manager != null" >
+        #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="actTime != null" >
+        #{actTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.productservice.entity.mybatis.Deviceinfo" >
+    update t_deviceinfo
+    <set >
+      <if test="roleId != null" >
+        role_id = #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="productKey != null" >
+        product_key = #{productKey,jdbcType=INTEGER},
+      </if>
+      <if test="deviceName != null" >
+        device_name = #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceSecret != null" >
+        device_secret = #{deviceSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceSN != null" >
+        device_sn = #{deviceSN,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceVersion != null" >
+        device_version = #{deviceVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceAlias != null" >
+        device_alias = #{deviceAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="isOnline != null" >
+        is_online = #{isOnline,jdbcType=BOOLEAN},
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled = #{isEnabled,jdbcType=BOOLEAN},
+      </if>
+      <if test="organizationId != null" >
+        organization_id = #{organizationId,jdbcType=INTEGER},
+      </if>
+      <if test="departmentId != null" >
+        department_id = #{departmentId,jdbcType=INTEGER},
+      </if>
+      <if test="manager != null" >
+        manager = #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="actTime != null" >
+        act_time = #{actTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where device_triple_id = #{deviceTripleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.productservice.entity.mybatis.Deviceinfo" >
+    update t_deviceinfo
+    set role_id = #{roleId,jdbcType=INTEGER},
+      product_key = #{productKey,jdbcType=INTEGER},
+      device_name = #{deviceName,jdbcType=VARCHAR},
+      device_secret = #{deviceSecret,jdbcType=VARCHAR},
+      device_sn = #{deviceSN,jdbcType=VARCHAR},
+      device_version = #{deviceVersion,jdbcType=VARCHAR},
+      device_alias = #{deviceAlias,jdbcType=VARCHAR},
+      is_online = #{isOnline,jdbcType=BOOLEAN},
+      is_enabled = #{isEnabled,jdbcType=BOOLEAN},
+      organization_id = #{organizationId,jdbcType=INTEGER},
+      department_id = #{organizationId,jdbcType=INTEGER},
+      manager = #{manager,jdbcType=VARCHAR},
+      act_time = #{actTime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=INTEGER},
+      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      is_del = #{isDel,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
+    where device_triple_id = #{deviceTripleId,jdbcType=INTEGER}
+  </update>
+
+  <update id="deleteByProductKey" parameterType="java.lang.String" >
+    update t_deviceinfo
+    set is_del = '1'
+    where product_key = #{productKey}
+  </update>
+
+  <select id="getProductKey" resultType="java.lang.String" parameterType="java.lang.Integer" >
+    select
+    product_key
+    from t_deviceinfo
+    where device_triple_id = #{deviceTripleId,jdbcType=INTEGER}
+  </select>
+
+
+  <select id="selectByProductCount" resultType="java.lang.Integer">
+    select
+    COUNT(1)
+    from t_deviceinfo
+    where product_key = #{productKey,jdbcType=VARCHAR}
+    AND is_del = 0
+    <if test="isEnabled != null">
+      and is_enabled = #{isEnabled,jdbcType=TIMESTAMP}
+    </if>
+  </select>
+
+
+  <select id="selectByRoleIdPage" resultType="java.util.Map">
+    SELECT DISTINCT
+    d.device_alias as `deviceAlias`,
+    d.device_triple_id as `deviceTripleId`,
+    d.role_id as `roleId`,
+    d.product_key as `productKey`,
+    d.device_name as `deviceName`,
+    d.device_secret as `deviceSecret`,
+    d.device_sn as `deviceSn`,
+    d.device_version as `deviceVersion`,
+    d.organization_id as `organizationId`,
+    d.department_id as `departmentId`,
+    d.manager as `manager`,
+    d.act_time as `actTime`,
+    d.user_id as `userId`,
+    d.creat_time as `creatTime`,
+    d.remark as `remark`,
+    d.is_online as `isOnline`,
+    d.is_enabled as `enabled`,
+    p.product_name as `productName`,
+    p.product_model as `productModel`
+    FROM
+    `t_deviceinfo` AS d,
+    (
+    SELECT
+    product_key,
+    product_name,
+    product_model
+    FROM
+    `t_productinfo`
+    WHERE
+    `is_del` = 0
+    <if test="organizationId != null">
+      and`organization_id` = #{organizationId,jdbcType=INTEGER}
+    </if>
+    ) AS p
+    <where>
+      <if test="productKey != null">
+        and d.product_key = #{productKey,jdbcType=VARCHAR}
+      </if>
+      <if test="deviceName != null">
+        and d.device_name = #{deviceName,jdbcType=VARCHAR}
+      </if>
+      <if test="userId != null and userId != ''">
+        and (d.user_id = #{userId})
+      </if>
+      and d.is_del = 0
+      AND d.product_key = p.product_key
+    </where>
+    ORDER BY
+    d.is_online DESC,
+    d.creat_time DESC,
+    d.device_triple_id
+    LIMIT #{page},#{perPage}
+  </select>
+
+  <select id="selectByRoleIdCount" resultType="java.lang.Integer">
+    SELECT COUNT(1)
+    FROM
+    `t_deviceinfo` AS d,
+    (
+    SELECT
+    product_key,
+    product_name,
+    product_model
+    FROM
+    `t_productinfo`
+    WHERE
+    `is_enabled` = 0
+    AND `is_del` = 0
+    <if test="organizationId != null">
+      and`organization_id` = #{organizationId,jdbcType=INTEGER}
+    </if>
+    ) AS p
+    <where>
+      <if test="productKey != null">
+        and d.product_key = #{productKey,jdbcType=VARCHAR}
+      </if>
+      <if test="deviceName != null">
+        and d.device_name = #{deviceName,jdbcType=VARCHAR}
+      </if>
+      <if test="userId != null and userId != ''">
+        and (d.user_id = #{userId})
+      </if>
+      and d.is_del = 0
+      AND d.is_enabled = 0
+      AND d.product_key = p.product_key
+    </where>
+  </select>
+
+  <select id="selectByProductKeyAndDeviceNameIsNotDel" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_deviceinfo
+    where product_key = #{productKey,jdbcType=VARCHAR}
+    and device_name = #{deviceName,jdbcType=VARCHAR}
+  </select>
+
+  <update id="deleteByIsDelKey" parameterType="java.lang.Integer">
+    update t_deviceinfo
+    set is_del = 1
+    where device_triple_id = #{deviceTripleId,jdbcType=INTEGER}
+  </update>
+  <select id="selectBydeviceTripleId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_deviceinfo
+    where device_triple_id = #{deviceTripleId,jdbcType=INTEGER}
+    and is_del = 0
+  </select>
+  <select id="selectByProductKeyAndDeviceName" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from t_deviceinfo
+    <where>
+      is_del = 0
+      <if test="productKey != null and productKey != ''">
+        and product_key = #{productKey,jdbcType=VARCHAR}
+      </if>
+      <if test="deviceName != null and deviceName != ''">
+        and device_name = #{deviceName,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectByProductKeyAndDel" resultType="java.lang.Integer">
+    select
+     COUNT( 1 )
+    from t_deviceinfo
+    where
+      product_key = #{productKey,jdbcType=VARCHAR}
+      and is_del = #{del}
+  </select>
+
+  <select id="getProductKeyAndDeviceName" resultType="java.util.Map" parameterType="java.lang.Integer" >
+    select
+    product_key as productKey, device_name as deviceName
+    from t_deviceinfo
+    where device_triple_id = #{deviceTripleId,jdbcType=INTEGER}
+  </select>
+
+  <select id="getDeviceTripleId" resultType="java.lang.Integer" parameterType="java.lang.String" >
+    select
+    device_triple_id as deviceTripleId
+    from t_deviceinfo
+    where product_key = #{productKey}
+    and device_name = #{deviceName}
+  </select>
+  <select id="selectByOrganizationAndPrimaryKey" resultMap="BaseResultMap">
+    SELECT
+      <include refid="Base_Column_List_d" />
+    FROM
+        `t_deviceinfo` AS d,
+        (
+          SELECT
+          product_key
+          FROM `t_productinfo` as p,
+          ( SELECT organization_id
+              FROM t_organization
+              WHERE
+                organization_id = #{organizationId,jdbcType=INTEGER}
+                AND is_deleted = 0
+          ) AS o
+           WHERE
+           p.`is_del` = 0
+              and p.`product_key` = #{productKey,jdbcType=VARCHAR}
+              AND o.organization_id = p.organization_id
+         ) AS p
+    WHERE
+        d.is_del = 0
+        AND d.product_key = p.product_key
+        and d.device_name = #{deviceName,jdbcType=VARCHAR}
+    LIMIT 1
+  </select>
+  <select id="selectByUser" resultMap="BaseResultMap">
+    select
+      <include refid="Base_Column_List" />
+    from t_deviceinfo
+    where
+     `is_del` = 0
+    and user_id = #{userId}
+    and product_key = #{productKey,jdbcType=VARCHAR}
+    and device_name = #{deviceName,jdbcType=VARCHAR}
+  </select>
+    <select id="selectByOrganizationIdCount" resultType="java.lang.Integer">
+      SELECT COUNT(1)
+      FROM
+      `t_deviceinfo` AS d,
+      (
+      SELECT
+      product_key,
+      product_name,
+      product_model
+      FROM
+      `t_productinfo`
+      WHERE
+      `is_del` = 0
+      <if test="organizationId != null">
+        and`organization_id` = #{organizationId,jdbcType=INTEGER}
+      </if>
+      ) AS p
+      <if test="provinceIdList != null">
+        ,(
+        SELECT
+        t_region.region_name,
+        organization_id
+        FROM
+        `t_organization`,
+        `t_region`
+        WHERE
+        `is_deleted` = 0
+        AND `is_enable` = 1
+        AND t_region.region_id = t_organization.region_id
+        and t_region.region_id in
+        <foreach collection="provinceIdList" item="provinceId"
+                 open="(" close=")" separator=",">
+          #{provinceId}
+        </foreach>
+        ) AS o
+      </if>
+      <where>
+        <if test="productKeyList != null">
+          and
+          <foreach collection="productKeyList" item="productKey"
+                   open="(" close=")" separator="or">
+            d.product_key = #{productKey}
+          </foreach>
+        </if>
+        <if test="deviceNameList != null">
+          and
+          <foreach collection="deviceNameList" item="deviceName"
+                   open="(" close=")" separator="or">
+            d.device_name = #{deviceName}
+          </foreach>
+        </if>
+        <if test="userId != null and userId != ''">
+          or (d.user_id = #{userId})
+        </if>
+        and d.is_del = 0
+        AND d.product_key = p.product_key
+        <if test="organizationIdList != null and organizationIdList.size() > 0">
+          and d.organization_id in
+          <foreach collection="organizationIdList" item="organizationId"
+                   open="(" close=")" separator=",">
+            #{organizationId}
+          </foreach>
+        </if>
+        <if test="departmentIdList != null and departmentIdList.size() > 0">
+          and d.department_id in
+          <foreach collection="departmentIdList" item="departmentId"
+                   open="(" close=")" separator=",">
+            #{departmentId}
+          </foreach>
+        </if>
+        <if test="onlineStatus != null">
+          and d.is_online = #{onlineStatus}
+        </if>
+        <if test="isEnabled != null">
+          and d.is_enabled = #{isEnabled}
+        </if>
+        <if test="isDistribution != null and isDistribution == 0">
+          and d.organization_id = 0
+        </if>
+        <if test="isDistribution != null and isDistribution == 1">
+          and d.organization_id != 0
+        </if>
+        <if test="searchDevice != null and searchDevice != ''">
+          and (
+          d.device_alias like  CONCAT(CONCAT('%',#{searchDevice},'%'))
+          or d.device_sn like  CONCAT(CONCAT('%',#{searchDevice},'%'))
+          )
+        </if>
+      </where>
+    </select>
+
+  <select id="selectByOrganizationId" resultType="java.util.Map">
+    SELECT DISTINCT
+    d.device_alias as `deviceAlias`,
+    d.device_triple_id as `deviceTripleId`,
+    d.role_id as `roleId`,
+    d.product_key as `productKey`,
+    d.device_name as `deviceName`,
+    d.device_secret as `deviceSecret`,
+    d.device_sn as `deviceSn`,
+    d.device_version as `deviceVersion`,
+    d.organization_id as `organizationId`,
+    d.department_id as `departmentId`,
+    d.manager as `manager`,
+    d.act_time as `actTime`,
+    d.user_id as `userId`,
+    d.creat_time as `creatTime`,
+    d.remark as `remark`,
+    d.is_online as `isOnline`,
+    d.is_enabled as `enabled`,
+    p.product_name as `productName`,
+    p.product_model as `productModel`
+    FROM
+    `t_deviceinfo` AS d,
+    (
+    SELECT
+    product_key,
+    product_name,
+    product_model
+    FROM
+    `t_productinfo`
+    WHERE
+    `is_del` = 0
+    <if test="organizationId != null">
+      and`organization_id` = #{organizationId,jdbcType=INTEGER}
+    </if>
+    ) AS p
+    <if test="provinceIdList != null">
+      ,(
+      SELECT
+      t_region.region_name,
+      organization_id
+      FROM
+      `t_organization`,
+      `t_region`
+      WHERE
+      `is_deleted` = 0
+      AND `is_enable` = 1
+      AND t_region.region_id = t_organization.region_id
+      and t_region.region_id in
+      <foreach collection="provinceIdList" item="provinceId"
+               open="(" close=")" separator=",">
+       #{provinceId}
+      </foreach>
+      ) AS o
+    </if>
+    <where>
+      <if test="productKeyList != null">
+      and
+        <foreach collection="productKeyList" item="productKey"
+                 open="(" close=")" separator="or">
+          d.product_key = #{productKey}
+        </foreach>
+      </if>
+      <if test="deviceNameList != null">
+      and
+        <foreach collection="deviceNameList" item="deviceName"
+                 open="(" close=")" separator="or">
+          d.device_name = #{deviceName}
+        </foreach>
+      </if>
+      <if test="userId != null and userId != ''">
+        or (d.user_id = #{userId})
+      </if>
+      and d.is_del = 0
+      AND d.product_key = p.product_key
+      <if test="organizationIdList != null and organizationIdList.size() > 0">
+        and d.organization_id in
+        <foreach collection="organizationIdList" item="organizationId"
+                 open="(" close=")" separator=",">
+          #{organizationId}
+        </foreach>
+      </if>
+      <if test="departmentIdList != null and departmentIdList.size() > 0">
+        and d.department_id in
+        <foreach collection="departmentIdList" item="departmentId"
+                 open="(" close=")" separator=",">
+          #{departmentId}
+        </foreach>
+      </if>
+      <if test="onlineStatus != null">
+        and d.is_online = #{onlineStatus}
+      </if>
+      <if test="isEnabled != null">
+        and d.is_enabled = #{isEnabled}
+      </if>
+      <if test="isDistribution != null and isDistribution == 0">
+        and d.organization_id = 0
+      </if>
+      <if test="isDistribution != null and isDistribution == 1">
+        and d.organization_id != 0
+      </if>
+      <if test="searchDevice != null and searchDevice != ''">
+      and (
+        d.device_alias like  CONCAT(CONCAT('%',#{searchDevice},'%'))
+        or d.device_sn like  CONCAT(CONCAT('%',#{searchDevice},'%'))
+        or d.device_name like  CONCAT(CONCAT('%',#{searchDevice},'%'))
+        )
+      </if>
+    </where>
+    ORDER BY
+    d.is_online DESC,
+    d.creat_time DESC,
+    d.device_triple_id
+    LIMIT #{page},#{perPage}
+  </select>
+
+</mapper>

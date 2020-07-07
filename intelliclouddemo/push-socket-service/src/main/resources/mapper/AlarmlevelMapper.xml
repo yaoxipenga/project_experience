@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.pushsocketservice.dao.AlarmlevelMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.pushsocketservice.entity.Alarmlevel" >
+    <id column="alarm_level_id" property="alarmLevelId" jdbcType="INTEGER" />
+    <result column="alarm_level_desc" property="alarmLevelDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    alarm_level_id, alarm_level_desc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_alarmlevel
+    where alarm_level_id = #{alarmLevelId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_alarmlevel
+    where alarm_level_id = #{alarmLevelId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.pushsocketservice.entity.Alarmlevel" >
+    insert into t_alarmlevel (alarm_level_id, alarm_level_desc)
+    values (#{alarmLevelId,jdbcType=INTEGER}, #{alarmLevelDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.pushsocketservice.entity.Alarmlevel" >
+    insert into t_alarmlevel
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="alarmLevelId != null" >
+        alarm_level_id,
+      </if>
+      <if test="alarmLevelDesc != null" >
+        alarm_level_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="alarmLevelId != null" >
+        #{alarmLevelId,jdbcType=INTEGER},
+      </if>
+      <if test="alarmLevelDesc != null" >
+        #{alarmLevelDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.pushsocketservice.entity.Alarmlevel" >
+    update t_alarmlevel
+    <set >
+      <if test="alarmLevelDesc != null" >
+        alarm_level_desc = #{alarmLevelDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where alarm_level_id = #{alarmLevelId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.pushsocketservice.entity.Alarmlevel" >
+    update t_alarmlevel
+    set alarm_level_desc = #{alarmLevelDesc,jdbcType=VARCHAR}
+    where alarm_level_id = #{alarmLevelId,jdbcType=INTEGER}
+  </update>
+</mapper>

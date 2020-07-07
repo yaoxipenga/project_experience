@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.medcaptain.productservice.dao.mybatis.UnitMapper" >
+  <resultMap id="BaseResultMap" type="com.medcaptain.productservice.entity.mybatis.Unit" >
+    <id column="unit_id" property="unitId" jdbcType="INTEGER" />
+    <result column="unit_desc" property="unitDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    unit_id, unit_desc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_unit
+    where unit_id = #{unitId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_unit
+    where unit_id = #{unitId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.medcaptain.productservice.entity.mybatis.Unit" >
+    insert into t_unit (unit_id, unit_desc)
+    values (#{unitId,jdbcType=INTEGER}, #{unitDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.medcaptain.productservice.entity.mybatis.Unit" >
+    insert into t_unit
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="unitId != null" >
+        unit_id,
+      </if>
+      <if test="unitDesc != null" >
+        unit_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="unitId != null" >
+        #{unitId,jdbcType=INTEGER},
+      </if>
+      <if test="unitDesc != null" >
+        #{unitDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.medcaptain.productservice.entity.mybatis.Unit" >
+    update t_unit
+    <set >
+      <if test="unitDesc != null" >
+        unit_desc = #{unitDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where unit_id = #{unitId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.medcaptain.productservice.entity.mybatis.Unit" >
+    update t_unit
+    set unit_desc = #{unitDesc,jdbcType=VARCHAR}
+    where unit_id = #{unitId,jdbcType=INTEGER}
+  </update>
+
+  <select id="getUnitDescribe" resultType="java.lang.String" parameterType="java.lang.Integer">
+    select unit_desc as unitDescribe
+    from t_unit
+    where unit_id = #{unitId}
+  </select>
+
+  <select id="getAllUnit" resultType="java.util.Map">
+    select unit_id as unitId, unit_desc as symbol, unit_name as name
+    from t_unit
+  </select>
+
+  <select id="getUnitDetail" resultType="java.util.Map" parameterType="java.lang.Integer">
+    select unit_desc as unit, unit_name as unitName
+    from t_unit
+    where unit_id = #{unitId}
+  </select>
+</mapper>
